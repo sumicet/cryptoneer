@@ -1,0 +1,20 @@
+:root {
+    /* use for headers */
+    --light-gradient-1: #326cc5;
+    --light-gradient-2: #302f89;
+
+    /* use for normal background */
+    --dark-gradient-1: #212078;
+    --dark-gradient-2: #1a144e;
+
+    --primary-accent-light: #48d9e2;
+    --primary-accent-dark: #4e62ee;
+
+    --secondary-accent: #f26ccb;
+
+    /* use for cards on dark gradient */
+    --medium-gradient-1: #39349a;
+    --medium-gradient-2: #312b90;
+
+    --text: #ffffff;
+}

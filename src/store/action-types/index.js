@@ -1,0 +1,5 @@
+export const ActionTypes = {
+    FETCH_NEWS: 'FETCH_NEWS',
+    FETCH_NEWS_COMPLETE: 'FETCH_NEWS_COMPLETE',
+    FETCH_NEWS_ERROR: 'FETCH_NEWS_ERROR',
+};

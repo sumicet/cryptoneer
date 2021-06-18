@@ -1,5 +1,7 @@
 import './App.css';
 
+import { Provider } from 'react-redux';
+import { store } from './store';
 import List from './card/List';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import colors from './constants/colors';
@@ -27,11 +29,13 @@ function App() {
         },
     });
     return (
-        <ThemeProvider theme={theme}>
-            <div className="App">
-                <List />
-            </div>
-        </ThemeProvider>
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <div className="App">
+                    <List />
+                </div>
+            </ThemeProvider>
+        </Provider>
     );
 }
 

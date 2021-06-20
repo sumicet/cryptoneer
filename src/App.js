@@ -21,7 +21,8 @@ function App() {
             },
         },
         typography: {
-            fontFamily: "'IBM Plex Sans', sans-serif",
+            fontFamily:
+                "Inter, -apple-system, BlinkMacSystemFont, 'segoe ui', Roboto, Helvetica, Arial, sans-serif",
             fontWeightLight: 300,
             fontWeightRegular: 400,
             fontWeightMedium: 500,

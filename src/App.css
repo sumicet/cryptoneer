@@ -7,5 +7,5 @@
     position: relative;
     display: grid;
     place-items: center;
-    background: linear-gradient(var(--dark-gradient-1), var(--dark-gradient-2));
+    /* background: linear-gradient(var(--dark-gradient-1), var(--dark-gradient-2)); */
 }

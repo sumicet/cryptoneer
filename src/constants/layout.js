@@ -1,4 +1,5 @@
 // eslint-disable-next-line
+
 export default {
     cardShadow: '15px',
     cardBorderRadius: 10,

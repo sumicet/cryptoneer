@@ -83,15 +83,4 @@ const TimeDiff = (startTime, endTime) => {
     }
 };
 
-// window.timeDiff = TimeDiff;
-
 export default TimeDiff;
-
-// ((() => {
-//     if (typeof define === 'function' && define.amd)
-//         define('TimeDiff', () => TimeDiff);
-//     else if (typeof module !== 'undefined' && module.exports)
-//         module.exports = TimeDiff;
-//     else
-//         window.TimeDiff = TimeDiff;
-// }))();

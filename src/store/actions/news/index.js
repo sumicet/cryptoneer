@@ -1,4 +1,13 @@
+import TimeDiff from '../../../library/timeDiff';
 import { ActionTypes } from '../../action-types';
+
+const setDate = data => {
+    const currentDate = new Date().getTime();
+    data.forEach(
+        news => (news.date = TimeDiff(news.published_on * 1000, currentDate))
+    );
+    return data;
+};
 
 export const fetchNews = () => {
     return async dispatch => {
@@ -14,9 +23,11 @@ export const fetchNews = () => {
             const json = await response.json();
 
             if (response.ok && json.Response !== 'Error') {
+                const data = setDate(json.Data);
+
                 dispatch({
                     type: ActionTypes.FETCH_NEWS_COMPLETE,
-                    payload: json.Data,
+                    payload: data,
                 });
             } else {
                 dispatch({

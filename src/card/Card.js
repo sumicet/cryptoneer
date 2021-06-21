@@ -18,12 +18,12 @@ import { useState } from 'react';
 // TODO make sure you fetch all coins at the beginning and use redux to get them
 
 const Card = ({ news, allCoins }) => {
-    const { title, url, published_on, categories, body } = news;
-    const [date, setDate] = useState(undefined);
+    const { title, url, published_on, categories, body, date } = news;
+    // const [date, setDate] = useState(undefined);
 
-    useEffect(() => {
-        setDate(TimeDiff(published_on * 1000, new Date().getTime()));
-    }, [published_on]);
+    // useEffect(() => {
+    //     setDate(TimeDiff(published_on * 1000, new Date().getTime()));
+    // }, [published_on]);
 
     const theme = useTheme();
 
@@ -31,7 +31,6 @@ const Card = ({ news, allCoins }) => {
         card: {
             // background: `linear-gradient(45deg, ${color.mediumGradient1}, ${color.mediumGradient2})`,
             flex: 1,
-            width: '600px',
         },
         listItem: {
             marginBottom: layout.cardMarginBottom,
@@ -69,7 +68,6 @@ const Card = ({ news, allCoins }) => {
             // line height is theme.typography.body2.lineHeight
             // multiply the string by line height and by 16 to get the title container height in px
             float: 'left',
-            background: 'red',
             height: `${parseInt(
                 parseFloat(theme.typography.body2.fontSize.match(/\d*\.\d*/g)) *
                     parseFloat(theme.typography.body2.lineHeight) *

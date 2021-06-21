@@ -65,9 +65,9 @@ const Card = ({ news, allCoins }) => {
             // we need the same height for both the date and title container
             // the font size of the title is theme.typography.body2.fontSize
             // but that will output something like 1rem
-            // so turn that into a number only string
-            // line height is 1.5 on all resolutions
-            // multiply the string by 1.5 to get the title container height
+            // so turn that into a number only string (keep . for floats)
+            // line height is theme.typography.body2.lineHeight
+            // multiply the string by line height and by 16 to get the title container height in px
             float: 'left',
             background: 'red',
             height: `${parseInt(

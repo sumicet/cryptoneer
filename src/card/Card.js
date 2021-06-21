@@ -56,18 +56,25 @@ const Card = ({ news, allCoins }) => {
         date: {
             marginRight: layout.cardPadding / 2,
             fontWeight: '300',
+            fontSize: `${
+                parseFloat(theme.typography.body2.fontSize.match(/\d*\.\d*/g)) *
+                0.9
+            }${theme.typography.body2.fontSize.match(/[A-Za-z]+/g)}`,
             display: 'grid',
             placeItems: 'center',
             // we need the same height for both the date and title container
-            // the font size of the title is theme.typography.body1.fontSize
+            // the font size of the title is theme.typography.body2.fontSize
             // but that will output something like 1rem
             // so turn that into a number only string
             // line height is 1.5 on all resolutions
             // multiply the string by 1.5 to get the title container height
             float: 'left',
-            height: `${
-                theme.typography.body1.fontSize.replace(/\D/g, '') * 1.5
-            }rem`,
+            background: 'red',
+            height: `${parseInt(
+                parseFloat(theme.typography.body2.fontSize.match(/\d*\.\d*/g)) *
+                    parseFloat(theme.typography.body2.lineHeight) *
+                    16
+            )}px`,
         },
         logos: {
             display: 'flex',
@@ -107,16 +114,13 @@ const Card = ({ news, allCoins }) => {
                             lg={12}
                             xl={12}
                         >
+                            <Typography className={styles.date} variant="body2">
+                                {date}
+                            </Typography>
                             <Typography
                                 className={styles.title}
-                                variant="body1"
+                                variant="body2"
                             >
-                                <Typography
-                                    className={styles.date}
-                                    variant="body2"
-                                >
-                                    {date}
-                                </Typography>
                                 {title}
                             </Typography>
                         </Grid>

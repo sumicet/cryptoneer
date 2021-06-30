@@ -1,11 +1,34 @@
-import { List as MuiList, CircularProgress } from '@material-ui/core';
+import {
+    List as MuiList,
+    CircularProgress,
+    makeStyles,
+} from '@material-ui/core';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useActions } from '../hooks/useActions';
+import { useActions } from '../../hooks/useActions';
 import Card from './Card';
+import { Link } from 'react-router-dom';
+
+const useStyles = makeStyles(theme => ({
+    list: {
+        width: '100%',
+        padding: 0,
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+        background: '#1a144e',
+        borderRadius: theme.shape.borderRadius,
+        overflow: 'hidden',
+        [theme.breakpoints.only('xs')]: {
+            // borderRadius: 0,
+            // background: 'transparent',
+        },
+        boxShadow: 'none',
+    },
+}));
 
 const List = () => {
+    const styles = useStyles();
     const news = useSelector(state => state.news);
     const coins = useSelector(state => state.coins);
 
@@ -36,6 +59,7 @@ const List = () => {
     useEffect(() => {
         if (news.data && news.error === null) {
             setNewsData(news.data);
+            console.log(news.data);
         } else {
             if (news.error) {
                 console.error(news.error, '// List.js');
@@ -57,15 +81,21 @@ const List = () => {
         <>
             {isLoading && <CircularProgress />}
             {!isLoading && (
-                <MuiList>
+                <MuiList className={styles.list}>
                     {newsData !== undefined &&
                         coinsData !== undefined &&
                         newsData.map(article => (
-                            <Card
-                                news={article}
-                                allCoins={coinsData}
-                                key={article.id}
-                            />
+                            <Link
+                                to={`/news/${article.id}`}
+                                style={{ textDecoration: 'none' }}
+                                disableGutters
+                            >
+                                <Card
+                                    news={article}
+                                    allCoins={coinsData}
+                                    key={article.id}
+                                />
+                            </Link>
                         ))}
                 </MuiList>
             )}

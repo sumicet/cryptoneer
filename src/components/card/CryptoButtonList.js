@@ -1,20 +1,31 @@
-import { Typography, ButtonGroup, Button, makeStyles } from '@material-ui/core';
+import { Typography, makeStyles } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { useTheme } from '@material-ui/core/styles';
+import Button from '../button/Button';
 
-const CryptoButtonList = ({ children, categories, title, allCoins }) => {
+const CryptoButtonList = ({
+    children,
+    categories,
+    title,
+    allCoins,
+    buttonStyle,
+}) => {
     const theme = useTheme();
-    const iconSize = theme.typography.fontSize * 1.5;
+    const iconSize = theme.typography.fontSize * 1.3;
 
     const useStyles = makeStyles({
+        list: {
+            display: 'flex',
+            flexDirection: 'row',
+        },
         logosContainer: {
-            marginRight: `${theme.spacing(2)}px`,
+            marginRight: theme.spacing(2),
             display: 'flex',
             alignItems: 'center',
-            padding: `${theme.spacing(1)}px`,
+            padding: theme.spacing(1),
         },
         textContainer: {
-            marginRight: `${theme.spacing(1)}px`,
+            marginRight: theme.spacing(1),
             display: 'flex',
             alignItems: 'center',
         },
@@ -25,7 +36,7 @@ const CryptoButtonList = ({ children, categories, title, allCoins }) => {
 
     const addCurrency = (updatedCurrencies, symbol) => {
         try {
-            const path = require(`../svg/color/${symbol}.svg`).default;
+            const path = require(`../../svg/color/${symbol}.svg`).default;
             updatedCurrencies.push({
                 path: path,
                 symbol: symbol,
@@ -141,40 +152,35 @@ const CryptoButtonList = ({ children, categories, title, allCoins }) => {
 
     const CurrencyLogo = ({ currency }) => {
         return (
-            <>
-                <Typography
-                    variant="body2"
-                    component="span"
-                    className={styles.textContainer}
-                >
-                    {currency.symbol}
-                </Typography>
-                <img
-                    src={currency.path}
-                    width={iconSize}
-                    height={iconSize}
-                    alt="Currency Icon"
-                />
-            </>
+            <img
+                src={currency.path}
+                width={iconSize}
+                height={iconSize}
+                alt="Currency Icon"
+            />
         );
     };
+
+    const handleCategoryClick = event => {
+        event.preventDefault();
+    };
+
     return (
-        <ButtonGroup
-            variant="contained"
-            color="primary"
-            aria-label="outlined primary button group"
-            disableElevation
-        >
+        <div className={styles.list}>
             {currencies.length > 0 &&
                 currencies
                     .filter((currency, index) => index < 3)
                     .map((currency, index) => (
-                        <Button key={index}>
+                        <Button
+                            key={index}
+                            onClick={handleCategoryClick}
+                            // text={currency.symbol}
+                        >
                             <CurrencyLogo currency={currency} />
                         </Button>
                     ))}
             {children}
-        </ButtonGroup>
+        </div>
     );
 };
 

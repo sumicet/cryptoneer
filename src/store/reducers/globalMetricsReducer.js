@@ -21,7 +21,7 @@ const reducer = produce((state = initialState, action) => {
             state.data = null;
 
             return state;
-        case ActionTypes.FETCH_NEWS_COMPLETE:
+        case ActionTypes.FETCH_GLOBAL_METRICS_COMPLETE:
             state.loading = false;
             state.data = action.payload;
 

@@ -14,8 +14,6 @@ const useStyles = makeStyles(theme => ({
     list: {
         width: '100%',
         padding: 0,
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2),
         background: '#1a144e',
         borderRadius: theme.shape.borderRadius,
         overflow: 'hidden',
@@ -56,7 +54,6 @@ const CardList = () => {
     useEffect(() => {
         if (news.data && news.error === null) {
             setNewsData(news.data);
-            console.log(news.data);
         } else {
             if (news.error) {
                 console.error(news.error, '// List.js');
@@ -85,6 +82,7 @@ const CardList = () => {
                         coinsData !== undefined &&
                         newsData.map(article => (
                             <Link
+                                key={article.id}
                                 to={`/news/${article.id}`}
                                 style={{ textDecoration: 'none' }}
                                 disableGutters

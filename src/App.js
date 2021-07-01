@@ -74,8 +74,8 @@ function App() {
             },
             icon: {
                 hot: '#f26ccb',
-                bullish: '#a1ff9c',
-                bearish: '#ff8282',
+                bullish: 'lime',
+                bearish: 'red',
             },
             divider: 'rgba(255, 255, 255, 0.15)',
         },

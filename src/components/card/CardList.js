@@ -23,11 +23,10 @@ const useStyles = makeStyles(theme => ({
             // borderRadius: 0,
             // background: 'transparent',
         },
-        boxShadow: 'none',
     },
 }));
 
-const List = () => {
+const CardList = () => {
     const styles = useStyles();
     const news = useSelector(state => state.news);
     const coins = useSelector(state => state.coins);
@@ -54,8 +53,6 @@ const List = () => {
         fetchAllCoins();
     }, [fetchNews, fetchAllCoins]);
 
-    // ******************* HANDLE ERRORS******************
-
     useEffect(() => {
         if (news.data && news.error === null) {
             setNewsData(news.data);
@@ -66,6 +63,8 @@ const List = () => {
             }
         }
     }, [news]);
+
+    // ******************* HANDLE ERRORS******************
 
     useEffect(() => {
         if (coins.data && coins.error === null) {
@@ -103,4 +102,4 @@ const List = () => {
     );
 };
 
-export default List;
+export default CardList;

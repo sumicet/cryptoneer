@@ -1,6 +1,6 @@
 import produce from 'immer';
 import TimeDiff from '../../library/timeDiff';
-import { ActionTypes } from '../action-types';
+import { ActionTypes } from '../actions/actionTypes';
 
 const initialState = {
     loading: false,

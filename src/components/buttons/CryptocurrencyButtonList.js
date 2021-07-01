@@ -1,33 +1,21 @@
-import { Typography, makeStyles } from '@material-ui/core';
+import { makeStyles, useMediaQuery } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { useTheme } from '@material-ui/core/styles';
-import Button from '../button/Button';
+import Button from './Button';
 
-const CryptoButtonList = ({
+const CryptocurrencyButtonList = ({
     children,
     categories,
     title,
     allCoins,
-    buttonStyle,
 }) => {
     const theme = useTheme();
     const iconSize = theme.typography.fontSize * 1.3;
 
     const useStyles = makeStyles({
-        list: {
+        cryptocurrencyButtonList: {
             display: 'flex',
             flexDirection: 'row',
-        },
-        logosContainer: {
-            marginRight: theme.spacing(2),
-            display: 'flex',
-            alignItems: 'center',
-            padding: theme.spacing(1),
-        },
-        textContainer: {
-            marginRight: theme.spacing(1),
-            display: 'flex',
-            alignItems: 'center',
         },
     });
     const styles = useStyles();
@@ -150,7 +138,13 @@ const CryptoButtonList = ({
         // eslint-disable-next-line
     }, []);
 
-    const CurrencyLogo = ({ currency }) => {
+    const resolutionIsXS = useMediaQuery(theme => theme.breakpoints.only('xs'));
+
+    const handleCurrencyClick = event => {
+        event.preventDefault();
+    };
+
+    const ButtonCurrencyLogo = ({ currency }) => {
         return (
             <img
                 src={currency.path}
@@ -161,22 +155,18 @@ const CryptoButtonList = ({
         );
     };
 
-    const handleCategoryClick = event => {
-        event.preventDefault();
-    };
-
     return (
-        <div className={styles.list}>
+        <div className={styles.cryptocurrencyButtonList}>
             {currencies.length > 0 &&
                 currencies
                     .filter((currency, index) => index < 3)
                     .map((currency, index) => (
                         <Button
                             key={index}
-                            onClick={handleCategoryClick}
-                            // text={currency.symbol}
+                            onClick={handleCurrencyClick}
+                            text={!resolutionIsXS && currency.symbol}
                         >
-                            <CurrencyLogo currency={currency} />
+                            <ButtonCurrencyLogo currency={currency} />
                         </Button>
                     ))}
             {children}
@@ -184,4 +174,4 @@ const CryptoButtonList = ({
     );
 };
 
-export default CryptoButtonList;
+export default CryptocurrencyButtonList;

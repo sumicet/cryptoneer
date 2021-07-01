@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { ActionTypes } from '../action-types';
+import { ActionTypes } from '../actions/actionTypes';
 
 const initialState = {
     loading: false,

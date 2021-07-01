@@ -1,5 +1,5 @@
-import TimeDiff from '../../../library/timeDiff';
-import { ActionTypes } from '../../action-types';
+import TimeDiff from '../../library/timeDiff';
+import { ActionTypes } from './actionTypes';
 
 const setDate = data => {
     const currentDate = new Date().getTime();

@@ -8,7 +8,7 @@ import {
 import { Search } from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => ({
-    search: {
+    searchBar: {
         display: 'flex',
         flexDirection: 'row',
         background: theme.palette.divider,
@@ -21,6 +21,9 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(0.5),
         paddingLeft: theme.spacing(1),
         paddingRight: theme.spacing(1),
+        [theme.breakpoints.only('xs')]: {
+            width: '100%',
+        },
     },
     '@keyframes colorTransition': {
         '0%': {
@@ -30,32 +33,32 @@ const useStyles = makeStyles(theme => ({
             background: theme.palette.button.hover,
         },
     },
-    searchInput: {
-        paddingLeft: theme.spacing(1),
-        display: 'flex',
-        alignItems: 'center',
-    },
-    searchIcon: {
+    searchBarIcon: {
         pointerEvents: 'none',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
     },
+    searchBarInput: {
+        paddingLeft: theme.spacing(1),
+        display: 'flex',
+        alignItems: 'center',
+    },
 }));
 
 const SearchBar = () => {
     const theme = useTheme();
-    const iconSize = theme.typography.fontSize * 1.5;
-    const iconStyle = {
-        width: `${iconSize}`,
-        height: `${iconSize}`,
+    const searchBarIconSize = theme.typography.fontSize * 1.5;
+    const searchBarIconStyle = {
+        width: `${searchBarIconSize}`,
+        height: `${searchBarIconSize}`,
     };
 
     const styles = useStyles();
     return (
-        <Paper elevation={0} className={styles.search}>
-            <div className={styles.searchIcon}>
-                <Search style={iconStyle} />
+        <Paper elevation={0} className={styles.searchBar}>
+            <div className={styles.searchBarIcon}>
+                <Search style={searchBarIconStyle} />
             </div>
             <InputBase
                 placeholder="Search…"
@@ -74,7 +77,7 @@ const SearchBar = () => {
                         fontSize: theme.typography.body2.fontSize,
                     },
                 }}
-                className={styles.searchInput}
+                className={styles.searchBarInput}
             />
         </Paper>
     );

@@ -2,8 +2,8 @@ import { ListItem, CardContent, Typography, Grid } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import layout from '../../constants/layout';
 import { Whatshot, TrendingUp, TrendingDown, Launch } from '@material-ui/icons';
-import CryptoButtonList from './CryptoButtonList';
-import Button from '../button/Button';
+import CryptocurrencyButtonList from '../buttons/CryptocurrencyButtonList';
+import Button from '../buttons/Button';
 
 /**
  * Card
@@ -34,7 +34,7 @@ const Card = ({ news, allCoins }) => {
             ? `${parseInt(fontSize * lineHeight * 16)}px`
             : `${parseInt(fontSize * lineHeight)}px`;
     const useStyles = makeStyles(theme => ({
-        listItem: {
+        cardContainer: {
             // marginBottom: layout.cardMarginBottom,
             padding: 0,
             '&:hover': {
@@ -49,7 +49,7 @@ const Card = ({ news, allCoins }) => {
                 background: theme.palette.background.cardHover,
             },
         },
-        cardContent: {
+        card: {
             '&:last-child': {
                 paddingBottom: 0,
             },
@@ -57,18 +57,18 @@ const Card = ({ news, allCoins }) => {
             // background: 'red',
             paddingBottom: 0,
         },
-        actions: {
+        cardButtonsAppreciation: {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
             paddingTop: theme.spacing(1),
             paddingBottom: theme.spacing(2),
         },
-        title: {
+        cardTitle: {
             fontWeight: '500',
             color: theme.palette.text.primary,
         },
-        date: {
+        cardDate: {
             marginRight: theme.spacing(1),
             fontWeight: '300',
             fontSize: `${fontSize * 0.9}${fontUnit}`,
@@ -78,7 +78,7 @@ const Card = ({ news, allCoins }) => {
             height: `${dateHeight}`,
             color: theme.palette.text.secondary,
         },
-        logos: {
+        cardButtonsCurrencyList: {
             display: 'flex',
             paddingTop: theme.spacing(1),
             paddingBottom: theme.spacing(2),
@@ -86,24 +86,10 @@ const Card = ({ news, allCoins }) => {
             justifyContent: 'flex-end',
             flex: 1,
         },
-        header: {
+        cardHeader: {
             marginBottom: theme.spacing(1),
         },
-        button: {
-            color: theme.palette.text.secondary,
-            background: theme.palette.button.primary,
-            marginRight: theme.spacing(1),
-            padding: theme.spacing(1),
-            minHeight: 0,
-            // minWidth: 0,
-            '& .MuiTouchRipple-root span': {
-                backgroundColor: theme.palette.button.ripple,
-            },
-            '&:hover': {
-                backgroundColor: theme.palette.button.hover,
-            },
-        },
-        actionsContainer: {
+        cardButtons: {
             width: '100%',
             display: 'flex',
             flexDirection: 'row',
@@ -124,36 +110,39 @@ const Card = ({ news, allCoins }) => {
     const handleHotClick = event => {
         event.preventDefault();
     };
-    const handleUpvoteClick = event => {
+    const handleBullishClick = event => {
         event.preventDefault();
     };
-    const handleDownvoteClick = event => {
+    const handleBearishClick = event => {
         event.preventDefault();
     };
 
     return (
-        <ListItem disableGutters divider className={styles.listItem}>
-            <CardContent className={styles.cardContent}>
+        <ListItem disableGutters divider className={styles.cardContainer}>
+            <CardContent className={styles.card}>
                 <Grid className="grid" container>
                     <Grid
                         item
-                        className={styles.header}
+                        className={styles.cardHeader}
                         xs={12}
                         sm={12}
                         md={12}
                         lg={12}
                         xl={12}
                     >
-                        <Typography className={styles.date} variant="body2">
+                        <Typography className={styles.cardDate} variant="body2">
                             {date}
                         </Typography>
-                        <Typography className={styles.title} variant="body2">
+                        <Typography
+                            className={styles.cardTitle}
+                            variant="body2"
+                        >
                             {title}
                         </Typography>
                     </Grid>
 
-                    <div className={styles.actionsContainer}>
-                        <div className={styles.actions}>
+                    <div className={styles.cardButtons}>
+                        <div className={styles.cardButtonsAppreciation}>
                             <Button text="1.2k" onClick={handleHotClick}>
                                 <Whatshot
                                     style={{
@@ -162,7 +151,7 @@ const Card = ({ news, allCoins }) => {
                                     }}
                                 />
                             </Button>
-                            <Button text="3.5k" onClick={handleUpvoteClick}>
+                            <Button text="3.5k" onClick={handleBullishClick}>
                                 <TrendingUp
                                     style={{
                                         ...iconStyle,
@@ -170,7 +159,7 @@ const Card = ({ news, allCoins }) => {
                                     }}
                                 />
                             </Button>
-                            <Button text="23" onClick={handleDownvoteClick}>
+                            <Button text="23" onClick={handleBearishClick}>
                                 <TrendingDown
                                     style={{
                                         ...iconStyle,
@@ -180,8 +169,8 @@ const Card = ({ news, allCoins }) => {
                             </Button>
                         </div>
 
-                        <div className={styles.logos}>
-                            <CryptoButtonList
+                        <div className={styles.cardButtonsCurrencyList}>
+                            <CryptocurrencyButtonList
                                 categories={categories}
                                 iconSize={iconSize}
                                 title={title}
@@ -190,7 +179,7 @@ const Card = ({ news, allCoins }) => {
                                 <Button onClick={handleRedirect}>
                                     <Launch style={iconStyle} />
                                 </Button>
-                            </CryptoButtonList>
+                            </CryptocurrencyButtonList>
                         </div>
                     </div>
                 </Grid>

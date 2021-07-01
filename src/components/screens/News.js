@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import List from '../card/List';
+import CardList from '../card/CardList';
 import { Paper, CircularProgress } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { useActions } from '../../hooks/useActions';
@@ -57,7 +57,7 @@ const News = () => {
                 
             )} */}
             <Paper elevation={0}>
-                <List />
+                <CardList />
             </Paper>
         </div>
     );

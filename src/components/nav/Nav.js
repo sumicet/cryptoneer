@@ -1,17 +1,15 @@
 import {
     AppBar,
     Toolbar,
-    Typography,
     makeStyles,
     useMediaQuery,
     SwipeableDrawer,
 } from '@material-ui/core';
-import { fade } from '@material-ui/core/styles';
-import { Menu, Clear } from '@material-ui/icons';
+import { Menu } from '@material-ui/icons';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Button from '../button/Button';
-import SearchBar from './SearchBar';
+import Button from '../buttons/Button';
+import ProjectLogo from './ProjectLogo';
+import NavItemList from './NavItemList';
 
 const useStyles = makeStyles(theme => ({
     nav: {
@@ -19,7 +17,7 @@ const useStyles = makeStyles(theme => ({
         placeItems: 'center',
         background: theme.palette.background.dark,
     },
-    bar: {
+    toolbar: {
         display: 'flex',
         width: '100%',
         maxWidth: theme.sizing.maxWidth,
@@ -27,47 +25,7 @@ const useStyles = makeStyles(theme => ({
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
     },
-    title: {
-        fontWeight: '700',
-    },
-    linkContainer: {
-        // padding: theme.spacing(1),
-        background: 'transparent',
-        paddingRight: theme.spacing(5),
-    },
-    menuActions: {
-        [theme.breakpoints.only('xs')]: {
-            paddingRight: 0,
-            paddingBottom: theme.spacing(2),
-        },
-    },
-    search: {
-        display: 'flex',
-        [theme.breakpoints.up('sm')]: {
-            flex: 1,
-        },
-
-        [theme.breakpoints.only('xs')]: {
-            paddingRight: 0,
-            paddingBottom: theme.spacing(2),
-        },
-    },
-    link: {
-        color: theme.palette.text.primary,
-        textDecoration: 'none',
-        '&:hover': {
-            animation: `$colorTransition 250ms ${theme.transitions.easing.easeIn} forwards`,
-        },
-    },
-    '@keyframes colorTransition': {
-        '0%': {
-            color: theme.palette.text.primary,
-        },
-        '100%': {
-            color: theme.palette.text.accentPink,
-        },
-    },
-    drawerButton: {
+    toolbarDrawerToggleButton: {
         display: 'flex',
         flex: 1,
         justifyContent: 'flex-end',
@@ -78,19 +36,7 @@ const useStyles = makeStyles(theme => ({
     },
     drawerPaper: {
         background: theme.palette.background.dark,
-        padding: theme.spacing(4),
-        display: 'flex',
-        alignItems: 'center',
-    },
-    drawerHeader: {
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'row',
-        width: '100%',
-        paddingBottom: theme.spacing(2),
-    },
-    logoStyle: {
-        flex: 1,
+        padding: theme.spacing(2),
     },
 }));
 
@@ -100,7 +46,7 @@ const Nav = () => {
     const resolutionIsXS = useMediaQuery(theme => theme.breakpoints.only('xs'));
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-    const toggleDrawer = value => event => {
+    const toggleDrawer = () => event => {
         if (
             event &&
             event.type === 'keydown' &&
@@ -109,78 +55,41 @@ const Nav = () => {
             return;
         }
 
-        setIsDrawerOpen(value);
+        setIsDrawerOpen(!isDrawerOpen);
     };
-
-    const handleCloseDrawer = () => {
-        setIsDrawerOpen(false);
-    };
-
-    const MenuActions = () => (
-        <>
-            {resolutionIsXS && (
-                <div className={styles.drawerHeader}>
-                    <Logo logoStyle={styles.logoStyle} />
-                    <Button onClick={handleCloseDrawer}>
-                        <Clear />
-                    </Button>
-                </div>
-            )}
-            <div className={styles.menuActions + ' ' + styles.linkContainer}>
-                <Link to="/home" className={styles.link}>
-                    <Typography variant="body1" className={styles.title}>
-                        Home
-                    </Typography>
-                </Link>
-            </div>
-            <div className={styles.menuActions + ' ' + styles.linkContainer}>
-                <Link to="/news" className={styles.link}>
-                    <Typography variant="body1" className={styles.title}>
-                        News
-                    </Typography>
-                </Link>
-            </div>
-            <div className={styles.search}>
-                <SearchBar />
-            </div>
-        </>
-    );
-
-    const Logo = ({ logoStyle }) => (
-        <div className={logoStyle ? logoStyle : styles.linkContainer}>
-            <Typography variant="h6" className={styles.title}>
-                Cryptoneer
-            </Typography>
-        </div>
-    );
 
     return (
-        <AppBar position="static" className={styles.nav}>
-            <Toolbar className={styles.bar}>
-                <Logo />
-                {resolutionIsXS ? (
-                    <div className={styles.drawerButton}>
-                        <Button onClick={toggleDrawer(true)}>
-                            <Menu />
-                        </Button>
-                        <SwipeableDrawer
-                            anchor="right"
-                            open={isDrawerOpen}
-                            onClose={toggleDrawer(false)}
-                            onOpen={toggleDrawer(true)}
-                            className={styles.drawer}
-                            classes={{
-                                paper: styles.drawerPaper,
-                            }}
-                        >
-                            <MenuActions />
-                        </SwipeableDrawer>
-                    </div>
-                ) : (
-                    <MenuActions />
-                )}
-            </Toolbar>
-        </AppBar>
+        <>
+            <SwipeableDrawer
+                anchor="top"
+                open={isDrawerOpen}
+                onClose={toggleDrawer()}
+                onOpen={toggleDrawer()}
+                className={styles.drawer}
+                classes={{
+                    paper: styles.drawerPaper,
+                }}
+            >
+                <NavItemList toggleDrawer={toggleDrawer} />
+            </SwipeableDrawer>
+
+            <AppBar position="static" className={styles.nav}>
+                <Toolbar className={styles.toolbar}>
+                    <ProjectLogo />
+                    {/* turn nav items into a mobile menu if the resolution is too small */}
+                    {resolutionIsXS && (
+                        <div className={styles.toolbarDrawerToggleButton}>
+                            <Button onClick={toggleDrawer()}>
+                                <Menu />
+                            </Button>
+                        </div>
+                    )}
+                    {!resolutionIsXS && (
+                        <NavItemList toggleDrawer={toggleDrawer} />
+                    )}
+                </Toolbar>
+            </AppBar>
+        </>
     );
 };
 

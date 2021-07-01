@@ -2,16 +2,13 @@ import { Button as MuiButton, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 /**
- * Card
- * @param onClick
- * @param children Icon.
+ * @param children an icon.
  * @param size "small", "large". Default "small".
  */
 
 const useStyles = makeStyles(theme => ({
     button: {
         color: theme.palette.text.secondary,
-        // background: theme.palette.button.primary,
         background: 'transparent',
         marginRight: theme.spacing(1),
         padding: theme.spacing(1),
@@ -19,7 +16,6 @@ const useStyles = makeStyles(theme => ({
             marginRight: theme.spacing(0.25),
             padding: theme.spacing(0.5),
         },
-
         minHeight: 0,
         minWidth: 0,
         '& .MuiTouchRipple-root span': {
@@ -29,7 +25,7 @@ const useStyles = makeStyles(theme => ({
             backgroundColor: theme.palette.button.hover,
         },
     },
-    text: {
+    buttonText: {
         paddingLeft: theme.spacing(1),
         color: theme.palette.text.secondary,
         // fontWeight: 300,
@@ -40,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 const Button = ({ onClick, children, size, text }) => {
     const styles = useStyles();
     return (
-        <div>
+        <>
             <MuiButton
                 className={styles.button}
                 size={size ? size : 'small'}
@@ -49,7 +45,7 @@ const Button = ({ onClick, children, size, text }) => {
                 {children}
                 {text && (
                     <Typography
-                        className={styles.text}
+                        className={styles.buttonText}
                         variant="body2"
                         component="span"
                     >
@@ -57,7 +53,7 @@ const Button = ({ onClick, children, size, text }) => {
                     </Typography>
                 )}
             </MuiButton>
-        </div>
+        </>
     );
 };
 

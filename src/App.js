@@ -2,7 +2,6 @@ import './App.css';
 
 import { Provider } from 'react-redux';
 import { store } from './store';
-import List from './components/card/List';
 import {
     Container,
     createMuiTheme,

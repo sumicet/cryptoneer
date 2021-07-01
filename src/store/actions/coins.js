@@ -1,4 +1,4 @@
-import { ActionTypes } from '../../action-types';
+import { ActionTypes } from './actionTypes';
 
 export const fetchAllCoins = () => {
     return async dispatch => {

@@ -2,7 +2,7 @@
 
 Cryptocurrency news & statistics.
 
-[Screenshot]: https://i.imgur.com/dEi3yYK.png
+[Screenshot]: https://i.imgur.com/dEi3yYK.png "Main page"
 
 ### Technologies used
 - Material UI

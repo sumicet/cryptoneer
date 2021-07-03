@@ -23,13 +23,13 @@ export const fetchFearAndGreedIndex = () => {
             } else {
                 dispatch({
                     type: ActionTypes.FETCH_FEAR_AND_GREED_INDEX_ERROR,
-                    payload: json.metadata.error,
+                    payload: 'Fear & Greed Index - ' + json.metadata.error,
                 });
             }
         } catch (err) {
             dispatch({
                 type: ActionTypes.FETCH_FEAR_AND_GREED_INDEX_ERROR,
-                payload: err.message,
+                payload: 'Fear & Greed Index - ' + err.message,
             });
         }
     };

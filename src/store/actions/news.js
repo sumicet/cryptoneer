@@ -32,13 +32,13 @@ export const fetchNews = () => {
             } else {
                 dispatch({
                     type: ActionTypes.FETCH_NEWS_ERROR,
-                    payload: json.Message,
+                    payload: 'Cryptocompare News - ' + json.Message,
                 });
             }
         } catch (err) {
             dispatch({
                 type: ActionTypes.FETCH_NEWS_ERROR,
-                payload: err.message,
+                payload: 'Cryptocompare News - ' + err.message,
             });
         }
     };

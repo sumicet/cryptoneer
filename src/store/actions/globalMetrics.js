@@ -24,13 +24,13 @@ export const fetchGlobalMetrics = () => {
             } else {
                 dispatch({
                     type: ActionTypes.FETCH_GLOBAL_METRICS_ERROR,
-                    payload: json.status.message,
+                    payload: 'Cryptorank - ' + json.status.message,
                 });
             }
         } catch (err) {
             dispatch({
                 type: ActionTypes.FETCH_GLOBAL_METRICS_ERROR,
-                payload: err.message,
+                payload: 'Cryptorank - ' + err.message,
             });
         }
     };

@@ -21,13 +21,13 @@ export const fetchAllCoins = () => {
             } else {
                 dispatch({
                     type: ActionTypes.FETCH_ALL_COINS_ERROR,
-                    payload: json.Message,
+                    payload: 'Cryptocompare Coins - ' + json.Message,
                 });
             }
         } catch (err) {
             dispatch({
                 type: ActionTypes.FETCH_ALL_COINS_ERROR,
-                payload: err.message,
+                payload: 'Cryptocompare Coins - ' + err.message,
             });
         }
     };

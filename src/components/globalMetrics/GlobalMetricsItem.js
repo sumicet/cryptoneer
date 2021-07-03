@@ -1,11 +1,6 @@
-import {
-    makeStyles,
-    Typography,
-    ListItem,
-    Link,
-    Divider,
-} from '@material-ui/core';
+import { makeStyles, Typography, Grid, Link } from '@material-ui/core';
 import { Launch } from '@material-ui/icons';
+import React from 'react';
 
 const useStyles = makeStyles(theme => ({
     globalMetricsItem: {
@@ -13,10 +8,7 @@ const useStyles = makeStyles(theme => ({
         paddingLeft: theme.spacing(3),
         paddingRight: theme.spacing(3),
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
         flexDirection: 'column',
-        flex: 0,
     },
     globalMetricsText: {
         color: theme.palette.text.primary,
@@ -24,11 +16,9 @@ const useStyles = makeStyles(theme => ({
         fontWeight: 700,
         display: 'inline-block',
         whiteSpace: 'nowrap',
-        // fontSize: `${theme.typography.body2.fontSize * 0.9}px`,
     },
     globalMetricsTextData: {
         color: theme.palette.text.accentLight,
-        // fontSize: `${theme.typography.body2.fontSize * 0.9}px`,
     },
     launchIcon: {
         width: theme.typography.body2.fontSize,
@@ -44,38 +34,54 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const GlobalMetricsItem = ({ color, children, redirectURL, title }) => {
+const GlobalMetricsItem = React.forwardRef((props, ref) => {
     const styles = useStyles();
+    const { color, children, redirectURL, title } = props;
 
     const handleRedirect = url => {
         window.open(url, '_blank');
     };
 
+    const Container = ({ children, className }) => (
+        <Link onClick={() => handleRedirect(redirectURL)} className={className}>
+            {children}
+            {redirectURL && <Launch className={styles.launchIcon} />}
+        </Link>
+    );
+
+    const Title = () => (
+        <Typography
+            display="inline"
+            className={styles.globalMetricsText}
+            variant="body2"
+        >
+            {title}
+        </Typography>
+    );
+
     return (
-        <ListItem disableGutters className={styles.globalMetricsItem}>
-            <Typography
-                display="inline"
-                className={`${styles.globalMetricsText} ${styles.globalMetricsTextData}`}
-                style={color && { color: color }}
-                variant="body2"
-            >
-                {children}
-            </Typography>
-            <Link
-                className={styles.link}
-                onClick={() => handleRedirect(redirectURL)}
-            >
+        <Grid item lg md={2} sm={4} xs={6} className={styles.globalMetricsItem}>
+            <div ref={ref} {...props}>
                 <Typography
                     display="inline"
-                    className={styles.globalMetricsText}
+                    className={`${styles.globalMetricsText} ${styles.globalMetricsTextData}`}
+                    style={color && { color: color }}
                     variant="body2"
                 >
-                    {title}
+                    {children}
                 </Typography>
-                {redirectURL && <Launch className={styles.launchIcon} />}
-            </Link>
-        </ListItem>
+                {redirectURL ? (
+                    <Container className={styles.link}>
+                        <Title />
+                    </Container>
+                ) : (
+                    <div className={styles.link}>
+                        <Title />
+                    </div>
+                )}
+            </div>
+        </Grid>
     );
-};
+});
 
 export default GlobalMetricsItem;

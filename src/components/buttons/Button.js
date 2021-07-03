@@ -10,10 +10,8 @@ const useStyles = makeStyles(theme => ({
     button: {
         color: theme.palette.text.secondary,
         background: 'transparent',
-        marginRight: theme.spacing(1),
         padding: theme.spacing(1),
         [theme.breakpoints.only('xs')]: {
-            marginRight: theme.spacing(0.25),
             padding: theme.spacing(0.5),
         },
         minHeight: 0,
@@ -25,6 +23,12 @@ const useStyles = makeStyles(theme => ({
             backgroundColor: theme.palette.button.hover,
         },
     },
+    buttonMargin: {
+        marginRight: theme.spacing(1),
+        [theme.breakpoints.only('xs')]: {
+            marginRight: theme.spacing(0.25),
+        },
+    },
     buttonText: {
         paddingLeft: theme.spacing(1),
         color: theme.palette.text.secondary,
@@ -33,12 +37,14 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Button = ({ onClick, children, size, text }) => {
+const Button = ({ onClick, children, size, text, disableMargins }) => {
     const styles = useStyles();
     return (
         <>
             <MuiButton
-                className={styles.button}
+                className={`${styles.button} ${
+                    !disableMargins && styles.buttonMargin
+                }`}
                 size={size ? size : 'small'}
                 onClick={onClick}
             >

@@ -10,8 +10,9 @@ export const fetchGlobalMetrics = () => {
 
         try {
             //1aa30109967d39b6973427961647331161ba2179d6276dfe4611d223750b
+            //c42b3484bc9fa789126c705ab6fe9034b287a5e7133430e720f23c37883b
             const response = await fetch(
-                'https://api.cryptorank.io/v1/global?api_key=c42b3484bc9fa789126c705ab6fe9034b287a5e7133430e720f23c37883b'
+                'https://api.cryptorank.io/v1/global?api_key=1aa30109967d39b6973427961647331161ba2179d6276dfe4611d223750b'
             );
 
             const json = await response.json();

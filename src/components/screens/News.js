@@ -1,6 +1,5 @@
 import { makeStyles } from '@material-ui/core';
 import CardList from '../card/CardList';
-import { Paper } from '@material-ui/core';
 import GlobalMetrics from '../globalMetrics/GlobalMetrics';
 
 const useStyles = makeStyles(theme => ({

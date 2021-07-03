@@ -1,10 +1,4 @@
-import {
-    fade,
-    InputBase,
-    makeStyles,
-    Paper,
-    useTheme,
-} from '@material-ui/core';
+import { InputBase, makeStyles, Paper, useTheme } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => ({
@@ -66,7 +60,7 @@ const SearchBar = () => {
                     class: 'MuiTypography-root MuiTypography-body2',
                     'aria-label': 'search',
                     style: {
-                        'background-color': 'transparent',
+                        backgroundColor: 'transparent',
                         border: 'none',
                         outline: 'none',
                         color: theme.palette.text.primary,

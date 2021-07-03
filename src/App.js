@@ -102,6 +102,9 @@ function App() {
                     <div className={styles.bodyContainer}>
                         <Container className={styles.body}>
                             <Switch>
+                                <Route path="/">
+                                    <News />
+                                </Route>
                                 <Route path="/home">
                                     <News />
                                 </Route>

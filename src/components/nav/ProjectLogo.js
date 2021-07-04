@@ -5,7 +5,7 @@ const useStyles = makeStyles(theme => ({
     title: {
         fontWeight: '700',
     },
-    linkContainer: {
+    logoContainer: {
         background: 'transparent',
         paddingRight: theme.spacing(5),
     },
@@ -33,7 +33,7 @@ const ProjectLogo = ({ style }) => {
 
     return (
         <div
-            className={style ? style : styles.linkContainer}
+            className={style ? style : styles.logoContainer}
             style={{ display: 'flex', flexDirection: 'row' }}
         >
             <Astronaut className={styles.logo} />

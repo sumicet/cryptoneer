@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
         placeItems: 'center',
         background: theme.palette.background.dark,
     },
-    toolbar: {
+    navToolbar: {
         display: 'flex',
         width: '100%',
         maxWidth: theme.sizing.maxWidth,
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
     },
-    toolbarDrawerToggleButton: {
+    navDrawerToggleButton: {
         display: 'flex',
         flex: 1,
         justifyContent: 'flex-end',
@@ -74,11 +74,11 @@ const Nav = () => {
             </SwipeableDrawer>
 
             <AppBar position="static" className={styles.nav}>
-                <Toolbar className={styles.toolbar}>
+                <Toolbar className={styles.navToolbar}>
                     <ProjectLogo />
                     {/* turn nav items into a mobile menu if the resolution is too small */}
                     {resolutionIsXS && (
-                        <div className={styles.toolbarDrawerToggleButton}>
+                        <div className={styles.navDrawerToggleButton}>
                             <Button onClick={toggleDrawer()}>
                                 <Menu />
                             </Button>

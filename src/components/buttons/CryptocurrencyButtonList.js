@@ -12,7 +12,7 @@ const CryptocurrencyButtonList = ({
     const theme = useTheme();
 
     const useStyles = makeStyles({
-        cryptocurrencyButtonList: {
+        cryptoButtonList: {
             display: 'flex',
             flexDirection: 'row',
         },
@@ -155,7 +155,7 @@ const CryptocurrencyButtonList = ({
     };
 
     return (
-        <div className={styles.cryptocurrencyButtonList}>
+        <div className={styles.cryptoButtonList}>
             {currencies.length > 0 &&
                 currencies
                     .filter((currency, index) => index < 3)

@@ -16,25 +16,6 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'row',
     },
-    fearAndGreedHistoricalItem: {
-        display: 'flex',
-        flexDirection: 'row',
-        paddingBottom: theme.spacing(1),
-        '&:last-child': {
-            paddingBottom: 0,
-        },
-    },
-    globalMetricsText: {
-        color: theme.palette.text.primary,
-        fontSize: `${theme.typography.fontSize * 0.9}px`,
-        fontWeight: 700,
-        display: 'inline-block',
-        whiteSpace: 'nowrap',
-    },
-    '& .highcharts-color-0': {
-        fill: 'pink',
-        stroke: 'purple',
-    },
 }));
 
 const FearAndGreedIndex = () => {
@@ -234,7 +215,7 @@ const FearAndGreedIndex = () => {
                 <CircularProgress />
             ) : (
                 <div className={styles.popover}>
-                    <div className={styles.popoverGraph}>
+                    <div>
                         <HighchartsReact
                             highcharts={Highcharts}
                             options={options}

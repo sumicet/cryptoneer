@@ -6,7 +6,7 @@ import SearchBar from './SearchBar';
 import ProjectLogo from './ProjectLogo';
 
 const useStyles = makeStyles(theme => ({
-    container: {
+    navItemContainer: {
         display: 'flex',
         flex: 1,
         alignItems: 'center',
@@ -71,7 +71,7 @@ const NavItemList = ({ toggleDrawer }) => {
     const resolutionIsXS = useMediaQuery(theme => theme.breakpoints.only('xs'));
 
     return (
-        <div className={styles.container}>
+        <div className={styles.navItemContainer}>
             {resolutionIsXS && (
                 <>
                     <div className={styles.navDrawerHeader}>

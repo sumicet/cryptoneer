@@ -50,7 +50,7 @@ const GlobalMetrics = () => {
             flexDirection: 'row',
             alignItems: 'center',
         },
-        button: {
+        globalMetricsCollapseButton: {
             alignSelf: 'flex-start',
             width: globalMetricsHeight,
             height: globalMetricsHeight,
@@ -349,7 +349,7 @@ const GlobalMetrics = () => {
                     </div>
 
                     {showDropdownButton && (
-                        <div className={styles.button}>
+                        <div className={styles.globalMetricsCollapseButton}>
                             <Button
                                 onClick={() =>
                                     setCollapseGlobalMetrics(

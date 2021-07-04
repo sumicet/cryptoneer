@@ -42,10 +42,9 @@ const useStyles = makeStyles(theme => ({
 
 const SearchBar = () => {
     const theme = useTheme();
-    const searchBarIconSize = theme.typography.fontSize * 1.5;
     const searchBarIconStyle = {
-        width: `${searchBarIconSize}`,
-        height: `${searchBarIconSize}`,
+        width: `${theme.spacing.icon}`,
+        height: `${theme.spacing.icon}`,
     };
 
     const styles = useStyles();

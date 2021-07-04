@@ -10,7 +10,6 @@ const CryptocurrencyButtonList = ({
     allCoins,
 }) => {
     const theme = useTheme();
-    const iconSize = theme.typography.fontSize * 1.3;
 
     const useStyles = makeStyles({
         cryptocurrencyButtonList: {
@@ -148,8 +147,8 @@ const CryptocurrencyButtonList = ({
         return (
             <img
                 src={currency.path}
-                width={iconSize}
-                height={iconSize}
+                width={theme.sizing.icon}
+                height={theme.sizing.icon}
                 alt="Currency Icon"
             />
         );

@@ -1,20 +1,29 @@
-import { makeStyles, Popover as MuiPopover } from '@material-ui/core';
+import { makeStyles, Popover as MuiPopover, useTheme } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     popover: {
         pointerEvents: 'none',
     },
     popoverPaper: {
+        background: 'transparent',
+        paddingTop: theme.spacing(1),
+        display: 'flex',
+        flex: 1,
+        pointerEvents: 'auto',
+    },
+    card: {
         padding: theme.spacing(2),
         borderRadius: theme.shape.borderRadius,
         background: `linear-gradient(45deg, ${theme.palette.background.sectionLight}, ${theme.palette.background.sectionDark})`,
         display: 'flex',
         flexDirection: 'column',
+        pointerEvents: 'auto',
     },
 }));
 
 const Popover = ({ children, anchor, onClose }) => {
     const styles = useStyles();
+    const theme = useTheme();
     return (
         <MuiPopover
             id="mouse-over-popover"
@@ -25,8 +34,8 @@ const Popover = ({ children, anchor, onClose }) => {
             open={anchor ? true : false}
             anchorEl={anchor}
             anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: 'bottom',
+                horizontal: theme.spacing(3),
             }}
             transformOrigin={{
                 vertical: 'top',
@@ -35,8 +44,10 @@ const Popover = ({ children, anchor, onClose }) => {
             onClose={onClose}
             disableRestoreFocus
             elevation={0}
+            disableEnforceFocus={true}
+            transitionDuration={100}
         >
-            {children}
+            <div className={styles.card}>{children}</div>
         </MuiPopover>
     );
 };

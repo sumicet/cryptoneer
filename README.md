@@ -15,3 +15,4 @@ Cryptocurrency news & statistics.
 - [cryptorank](https://cryptorank.io/api) for global metrics
 - [cryptocompare](https://min-api.cryptocompare.com/) for news and data regarding coins
 - [Crypto Fear & Greed index](https://alternative.me/crypto/fear-and-greed-index/)
+- [highcharts-react](https://github.com/highcharts/highcharts-react)

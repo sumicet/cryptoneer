@@ -1,12 +1,9 @@
 import {
     CircularProgress,
     makeStyles,
-    Typography,
     useTheme,
-    Divider,
     Collapse,
     Grid,
-    useMediaQuery,
 } from '@material-ui/core';
 import { useCallback } from 'react';
 import { useEffect, useState } from 'react';
@@ -15,18 +12,14 @@ import { useActions } from '../../hooks/useActions';
 // eslint-disable-next-line
 import { ReactComponent as Bear } from '../../svg/other/Bear.svg';
 import { ReactComponent as Bull } from '../../svg/other/Bull.svg';
-import Popover from '../modals/Popover';
 import GlobalMetricsItem from './GlobalMetricsItem';
 import Button from '../buttons/Button';
-import {
-    ArrowForwardIos,
-    ExpandMore,
-    KeyboardArrowRight,
-} from '@material-ui/icons';
-import { useRef } from 'react';
+import { ExpandMore } from '@material-ui/icons';
 import { createRef } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const GlobalMetrics = () => {
+    const history = useHistory();
     const [globalMetricsHeight, setGlobalMetricsHeight] = useState();
 
     const useStyles = makeStyles(theme => ({
@@ -43,13 +36,6 @@ const GlobalMetrics = () => {
             overflow: 'hidden',
             flex: 1,
         },
-        globalMetricsText: {
-            color: theme.palette.text.primary,
-            fontSize: `${theme.typography.fontSize * 0.9}px`,
-            fontWeight: 700,
-            display: 'inline-block',
-            whiteSpace: 'nowrap',
-        },
         globalMetricsSentimentIcon: {
             display: 'flex',
             alignItems: 'center',
@@ -64,14 +50,6 @@ const GlobalMetrics = () => {
             flexDirection: 'row',
             alignItems: 'center',
         },
-        fearAndGreedHistoricalItem: {
-            display: 'flex',
-            flexDirection: 'row',
-            paddingBottom: theme.spacing(1),
-            '&:last-child': {
-                paddingBottom: 0,
-            },
-        },
         button: {
             alignSelf: 'flex-start',
             width: globalMetricsHeight,
@@ -80,9 +58,6 @@ const GlobalMetrics = () => {
         flex: {
             display: 'flex',
             flex: 1,
-        },
-        popover: {
-            pointerEvents: 'none',
         },
         fearAndGreedIndexIcon: {
             width: theme.typography.body2.fontSize,
@@ -98,6 +73,15 @@ const GlobalMetrics = () => {
             flexDirection: 'row',
         },
     }));
+    const styles = useStyles();
+    const theme = useTheme();
+
+    const iconStyle = {
+        width: `${theme.sizing.icon}`,
+        height: `${theme.sizing.icon}`,
+    };
+
+    const globalMetricsItemVerticalMargin = theme.spacing(1);
 
     const globalMetrics = useSelector(state => state.globalMetrics);
     const fearAndGreedIndex = useSelector(state => state.fearAndGreedIndex);
@@ -147,92 +131,103 @@ const GlobalMetrics = () => {
         }
     }, [fearAndGreedIndex]);
 
-    const styles = useStyles();
-    const theme = useTheme();
-
     // ******************* GLOBAL METRICS CARD HEIGHT ******************
 
-    // this is the height of the
-    // icon (bull/bear)
-    // global metrics cards
-    // collapsed height
-    // const globalMetricsItemRef = useCallback(node => {
-    //     if (node !== null) {
-    //         // node = ref.current
-    //         setGlobalMetricsHeight(node.getBoundingClientRect().height);
-    //     }
-    // }, []);
+    // this is the height of the: icon (bull/bear), global metrics cards, and the collapsed component
 
     const globalMetricsItemRef = createRef();
 
     useEffect(() => {
         if (globalMetricsItemRef.current) {
+            console.log(
+                globalMetricsItemRef.current.getBoundingClientRect().height
+            );
             setGlobalMetricsHeight(
                 globalMetricsItemRef.current.getBoundingClientRect().height
             );
         }
     }, [globalMetricsItemRef]);
 
-    // ******************* FEAR & GREED INDEX POPOVER ******************
-
-    const [anchorEl, setAnchorEl] = useState(null);
-    const popoverRef = useRef(null);
-
-    const handlePopoverOpen = event => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handlePopoverClose = () => {
-        setAnchorEl(null);
-    };
-
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (
-                popoverRef.current &&
-                !popoverRef.current.contains(event.target) &&
-                anchorEl
-            ) {
-                handlePopoverClose();
-            }
-        }
-        // Bind the event listener
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            // Unbind the event listener on clean up
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [popoverRef, anchorEl]);
-
-    const [showGlobalMetrics, setShowGlobalMetrics] = useState(false);
-
     // ******************* RESPONSIVENESS ******************
 
-    // LEARN Material UI doesn't forward refs so use the ref on containers.
+    // GTK Material UI doesn't forward refs so use the ref on containers.
 
-    const isResolutionLG = useMediaQuery(theme => theme.breakpoints.up('lg'));
+    //TODO refresh full screen, dropdown button appears
+
+    const [collapseGlobalMetrics, setCollapseGlobalMetrics] = useState(false);
+    const [showDropdownButton, setShowDropdownButton] = useState(false);
 
     // Count how many elements (aka statistics cards) are on the first line of global metrics
     const updateGlobalMetricsItemMargin = () => {
         let firstLineTop = -1;
+        let maxWidth = 0;
+        // Since I'm using the ref of a container, I'll access its only element
+        // Then I'll access the children of the list
 
-        // Since I'm using the ref of a container
-        // I'll access its only element
-        // And then I'll access the children of the list
+        // all of them should have the same width so they're aligned vertically on smaller resolutions
+
+        // find max width and count elems
+        let count = 0;
+        for (let child of nodeList.children[0].children) {
+            if (
+                child.className &&
+                child.className
+                    .toLowerCase()
+                    .includes('globalMetricsItemWrapper'.toLowerCase())
+            ) {
+                count++;
+                if (child.getBoundingClientRect().width > maxWidth) {
+                    maxWidth = child.getBoundingClientRect().width;
+                }
+            }
+        }
+
+        // show drop down button if the combined width of the elements is bigger than the container's width
+        if (
+            maxWidth * count >
+            nodeList.children[0].getBoundingClientRect().width
+        ) {
+            setShowDropdownButton(true);
+        } else {
+            setShowDropdownButton(false);
+        }
+
         for (let child of nodeList.children[0].children) {
             let childTop = child.getBoundingClientRect().top;
+
+            // asign max width to each element
+            if (
+                child.className &&
+                child.className
+                    .toLowerCase()
+                    .includes('globalMetricsItemWrapper'.toLowerCase())
+            ) {
+                child.style.width = `${maxWidth}px`;
+            }
+
+            // if the element is on the first line
             if (firstLineTop < 0) {
                 firstLineTop = childTop;
             }
+
+            // assign marginTop 0 to make sure we don't get errors below when using the marginTop value
             if (child.style.marginTop.toString().length === 0) {
                 child.style.marginTop = '0px';
             }
+
             let childTopMargin = parseInt(child.style.marginTop);
 
-            // some elements have 80.5 and some 80 but they're all on the same line
+            // assign marginTop 0 to elems that fit on the first line and marginTop [number] to elems on the 2nd line
+            // some elems have 80.5 and some 80 but they're all on the same line
             // so I'll just assume that if the difference is less than 5px they're on the same line
-            if (Math.abs(firstLineTop - childTop + childTopMargin) > 5) {
-                child.style.marginTop = `${theme.spacing(1)}px`;
+            if (Math.abs(firstLineTop - childTop + childTopMargin) > 6) {
+                console.log(
+                    child.getBoundingClientRect(),
+                    firstLineTop,
+                    childTop,
+                    childTopMargin
+                );
+                child.style.marginTop = `${globalMetricsItemVerticalMargin}px`;
             } else {
                 child.style.marginTop = '0px';
             }
@@ -271,7 +266,7 @@ const GlobalMetrics = () => {
                 <Collapse
                     className={styles.globalMetrics}
                     collapsedHeight={globalMetricsHeight}
-                    in={showGlobalMetrics}
+                    in={collapseGlobalMetrics}
                     classes={{
                         wrapperInner: styles.globalMetricsWrapperInner,
                     }}
@@ -287,7 +282,7 @@ const GlobalMetrics = () => {
                         <Grid container className={styles.globalMetricsList}>
                             {/* news sentiment percentage + news sentiment */}
                             <GlobalMetricsItem
-                                title="News"
+                                description="News (last 24h)"
                                 color={theme.palette.icon.bullish}
                                 ref={globalMetricsItemRef}
                             >
@@ -296,7 +291,7 @@ const GlobalMetrics = () => {
 
                             {/* fear and green index */}
                             <GlobalMetricsItem
-                                title="Fear & Greed Index"
+                                description="Fear & Greed Index"
                                 color={
                                     fearAndGreedIndexData[0].value_classification
                                         .toString()
@@ -311,118 +306,40 @@ const GlobalMetrics = () => {
                                         : theme.palette.text.accentLight
                                 }
                                 redirectURL="https://alternative.me/crypto/fear-and-greed-index/"
-                                aria-owns={
-                                    anchorEl ? 'mouse-over-popover' : undefined
-                                }
-                                aria-describedby={
-                                    anchorEl ? 'simple-popover' : undefined
-                                }
-                                // aria-haspopup="true"
-                                onClick={
-                                    anchorEl
-                                        ? handlePopoverClose
-                                        : handlePopoverOpen
-                                }
+                                onItemClick={() => {
+                                    history.push(
+                                        '/global-metrics/fear-and-greed-index'
+                                    );
+                                }}
                             >
-                                <div className={styles.fearAndGreedIndexData}>
-                                    {
-                                        fearAndGreedIndexData[0]
-                                            .value_classification
-                                    }
-                                    <KeyboardArrowRight
-                                        className={styles.fearAndGreedIndexIcon}
-                                    />
-                                </div>
+                                {fearAndGreedIndexData[0].value_classification}
                             </GlobalMetricsItem>
 
-                            {/* fear and greed index popover */}
-                            <div ref={popoverRef}>
-                                <Popover
-                                    id={anchorEl ? 'simple-popover' : undefined}
-                                    anchor={anchorEl}
-                                    onClose={handlePopoverClose}
-                                    className={styles.popover}
-                                    disableEnforceFocus={true}
-                                >
-                                    {fearAndGreedIndexData.map(data => (
-                                        <div
-                                            className={
-                                                styles.fearAndGreedHistoricalItem
-                                            }
-                                            key={data.timestamp}
-                                        >
-                                            <Typography
-                                                className={`${styles.globalMetricsText}`}
-                                                display="inline"
-                                                variant="body2"
-                                            >
-                                                {new Date(
-                                                    parseInt(data.timestamp) *
-                                                        1000
-                                                ).toLocaleString('default', {
-                                                    month: 'long',
-                                                })}{' '}
-                                                {new Date(
-                                                    parseInt(data.timestamp) *
-                                                        1000
-                                                )
-                                                    .getDate()
-                                                    .toString()}
-                                                {': '}
-                                                &nbsp;
-                                            </Typography>
-                                            <Typography
-                                                className={`${styles.globalMetricsText}`}
-                                                display="inline"
-                                                variant="body2"
-                                                style={{
-                                                    color: data.value_classification
-                                                        .toString()
-                                                        .toLowerCase()
-                                                        .includes('fear')
-                                                        ? theme.palette.icon
-                                                              .bearish
-                                                        : data.value_classification
-                                                              .toString()
-                                                              .toLowerCase()
-                                                              .includes('greed')
-                                                        ? theme.palette.icon
-                                                              .bullish
-                                                        : theme.palette.text
-                                                              .accentLight,
-                                                }}
-                                            >
-                                                {data.value_classification}
-                                            </Typography>
-                                        </div>
-                                    ))}
-                                </Popover>
-                            </div>
                             {/* <Divider orientation="vertical" flexItem /> */}
-                            <GlobalMetricsItem title="Dominance">
+                            <GlobalMetricsItem description="Dominance">
                                 {'BTC ' +
                                     globalMetricsData.btcDominance.toFixed(1)}
                                 % ETH{' '}
                                 {globalMetricsData.ethDominance.toFixed(1)}%
                             </GlobalMetricsItem>
                             {/* <Divider orientation="vertical" flexItem /> */}
-                            <GlobalMetricsItem title="Active Currencies">
+                            <GlobalMetricsItem description="Active Currencies">
                                 {globalMetricsData.activeCurrencies}
                             </GlobalMetricsItem>
                             {/* <Divider orientation="vertical" flexItem /> */}
-                            <GlobalMetricsItem title="Active Markets">
+                            <GlobalMetricsItem description="Active Markets">
                                 {globalMetricsData.activeMarkets}
                             </GlobalMetricsItem>
                             {/* <Divider orientation="vertical" flexItem /> */}
                             {/* add , every 3 digits from the end => nice looking number */}
-                            <GlobalMetricsItem title="24h Volume">
+                            <GlobalMetricsItem description="24h Volume">
                                 $
                                 {globalMetricsData.values.USD.totalVolume24h
                                     .toString()
                                     .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                             </GlobalMetricsItem>
                             {/* <Divider orientation="vertical" flexItem /> */}
-                            <GlobalMetricsItem title="Market Cap">
+                            <GlobalMetricsItem description="Market Cap">
                                 $
                                 {globalMetricsData.values.USD.totalMarketCap
                                     .toString()
@@ -431,15 +348,17 @@ const GlobalMetrics = () => {
                         </Grid>
                     </div>
 
-                    {!isResolutionLG && (
+                    {showDropdownButton && (
                         <div className={styles.button}>
                             <Button
                                 onClick={() =>
-                                    setShowGlobalMetrics(!showGlobalMetrics)
+                                    setCollapseGlobalMetrics(
+                                        !collapseGlobalMetrics
+                                    )
                                 }
                                 disableMargins
                             >
-                                <ExpandMore />
+                                <ExpandMore style={iconStyle} />
                             </Button>
                         </div>
                     )}

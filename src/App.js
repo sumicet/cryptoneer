@@ -7,11 +7,13 @@ import {
     createMuiTheme,
     ThemeProvider,
     makeStyles,
+    useTheme,
 } from '@material-ui/core';
 import Nav from './components/nav/Nav';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Article from './screens/news/Article';
 import News from './components/screens/News';
+import FearAndGreedIndex from './screens/globalMetrics/FearAndGreedIndex';
 
 // cryptoneer
 // side list with top 3 of 50 crypto against btc
@@ -44,6 +46,7 @@ const useStyles = makeStyles(theme => ({
 
 function App() {
     const styles = useStyles();
+    const defaultTheme = useTheme();
 
     const theme = createMuiTheme({
         palette: {
@@ -54,8 +57,8 @@ function App() {
                 // "Enjoy music"
                 accentDark: '#4e62ee',
                 accentLight: '#48d9e2',
-
                 accentPink: '#f26ccb',
+                accentLightPink: '#ed8acf',
             },
             background: {
                 light: '#212078',
@@ -92,6 +95,7 @@ function App() {
         },
         sizing: {
             maxWidth: '1400px',
+            icon: defaultTheme.typography.fontSize * 1.3,
         },
     });
     return (
@@ -102,7 +106,7 @@ function App() {
                     <div className={styles.bodyContainer}>
                         <Container className={styles.body}>
                             <Switch>
-                                <Route path="/">
+                                <Route path="/" exact>
                                     <News />
                                 </Route>
                                 <Route path="/home">
@@ -113,6 +117,9 @@ function App() {
                                 </Route>
                                 <Route path="/news/:id" exact>
                                     <Article />
+                                </Route>
+                                <Route path="/global-metrics/fear-and-greed-index">
+                                    <FearAndGreedIndex />
                                 </Route>
                             </Switch>
                         </Container>

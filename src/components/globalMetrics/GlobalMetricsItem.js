@@ -1,14 +1,49 @@
-import { makeStyles, Typography, Grid, Link } from '@material-ui/core';
+import { makeStyles, Typography, Grid, Link, Button } from '@material-ui/core';
 import { Launch } from '@material-ui/icons';
 import React from 'react';
 
 const useStyles = makeStyles(theme => ({
     globalMetricsItem: {
         padding: 0,
-        paddingLeft: theme.spacing(3),
-        paddingRight: theme.spacing(3),
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
+    },
+    globalMetricsItemContent: {
         display: 'flex',
         flexDirection: 'column',
+        padding: theme.spacing(2),
+    },
+    globalMetricsItemButton: {
+        borderRadius: theme.shape.borderRadius,
+        // '& .MuiTouchRipple-root span': {
+        //     color: `${theme.palette.text.accentLight} !important`,
+        // },
+        '&:hover': {
+            color: `${theme.palette.text.accentLight} !!important`,
+        },
+    },
+    globalMetricsItemButtonRoot: {
+        lineHeight: 0,
+        minWidth: 0,
+        textTransform: 'none',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        verticalAlign: 'unset',
+
+        '& .MuiButton-label': {
+            display: 'flex',
+            flexDirection: 'column',
+            padding: theme.spacing(2),
+        },
+        '&:hover span > p': {
+            color: `${theme.palette.text.accentPink} !important`,
+        },
+        '&:hover span > a > p': {
+            color: `${theme.palette.text.accentLightPink} !important`,
+        },
+        '&:hover': {
+            background: 'transparent',
+        },
     },
     globalMetricsText: {
         color: theme.palette.text.primary,
@@ -16,6 +51,7 @@ const useStyles = makeStyles(theme => ({
         fontWeight: 700,
         display: 'inline-block',
         whiteSpace: 'nowrap',
+        cursor: 'default',
     },
     globalMetricsTextData: {
         color: theme.palette.text.accentLight,
@@ -32,11 +68,16 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         color: `${theme.palette.text.primary} !important`,
     },
+    globalMetricsItemWrapper: {},
+    remoteSpaces: {
+        padding: 0,
+        margin: 0,
+    },
 }));
 
 const GlobalMetricsItem = React.forwardRef((props, ref) => {
     const styles = useStyles();
-    const { color, children, redirectURL, title } = props;
+    const { color, children, redirectURL, description, onItemClick } = props;
 
     const handleRedirect = url => {
         window.open(url, '_blank');
@@ -55,13 +96,13 @@ const GlobalMetricsItem = React.forwardRef((props, ref) => {
             className={styles.globalMetricsText}
             variant="body2"
         >
-            {title}
+            {description}
         </Typography>
     );
 
-    return (
-        <Grid item lg md={2} sm={4} xs={6} className={styles.globalMetricsItem}>
-            <div ref={ref} {...props}>
+    const Wrapper = () => {
+        return (
+            <>
                 <Typography
                     display="inline"
                     className={`${styles.globalMetricsText} ${styles.globalMetricsTextData}`}
@@ -79,8 +120,40 @@ const GlobalMetricsItem = React.forwardRef((props, ref) => {
                         <Title />
                     </div>
                 )}
-            </div>
-        </Grid>
+            </>
+        );
+    };
+
+    return (
+        <div ref={ref} {...props} className={styles.globalMetricsItemWrapper}>
+            <Grid item className={styles.globalMetricsItem}>
+                {onItemClick ? (
+                    <Button
+                        onClick={onItemClick}
+                        disableElevation
+                        disableRipple
+                        disableFocusRipple
+                        // variant="text"
+                        // size="small"
+                        className={styles.globalMetricsItemButton}
+                        classes={{
+                            // root: styles.globalMetricsItem,
+                            // paper: styles.globalMetricsItemContent,
+                            label: styles.globalMetricsItemContent, //ok
+                            text: styles.remoteSpaces,
+                            root: `${styles.remoteSpaces} ${styles.globalMetricsItemButtonRoot}`,
+                            paper: styles.remoteSpaces,
+                        }}
+                    >
+                        <Wrapper />
+                    </Button>
+                ) : (
+                    <div className={styles.globalMetricsItemContent}>
+                        <Wrapper />
+                    </div>
+                )}
+            </Grid>
+        </div>
     );
 });
 

@@ -97,10 +97,9 @@ const Card = ({ news, allCoins }) => {
     }));
     const styles = useStyles();
 
-    const iconSize = theme.typography.fontSize * 1.3;
     const iconStyle = {
-        width: `${iconSize}`,
-        height: `${iconSize}`,
+        width: `${theme.spacing.icon}`,
+        height: `${theme.spacing.icon}`,
     };
 
     const handleRedirect = event => {
@@ -172,7 +171,6 @@ const Card = ({ news, allCoins }) => {
                         <div className={styles.cardButtonsCurrencyList}>
                             <CryptocurrencyButtonList
                                 categories={categories}
-                                iconSize={iconSize}
                                 title={title}
                                 allCoins={allCoins}
                             >

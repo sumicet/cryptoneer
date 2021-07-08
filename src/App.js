@@ -52,6 +52,9 @@ function App() {
                 bearish: 'red',
             },
             divider: 'rgba(255, 255, 255, 0.15)',
+            warning: {
+                main: 'rgba(255, 152, 0, 0.5)',
+            },
         },
         shape: {
             borderRadius: '20px',

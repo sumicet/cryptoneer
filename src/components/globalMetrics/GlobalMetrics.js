@@ -18,6 +18,7 @@ import { createRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useData } from '../../hooks/useData';
 import Text from '../text/Text';
+import Error from '../error/Error';
 
 const useStyles = makeStyles(theme => ({
     globalMetricsContainer: {
@@ -195,7 +196,9 @@ const GlobalMetrics = () => {
     return (
         <div className={styles.globalMetricsContainer}>
             {globalMetrics.loading && <CircularProgress />}
-
+            {globalMetrics.error && (
+                <Error>Oops, an error occured. Please refresh the page.</Error>
+            )}
             {!globalMetrics.error &&
                 !globalMetrics.loading &&
                 globalMetrics.data && (

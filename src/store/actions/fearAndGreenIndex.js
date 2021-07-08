@@ -8,6 +8,18 @@ export const fetchFearAndGreedIndex = () => {
             type: ActionTypes.FETCH_FEAR_AND_GREED_INDEX,
         });
 
+        const oldData = JSON.parse(localStorage.getItem('fearAndGreedIndex'));
+
+        console.log(oldData, 'fearAndGreedIndex');
+
+        if (oldData) {
+            dispatch({
+                type: ActionTypes.FETCH_FEAR_AND_GREED_INDEX_COMPLETE,
+                payload: oldData,
+            });
+            return;
+        }
+
         try {
             const response = await fetch(
                 'https://api.alternative.me/fng/?limit=30'
@@ -16,6 +28,10 @@ export const fetchFearAndGreedIndex = () => {
             const json = await response.json();
 
             if (response.ok && json.metadata.error === null) {
+                localStorage.setItem(
+                    'fearAndGreedIndex',
+                    JSON.stringify(json.data)
+                );
                 dispatch({
                     type: ActionTypes.FETCH_FEAR_AND_GREED_INDEX_COMPLETE,
                     payload: json.data,

@@ -51,50 +51,37 @@ const CryptocurrencyButtonList = ({
             ...new Set(title.match(regex).map(word => word.toLowerCase())),
         ];
 
-        let supportedCurrencies = [];
-        for (const [key, value] of Object.entries(allCoins)) {
-            const result = {
-                symbol: value.Symbol.toLowerCase(),
-                name: value.CoinName.toLowerCase(),
-            };
-            supportedCurrencies.push(result);
-        }
-
         // look through categories
         words.forEach(word => {
             // check if word is a currency symbol
             // make sure you don't add it twice
             if (
+                // currency.symbol is already lower case btw
                 updatedCurrencies.findIndex(
                     currency => currency.symbol === word
                 ) === -1 &&
-                supportedCurrencies
-                    .map(currency => currency.symbol)
-                    .includes(word)
+                allCoins.map(currency => currency.symbol).includes(word)
             ) {
                 updatedCurrencies = addCurrency(updatedCurrencies, word);
             }
         });
 
         // look through the title
-
         titleWordsLowerCase.forEach(word => {
             // check if word is a currency name
-            const indexName = supportedCurrencies.findIndex(
+            const indexName = allCoins.findIndex(
                 currency => currency.name === word
             );
             // make sure you don't add it twice
             if (
                 indexName > -1 &&
                 updatedCurrencies.findIndex(
-                    currency =>
-                        currency.symbol ===
-                        supportedCurrencies[indexName].symbol
+                    currency => currency.symbol === allCoins[indexName].symbol
                 ) === -1
             ) {
                 updatedCurrencies = addCurrency(
                     updatedCurrencies,
-                    supportedCurrencies[indexName].symbol
+                    allCoins[indexName].symbol
                 );
             }
         });
@@ -109,16 +96,8 @@ const CryptocurrencyButtonList = ({
             // i don't want to convert let's say the "and" from "Whales and Elon Musk"
             // to "AND", so i need all supported currencies to be uppercase
             // to only look for uppercase words
-            let supportedCurrencies = [];
-            for (const [key, value] of Object.entries(allCoins)) {
-                const result = {
-                    symbol: value.Symbol.toUpperCase(),
-                    name: value.CoinName.toUpperCase(),
-                };
-                supportedCurrencies.push(result);
-            }
-            const indexSymbol = supportedCurrencies.findIndex(
-                currency => currency.symbol === word
+            const indexSymbol = allCoins.findIndex(
+                currency => currency.symbol.toUpperCase() === word
             );
             // make sure you don't add it twice
             if (
@@ -126,12 +105,12 @@ const CryptocurrencyButtonList = ({
                 updatedCurrencies.findIndex(
                     currency =>
                         currency.symbol ===
-                        supportedCurrencies[indexSymbol].symbol.toLowerCase()
+                        allCoins[indexSymbol].symbol.toLowerCase()
                 ) === -1
             ) {
                 updatedCurrencies = addCurrency(
                     updatedCurrencies,
-                    supportedCurrencies[indexSymbol].symbol.toLowerCase()
+                    allCoins[indexSymbol].symbol.toLowerCase()
                 );
             }
         });

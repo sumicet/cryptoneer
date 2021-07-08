@@ -8,6 +8,18 @@ export const fetchGlobalMetrics = () => {
             type: ActionTypes.FETCH_GLOBAL_METRICS,
         });
 
+        const oldData = JSON.parse(localStorage.getItem('globalMetrics'));
+
+        console.log(oldData, 'globalMetrics');
+
+        if (oldData) {
+            dispatch({
+                type: ActionTypes.FETCH_GLOBAL_METRICS_COMPLETE,
+                payload: oldData,
+            });
+            return;
+        }
+
         try {
             //1aa30109967d39b6973427961647331161ba2179d6276dfe4611d223750b
             //c42b3484bc9fa789126c705ab6fe9034b287a5e7133430e720f23c37883b
@@ -18,6 +30,10 @@ export const fetchGlobalMetrics = () => {
             const json = await response.json();
 
             if (response.ok && json.status.success) {
+                localStorage.setItem(
+                    'globalMetrics',
+                    JSON.stringify(json.data)
+                );
                 dispatch({
                     type: ActionTypes.FETCH_GLOBAL_METRICS_COMPLETE,
                     payload: json.data,

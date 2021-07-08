@@ -1,7 +1,7 @@
 import TimeDiff from '../../library/timeDiff';
 import { ActionTypes } from './actionTypes';
 
-const setDate = data => {
+const updateDate = data => {
     const currentDate = new Date().getTime();
     data.forEach(
         news => (news.date = TimeDiff(news.published_on * 1000, currentDate))
@@ -15,6 +15,18 @@ export const fetchNews = () => {
             type: ActionTypes.FETCH_NEWS,
         });
 
+        const oldData = JSON.parse(localStorage.getItem('news'));
+
+        console.log(oldData, 'news');
+
+        if (oldData) {
+            dispatch({
+                type: ActionTypes.FETCH_NEWS_COMPLETE,
+                payload: oldData,
+            });
+            return;
+        }
+
         try {
             const response = await fetch(
                 'https://min-api.cryptocompare.com/data/v2/news/?lang=EN&api_key=f3c546c70ef6589d69a94129bcf8074eb77209f55af6fcf5e8b3be0ee5def14e'
@@ -23,7 +35,9 @@ export const fetchNews = () => {
             const json = await response.json();
 
             if (response.ok && json.Response !== 'Error') {
-                const data = setDate(json.Data);
+                const data = updateDate(json.Data);
+
+                localStorage.setItem('news', JSON.stringify(data));
 
                 dispatch({
                     type: ActionTypes.FETCH_NEWS_COMPLETE,

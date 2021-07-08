@@ -38,7 +38,9 @@ const Error = props => {
         >
             <CancelRounded className={styles.errorIcon} />
             <Text size="medium" {...TextProps}>
-                {children}
+                {children
+                    ? children
+                    : 'Oops, an error occured. Please refresh the page.'}
             </Text>
         </div>
     );

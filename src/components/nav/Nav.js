@@ -13,6 +13,7 @@ import NavItemList from './NavItemList';
 
 const useStyles = makeStyles(theme => ({
     nav: {
+        flex: 0,
         display: 'grid',
         placeItems: 'center',
         background: theme.palette.background.dark,

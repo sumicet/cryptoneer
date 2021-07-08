@@ -6,6 +6,7 @@ import {
 import Card from './Card';
 import { Link } from 'react-router-dom';
 import { useData } from '../../hooks/useData';
+import Error from '../error/Error';
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -26,7 +27,8 @@ const CardList = () => {
     return (
         <>
             {(news.loading || coins.loading) && <CircularProgress />}
-            {!news.loading && !coins.loading && (
+            {news.error && <Error />}
+            {!news.error && !news.loading && !coins.loading && (
                 <MuiList className={styles.list}>
                     {news.data !== undefined &&
                         coins.data !== undefined &&

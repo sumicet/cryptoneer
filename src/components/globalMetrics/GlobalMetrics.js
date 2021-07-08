@@ -196,9 +196,7 @@ const GlobalMetrics = () => {
     return (
         <div className={styles.globalMetricsContainer}>
             {globalMetrics.loading && <CircularProgress />}
-            {globalMetrics.error && (
-                <Error>Oops, an error occured. Please refresh the page.</Error>
-            )}
+            {globalMetrics.error && <Error />}
             {!globalMetrics.error &&
                 !globalMetrics.loading &&
                 globalMetrics.data && (

@@ -27,7 +27,7 @@ export const fetchNews = () => {
 
         try {
             const response = await fetch(
-                'https://min-api.cryptocompare.com/data/v2/news/?lang=EN&api_key=f3c546c70ef6589d69a94129bcf8074eb77209f55af6fcf5e8b3be0ee5def14e'
+                'https://min-api.cryptocompare.com/data/v2/neXXXws/?lang=EN'
             );
 
             const json = await response.json();

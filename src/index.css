@@ -10,6 +10,8 @@ body,
 #root {
     /* overflow-y: scroll; */
     background-color: purple;
+    display: flex;
+    flex-direction: column;
 }
 
 *,

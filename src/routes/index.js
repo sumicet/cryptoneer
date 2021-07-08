@@ -6,10 +6,10 @@ import News from '../components/screens/News';
 import FearAndGreedIndex from '../screens/globalMetrics/FearAndGreedIndex';
 import { useActions } from '../hooks/useActions';
 import { useFetch } from '../hooks/useFetch';
+import Footer from '../components/nav/Footer';
 
 const useStyles = makeStyles(theme => ({
     bodyContainer: {
-        display: 'flex',
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
@@ -72,6 +72,7 @@ const Routes = () => {
                     </Switch>
                 </Container>
             </div>
+            <Footer />
         </>
     );
 };

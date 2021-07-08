@@ -3,13 +3,8 @@ import {
     CircularProgress,
     makeStyles,
 } from '@material-ui/core';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import Card from './Card';
 import { Link } from 'react-router-dom';
-import { useFetch } from '../../hooks/useFetch';
-import { useActions } from '../../hooks/useActions';
 import { useData } from '../../hooks/useData';
 
 const useStyles = makeStyles(theme => ({
@@ -19,10 +14,6 @@ const useStyles = makeStyles(theme => ({
         background: '#1a144e',
         borderRadius: theme.shape.borderRadius,
         overflow: 'hidden',
-        [theme.breakpoints.only('xs')]: {
-            // borderRadius: 0,
-            // background: 'transparent',
-        },
     },
 }));
 

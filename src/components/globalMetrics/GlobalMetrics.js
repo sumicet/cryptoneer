@@ -7,8 +7,6 @@ import {
 } from '@material-ui/core';
 import { useCallback } from 'react';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useActions } from '../../hooks/useActions';
 // eslint-disable-next-line
 import { ReactComponent as Bear } from '../../svg/other/Bear.svg';
 import { ReactComponent as Bull } from '../../svg/other/Bull.svg';
@@ -17,62 +15,48 @@ import Button from '../buttons/Button';
 import { ExpandMore } from '@material-ui/icons';
 import { createRef } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useData } from '../../hooks/useData';
+
+const useStyles = makeStyles(theme => ({
+    globalMetricsContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        maxWidth: '1400px',
+    },
+    globalMetricsList: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        overflow: 'hidden',
+        flex: 1,
+    },
+    globalMetricsSentimentIcon: {
+        display: 'flex',
+        alignItems: 'center',
+        alignSelf: 'flex-start',
+    },
+    globalMetrics: {
+        overflow: 'hidden',
+    },
+    globalMetricsWrapperInner: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    globalMetricsCollapseButton: {
+        alignSelf: 'flex-start',
+    },
+    flex: {
+        display: 'flex',
+        flex: 1,
+    },
+}));
 
 const GlobalMetrics = () => {
     const history = useHistory();
     const [globalMetricsHeight, setGlobalMetricsHeight] = useState();
 
-    const useStyles = makeStyles(theme => ({
-        globalMetricsContainer: {
-            display: 'flex',
-            flexDirection: 'row',
-            maxWidth: '1400px',
-        },
-        globalMetricsList: {
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-            overflow: 'hidden',
-            flex: 1,
-        },
-        globalMetricsSentimentIcon: {
-            display: 'flex',
-            alignItems: 'center',
-            height: globalMetricsHeight,
-            alignSelf: 'flex-start',
-        },
-        globalMetrics: {
-            overflow: 'hidden',
-        },
-        globalMetricsWrapperInner: {
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        globalMetricsCollapseButton: {
-            alignSelf: 'flex-start',
-            width: globalMetricsHeight,
-            height: globalMetricsHeight,
-        },
-        flex: {
-            display: 'flex',
-            flex: 1,
-        },
-        fearAndGreedIndexIcon: {
-            width: theme.typography.body2.fontSize,
-            height: theme.typography.body2.fontSize,
-            color: theme.palette.text.primary,
-            marginLeft: theme.spacing(0.5),
-            // width: '100%',
-            alignSelf: 'center',
-            justifySelf: 'flex-end',
-        },
-        fearAndGreedIndexData: {
-            display: 'flex',
-            flexDirection: 'row',
-        },
-    }));
     const styles = useStyles();
     const theme = useTheme();
 
@@ -83,53 +67,8 @@ const GlobalMetrics = () => {
 
     const globalMetricsItemVerticalMargin = theme.spacing(1);
 
-    const globalMetrics = useSelector(state => state.globalMetrics);
-    const fearAndGreedIndex = useSelector(state => state.fearAndGreedIndex);
-
-    // ******************* LOADING ******************
-    const [isLoading, setIsLoading] = useState(true);
-    useEffect(() => {
-        if (globalMetrics.loading || fearAndGreedIndex.loading) {
-            setIsLoading(true);
-        } else {
-            if (!globalMetrics.loading && !fearAndGreedIndex.loading) {
-                setIsLoading(false);
-            }
-        }
-    }, [globalMetrics.loading, fearAndGreedIndex.loading]);
-
-    // ******************* FETCH DATA ******************
-
-    const [globalMetricsData, setGlobalMetricsData] = useState(undefined);
-    const [fearAndGreedIndexData, setFearAndGreedIndexData] =
-        useState(undefined);
-    const { fetchGlobalMetrics, fetchFearAndGreedIndex } = useActions();
-    useEffect(() => {
-        fetchGlobalMetrics();
-        fetchFearAndGreedIndex();
-    }, [fetchGlobalMetrics, fetchFearAndGreedIndex]);
-
-    // ******************* HANDLE ERRORS ******************
-
-    useEffect(() => {
-        if (globalMetrics.data && globalMetrics.error === null) {
-            setGlobalMetricsData(globalMetrics.data);
-        } else {
-            if (globalMetrics.error) {
-                console.error(globalMetrics.error, '// News.js');
-            }
-        }
-    }, [globalMetrics]);
-
-    useEffect(() => {
-        if (fearAndGreedIndex.data && fearAndGreedIndex.error === null) {
-            setFearAndGreedIndexData(fearAndGreedIndex.data);
-        } else {
-            if (fearAndGreedIndex.error) {
-                console.error(fearAndGreedIndex.error, '// News.js');
-            }
-        }
-    }, [fearAndGreedIndex]);
+    const globalMetrics = useData(state => state.globalMetrics);
+    const fearAndGreedIndex = useData(state => state.fearAndGreedIndex);
 
     // ******************* GLOBAL METRICS CARD HEIGHT ******************
 
@@ -154,8 +93,10 @@ const GlobalMetrics = () => {
     const [collapseGlobalMetrics, setCollapseGlobalMetrics] = useState(false);
     const [showDropdownButton, setShowDropdownButton] = useState(false);
 
+    const [nodeList, setNodeList] = useState(null);
+
     // Count how many elements (aka statistics cards) are on the first line of global metrics
-    const updateGlobalMetricsItemMargin = () => {
+    const updateGlobalMetricsItemMargin = useCallback(() => {
         let firstLineTop = -1;
         let maxWidth = 0;
         // Since I'm using the ref of a container, I'll access its only element
@@ -223,17 +164,16 @@ const GlobalMetrics = () => {
                 child.style.marginTop = '0px';
             }
         }
-    };
-    const [nodeList, setNodeList] = useState(null);
+    }, [globalMetricsItemVerticalMargin, nodeList]);
 
     const listRef = useCallback(node => {
         if (node !== null) {
-            // node = ref.current
             setNodeList(node);
         }
     }, []);
 
     useEffect(() => {
+        console.log('help', nodeList);
         if (nodeList) {
             updateGlobalMetricsItemMargin();
         }
@@ -252,109 +192,131 @@ const GlobalMetrics = () => {
 
     return (
         <div className={styles.globalMetricsContainer}>
-            {isLoading && <CircularProgress />}
-            {!isLoading && globalMetricsData && (
-                <Collapse
-                    className={styles.globalMetrics}
-                    collapsedHeight={globalMetricsHeight}
-                    in={collapseGlobalMetrics}
-                    classes={{
-                        wrapperInner: styles.globalMetricsWrapperInner,
-                    }}
-                >
-                    <div className={styles.globalMetricsSentimentIcon}>
-                        <Bull
-                            height={`${globalMetricsHeight}px`}
-                            fill={theme.palette.icon.bullish}
-                        />
-                        {/* <Bear fill={theme.palette.icon.bearish} /> */}
-                    </div>
-                    <div ref={listRef}>
-                        <Grid container className={styles.globalMetricsList}>
-                            {/* news sentiment percentage + news sentiment */}
-                            <GlobalMetricsItem
-                                description="News (last 24h)"
-                                color={theme.palette.icon.bullish}
-                                ref={globalMetricsItemRef}
+            {(globalMetrics.loading || fearAndGreedIndex.loading) && (
+                <CircularProgress />
+            )}
+            {!globalMetrics.loading &&
+                !fearAndGreedIndex.loading &&
+                globalMetrics.data && (
+                    <Collapse
+                        className={styles.globalMetrics}
+                        collapsedHeight={globalMetricsHeight}
+                        in={collapseGlobalMetrics}
+                        classes={{
+                            wrapperInner: styles.globalMetricsWrapperInner,
+                        }}
+                    >
+                        <div
+                            className={styles.globalMetricsSentimentIcon}
+                            style={{ height: globalMetricsHeight }}
+                        >
+                            <Bull
+                                height={`${globalMetricsHeight}px`}
+                                fill={theme.palette.icon.bullish}
+                            />
+                            {/* <Bear fill={theme.palette.icon.bearish} /> */}
+                        </div>
+                        <div ref={listRef}>
+                            <Grid
+                                container
+                                className={styles.globalMetricsList}
                             >
-                                91% Bullish
-                            </GlobalMetricsItem>
+                                {/* news sentiment percentage + news sentiment */}
+                                <GlobalMetricsItem
+                                    description="News (last 24h)"
+                                    color={theme.palette.icon.bullish}
+                                    ref={globalMetricsItemRef}
+                                >
+                                    91% Bullish
+                                </GlobalMetricsItem>
 
-                            {/* fear and green index */}
-                            <GlobalMetricsItem
-                                description="Fear & Greed Index"
-                                color={
-                                    fearAndGreedIndexData[0].value_classification
+                                {/* fear and green index */}
+                                <GlobalMetricsItem
+                                    description="Fear & Greed Index"
+                                    color={
+                                        fearAndGreedIndex.data[0].value_classification
+                                            .toString()
+                                            .toLowerCase()
+                                            .includes('fear')
+                                            ? theme.palette.icon.bearish
+                                            : fearAndGreedIndex.data[0].value_classification
+                                                  .toString()
+                                                  .toLowerCase()
+                                                  .includes('greed')
+                                            ? theme.palette.icon.bullish
+                                            : theme.palette.text.accentLight
+                                    }
+                                    redirectURL="https://alternative.me/crypto/fear-and-greed-index/"
+                                    onItemClick={() => {
+                                        history.push(
+                                            '/global-metrics/fear-and-greed-index'
+                                        );
+                                    }}
+                                >
+                                    {
+                                        fearAndGreedIndex.data[0]
+                                            .value_classification
+                                    }
+                                </GlobalMetricsItem>
+
+                                {/* <Divider orientation="vertical" flexItem /> */}
+                                <GlobalMetricsItem description="Dominance">
+                                    {'BTC ' +
+                                        globalMetrics.data.btcDominance.toFixed(
+                                            1
+                                        )}
+                                    % ETH{' '}
+                                    {globalMetrics.data.ethDominance.toFixed(1)}
+                                    %
+                                </GlobalMetricsItem>
+                                {/* <Divider orientation="vertical" flexItem /> */}
+                                <GlobalMetricsItem description="Active Currencies">
+                                    {globalMetrics.data.activeCurrencies}
+                                </GlobalMetricsItem>
+                                {/* <Divider orientation="vertical" flexItem /> */}
+                                <GlobalMetricsItem description="Active Markets">
+                                    {globalMetrics.data.activeMarkets}
+                                </GlobalMetricsItem>
+                                {/* <Divider orientation="vertical" flexItem /> */}
+                                {/* add , every 3 digits from the end => nice looking number */}
+                                <GlobalMetricsItem description="24h Volume">
+                                    $
+                                    {globalMetrics.data.values.USD.totalVolume24h
                                         .toString()
-                                        .toLowerCase()
-                                        .includes('fear')
-                                        ? theme.palette.icon.bearish
-                                        : fearAndGreedIndexData[0].value_classification
-                                              .toString()
-                                              .toLowerCase()
-                                              .includes('greed')
-                                        ? theme.palette.icon.bullish
-                                        : theme.palette.text.accentLight
-                                }
-                                redirectURL="https://alternative.me/crypto/fear-and-greed-index/"
-                                onItemClick={() => {
-                                    history.push(
-                                        '/global-metrics/fear-and-greed-index'
-                                    );
+                                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                </GlobalMetricsItem>
+                                {/* <Divider orientation="vertical" flexItem /> */}
+                                <GlobalMetricsItem description="Market Cap">
+                                    $
+                                    {globalMetrics.data.values.USD.totalMarketCap
+                                        .toString()
+                                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                </GlobalMetricsItem>
+                            </Grid>
+                        </div>
+
+                        {showDropdownButton && (
+                            <div
+                                className={styles.globalMetricsCollapseButton}
+                                style={{
+                                    width: globalMetricsHeight,
+                                    height: globalMetricsHeight,
                                 }}
                             >
-                                {fearAndGreedIndexData[0].value_classification}
-                            </GlobalMetricsItem>
-
-                            {/* <Divider orientation="vertical" flexItem /> */}
-                            <GlobalMetricsItem description="Dominance">
-                                {'BTC ' +
-                                    globalMetricsData.btcDominance.toFixed(1)}
-                                % ETH{' '}
-                                {globalMetricsData.ethDominance.toFixed(1)}%
-                            </GlobalMetricsItem>
-                            {/* <Divider orientation="vertical" flexItem /> */}
-                            <GlobalMetricsItem description="Active Currencies">
-                                {globalMetricsData.activeCurrencies}
-                            </GlobalMetricsItem>
-                            {/* <Divider orientation="vertical" flexItem /> */}
-                            <GlobalMetricsItem description="Active Markets">
-                                {globalMetricsData.activeMarkets}
-                            </GlobalMetricsItem>
-                            {/* <Divider orientation="vertical" flexItem /> */}
-                            {/* add , every 3 digits from the end => nice looking number */}
-                            <GlobalMetricsItem description="24h Volume">
-                                $
-                                {globalMetricsData.values.USD.totalVolume24h
-                                    .toString()
-                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            </GlobalMetricsItem>
-                            {/* <Divider orientation="vertical" flexItem /> */}
-                            <GlobalMetricsItem description="Market Cap">
-                                $
-                                {globalMetricsData.values.USD.totalMarketCap
-                                    .toString()
-                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            </GlobalMetricsItem>
-                        </Grid>
-                    </div>
-
-                    {showDropdownButton && (
-                        <div className={styles.globalMetricsCollapseButton}>
-                            <Button
-                                onClick={() =>
-                                    setCollapseGlobalMetrics(
-                                        !collapseGlobalMetrics
-                                    )
-                                }
-                                disableMargins
-                            >
-                                <ExpandMore style={iconStyle} />
-                            </Button>
-                        </div>
-                    )}
-                </Collapse>
-            )}
+                                <Button
+                                    onClick={() =>
+                                        setCollapseGlobalMetrics(
+                                            !collapseGlobalMetrics
+                                        )
+                                    }
+                                    disableMargins
+                                >
+                                    <ExpandMore style={iconStyle} />
+                                </Button>
+                            </div>
+                        )}
+                    </Collapse>
+                )}
         </div>
     );
 };

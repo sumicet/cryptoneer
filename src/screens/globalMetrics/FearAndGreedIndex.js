@@ -1,61 +1,22 @@
-import {
-    CircularProgress,
-    makeStyles,
-    Typography,
-    useTheme,
-} from '@material-ui/core';
-import { forwardRef, useEffect, useState } from 'react';
+import { CircularProgress, makeStyles, useTheme } from '@material-ui/core';
+import { useEffect, useState } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { useSelector } from 'react-redux';
-import { useActions } from '../../hooks/useActions';
 import './FearAndGreedIndex.css';
+import { useData } from '../../hooks/useData';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
     popover: {
         display: 'flex',
         flexDirection: 'row',
     },
-}));
+});
 
 const FearAndGreedIndex = () => {
     const styles = useStyles();
     const theme = useTheme();
 
-    const fearAndGreedIndex = useSelector(state => state.fearAndGreedIndex);
-
-    // ******************* LOADING ******************
-    const [isLoading, setIsLoading] = useState(true);
-    useEffect(() => {
-        if (fearAndGreedIndex.loading) {
-            setIsLoading(true);
-        } else {
-            if (!fearAndGreedIndex.loading) {
-                setIsLoading(false);
-            }
-        }
-    }, [fearAndGreedIndex.loading]);
-
-    // ******************* FETCH DATA ******************
-
-    const [fearAndGreedIndexData, setFearAndGreedIndexData] =
-        useState(undefined);
-    const { fetchFearAndGreedIndex } = useActions();
-    useEffect(() => {
-        fetchFearAndGreedIndex();
-    }, [fetchFearAndGreedIndex]);
-
-    // ******************* HANDLE ERRORS ******************
-
-    useEffect(() => {
-        if (fearAndGreedIndex.data && fearAndGreedIndex.error === null) {
-            setFearAndGreedIndexData(fearAndGreedIndex.data);
-        } else {
-            if (fearAndGreedIndex.error) {
-                console.error(fearAndGreedIndex.error, '// News.js');
-            }
-        }
-    }, [fearAndGreedIndex]);
+    const fearAndGreedIndex = useData(state => state.fearAndGreedIndex);
 
     // ******************* CHART ******************
 
@@ -89,7 +50,7 @@ const FearAndGreedIndex = () => {
     // TODO Continue from here
 
     useEffect(() => {
-        if (!isLoading) {
+        if (!fearAndGreedIndex.loading) {
             setOptions({
                 chart: {
                     backgroundColor: 'transparent',
@@ -121,7 +82,7 @@ const FearAndGreedIndex = () => {
                     className: 'highcharts-color-0',
                     lineColor: '#FF0000',
                     lineWidth: 1,
-                    categories: fearAndGreedIndexData
+                    categories: fearAndGreedIndex.data
                         .map(
                             data =>
                                 new Date(
@@ -146,7 +107,7 @@ const FearAndGreedIndex = () => {
                 },
                 series: [
                     {
-                        data: fearAndGreedIndexData
+                        data: fearAndGreedIndex.data
                             .map(data => {
                                 return {
                                     name: data.value_classification.toString(),
@@ -198,7 +159,7 @@ const FearAndGreedIndex = () => {
                 },
             });
         }
-    }, [isLoading]);
+    }, [fearAndGreedIndex.loading]);
 
     useEffect(() => {
         for (let child of document.getElementsByClassName(
@@ -210,7 +171,7 @@ const FearAndGreedIndex = () => {
 
     return (
         <>
-            {isLoading ? (
+            {fearAndGreedIndex.loading ? (
                 <CircularProgress />
             ) : (
                 <div className={styles.popover}>

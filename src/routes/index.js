@@ -4,9 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Article from '../screens/news/Article';
 import News from '../components/screens/News';
 import FearAndGreedIndex from '../screens/globalMetrics/FearAndGreedIndex';
-import { useEffect, useState } from 'react';
 import { useActions } from '../hooks/useActions';
-import { useSelector } from 'react-redux';
 import { useFetch } from '../hooks/useFetch';
 
 const useStyles = makeStyles(theme => ({
@@ -38,10 +36,17 @@ const Routes = () => {
 
     // ******************* FETCH DATA ******************
 
-    const { fetchNews, fetchAllCoins } = useActions();
+    const {
+        fetchNews,
+        fetchAllCoins,
+        fetchGlobalMetrics,
+        fetchFearAndGreedIndex,
+    } = useActions();
 
     useFetch(fetchNews);
     useFetch(fetchAllCoins);
+    useFetch(fetchGlobalMetrics);
+    useFetch(fetchFearAndGreedIndex);
 
     return (
         <>

@@ -1,12 +1,21 @@
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
+import { useData } from '../../hooks/useData';
 
 const Article = () => {
     const match = useRouteMatch();
     const id = match.params.id;
-    const news = useSelector(state => state.news.data);
+    const news = useData(state => state.news);
 
-    const article = news.find(article => article.id === id);
+    const [article, setArticle] = useState(null);
+
+    useEffect(() => {
+        if (news.loading) {
+            setArticle(news.data.find(article => article.id === id));
+        }
+    }, [id, news.data, news.loading]);
+
     return (
         <div>
             {article.title}

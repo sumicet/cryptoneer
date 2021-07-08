@@ -1,5 +1,6 @@
 import { Button as MuiButton, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Text from '../text/Text';
 
 /**
  * @param children an icon.
@@ -31,9 +32,6 @@ const useStyles = makeStyles(theme => ({
     },
     buttonText: {
         paddingLeft: theme.spacing(1),
-        color: theme.palette.text.secondary,
-        // fontWeight: 300,
-        fontSize: `${theme.typography.fontSize * 0.9}px`,
     },
 }));
 
@@ -50,13 +48,13 @@ const Button = ({ onClick, children, size, text, disableMargins }) => {
             >
                 {children}
                 {text && (
-                    <Typography
-                        className={styles.buttonText}
-                        variant="body2"
+                    <Text
+                        size="small"
                         component="span"
+                        className={styles.buttonText}
                     >
                         {text}
-                    </Typography>
+                    </Text>
                 )}
             </MuiButton>
         </>

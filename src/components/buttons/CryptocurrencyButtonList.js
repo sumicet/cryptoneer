@@ -2,6 +2,7 @@ import { makeStyles, useMediaQuery } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import Button from './Button';
+import { useCallback } from 'react';
 
 const CryptocurrencyButtonList = ({
     children,
@@ -34,7 +35,7 @@ const CryptocurrencyButtonList = ({
         return updatedCurrencies;
     };
 
-    useEffect(() => {
+    const setCategories = useCallback(() => {
         let updatedCurrencies = [...currencies];
 
         // GTK a Set only accepts unique words
@@ -115,6 +116,10 @@ const CryptocurrencyButtonList = ({
             }
         });
         setCurrencies(updatedCurrencies);
+    }, [allCoins, categories, currencies, title]);
+
+    useEffect(() => {
+        setCategories();
         // eslint-disable-next-line
     }, []);
 

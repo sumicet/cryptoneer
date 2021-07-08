@@ -4,6 +4,7 @@ import {
     useTheme,
     Collapse,
     Grid,
+    Typography,
 } from '@material-ui/core';
 import { useCallback } from 'react';
 import { useEffect, useState } from 'react';
@@ -16,6 +17,7 @@ import { ExpandMore } from '@material-ui/icons';
 import { createRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useData } from '../../hooks/useData';
+import Text from '../text/Text';
 
 const useStyles = makeStyles(theme => ({
     globalMetricsContainer: {
@@ -192,11 +194,10 @@ const GlobalMetrics = () => {
 
     return (
         <div className={styles.globalMetricsContainer}>
-            {(globalMetrics.loading || fearAndGreedIndex.loading) && (
-                <CircularProgress />
-            )}
-            {!globalMetrics.loading &&
-                !fearAndGreedIndex.loading &&
+            {globalMetrics.loading && <CircularProgress />}
+
+            {!globalMetrics.error &&
+                !globalMetrics.loading &&
                 globalMetrics.data && (
                     <Collapse
                         className={styles.globalMetrics}
@@ -231,33 +232,35 @@ const GlobalMetrics = () => {
                                 </GlobalMetricsItem>
 
                                 {/* fear and green index */}
-                                <GlobalMetricsItem
-                                    description="Fear & Greed Index"
-                                    color={
-                                        fearAndGreedIndex.data[0].value_classification
-                                            .toString()
-                                            .toLowerCase()
-                                            .includes('fear')
-                                            ? theme.palette.icon.bearish
-                                            : fearAndGreedIndex.data[0].value_classification
-                                                  .toString()
-                                                  .toLowerCase()
-                                                  .includes('greed')
-                                            ? theme.palette.icon.bullish
-                                            : theme.palette.text.accentLight
-                                    }
-                                    redirectURL="https://alternative.me/crypto/fear-and-greed-index/"
-                                    onItemClick={() => {
-                                        history.push(
-                                            '/global-metrics/fear-and-greed-index'
-                                        );
-                                    }}
-                                >
-                                    {
-                                        fearAndGreedIndex.data[0]
-                                            .value_classification
-                                    }
-                                </GlobalMetricsItem>
+                                {!fearAndGreedIndex.loading && (
+                                    <GlobalMetricsItem
+                                        description="Fear & Greed Index"
+                                        color={
+                                            fearAndGreedIndex.data[0].value_classification
+                                                .toString()
+                                                .toLowerCase()
+                                                .includes('fear')
+                                                ? theme.palette.icon.bearish
+                                                : fearAndGreedIndex.data[0].value_classification
+                                                      .toString()
+                                                      .toLowerCase()
+                                                      .includes('greed')
+                                                ? theme.palette.icon.bullish
+                                                : theme.palette.text.accentLight
+                                        }
+                                        redirectURL="https://alternative.me/crypto/fear-and-greed-index/"
+                                        onItemClick={() => {
+                                            history.push(
+                                                '/global-metrics/fear-and-greed-index'
+                                            );
+                                        }}
+                                    >
+                                        {
+                                            fearAndGreedIndex.data[0]
+                                                .value_classification
+                                        }
+                                    </GlobalMetricsItem>
+                                )}
 
                                 {/* <Divider orientation="vertical" flexItem /> */}
                                 <GlobalMetricsItem description="Dominance">

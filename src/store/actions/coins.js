@@ -8,8 +8,6 @@ export const fetchAllCoins = () => {
 
         const oldData = JSON.parse(localStorage.getItem('coins'));
 
-        console.log(oldData, 'coins');
-
         if (oldData) {
             console.log(oldData, 'why am i here');
             dispatch({

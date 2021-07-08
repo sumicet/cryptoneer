@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Button from '../buttons/Button';
 import SearchBar from './SearchBar';
 import ProjectLogo from './ProjectLogo';
+import Text from '../text/Text';
 
 const useStyles = makeStyles(theme => ({
     navItemContainer: {
@@ -55,9 +56,6 @@ const useStyles = makeStyles(theme => ({
             color: theme.palette.text.accentPink,
         },
     },
-    navLinkTitle: {
-        fontWeight: '700',
-    },
     navItemList: {
         [theme.breakpoints.only('xs')]: {
             paddingRight: 0,
@@ -87,16 +85,12 @@ const NavItemList = ({ toggleDrawer }) => {
             )}
             <div className={styles.navItemList + ' ' + styles.navLinkWrapper}>
                 <Link to="/home" className={styles.navLink}>
-                    <Typography variant="body1" className={styles.navLinkTitle}>
-                        Home
-                    </Typography>
+                    <Text size="large">Home</Text>
                 </Link>
             </div>
             <div className={styles.navItemList + ' ' + styles.navLinkWrapper}>
                 <Link to="/news" className={styles.navLink}>
-                    <Typography variant="body1" className={styles.navLinkTitle}>
-                        News
-                    </Typography>
+                    <Text size="large">News</Text>
                 </Link>
             </div>
             {!resolutionIsXS && (

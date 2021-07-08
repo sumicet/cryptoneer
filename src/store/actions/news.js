@@ -17,8 +17,6 @@ export const fetchNews = () => {
 
         const oldData = JSON.parse(localStorage.getItem('news'));
 
-        console.log(oldData, 'news');
-
         if (oldData) {
             dispatch({
                 type: ActionTypes.FETCH_NEWS_COMPLETE,

@@ -10,8 +10,6 @@ export const fetchGlobalMetrics = () => {
 
         const oldData = JSON.parse(localStorage.getItem('globalMetrics'));
 
-        console.log(oldData, 'globalMetrics');
-
         if (oldData) {
             dispatch({
                 type: ActionTypes.FETCH_GLOBAL_METRICS_COMPLETE,
@@ -24,7 +22,7 @@ export const fetchGlobalMetrics = () => {
             //1aa30109967d39b6973427961647331161ba2179d6276dfe4611d223750b
             //c42b3484bc9fa789126c705ab6fe9034b287a5e7133430e720f23c37883b
             const response = await fetch(
-                'https://api.cryptorank.io/v1/global?api_key=1aa30109967d39b6973427961647331161ba2179d6276dfe4611d223750b'
+                'https://api.cryptorank.io/v1/global?api_key=1aa30109967d39b6973427961647331161ba2179d6276dfe4611d223750b_'
             );
 
             const json = await response.json();

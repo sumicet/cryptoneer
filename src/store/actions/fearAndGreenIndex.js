@@ -10,8 +10,6 @@ export const fetchFearAndGreedIndex = () => {
 
         const oldData = JSON.parse(localStorage.getItem('fearAndGreedIndex'));
 
-        console.log(oldData, 'fearAndGreedIndex');
-
         if (oldData) {
             dispatch({
                 type: ActionTypes.FETCH_FEAR_AND_GREED_INDEX_COMPLETE,

@@ -4,6 +4,7 @@ import layout from '../../constants/layout';
 import { Whatshot, TrendingUp, TrendingDown, Launch } from '@material-ui/icons';
 import CryptocurrencyButtonList from '../buttons/CryptocurrencyButtonList';
 import Button from '../buttons/Button';
+import Text from '../text/Text';
 
 /**
  * Card
@@ -66,13 +67,13 @@ const Card = ({ news, allCoins }) => {
         },
         cardDate: {
             marginRight: theme.spacing(1),
-            fontWeight: '300',
-            fontSize: `${fontSize * 0.9}${fontUnit}`,
+            // fontWeight: '300',
+            // fontSize: `${fontSize * 0.9}${fontUnit}`,
             display: 'grid',
             placeItems: 'center',
             float: 'left',
             height: `${dateHeight}`,
-            color: theme.palette.text.secondary,
+            // color: theme.palette.text.secondary,
         },
         cardButtons: {
             width: '100%',
@@ -129,15 +130,10 @@ const Card = ({ news, allCoins }) => {
                         lg={12}
                         xl={12}
                     >
-                        <Typography className={styles.cardDate} variant="body2">
+                        <Text size="small" className={styles.cardDate}>
                             {date}
-                        </Typography>
-                        <Typography
-                            className={styles.cardTitle}
-                            variant="body2"
-                        >
-                            {title}
-                        </Typography>
+                        </Text>
+                        <Text size="medium">{title}</Text>
                     </Grid>
 
                     <div className={styles.cardButtons}>

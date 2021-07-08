@@ -1,10 +1,8 @@
 import { makeStyles, Typography, useTheme } from '@material-ui/core';
 import { ReactComponent as Astronaut } from '../../svg/other/Astronaut.svg';
+import Text from '../text/Text';
 
 const useStyles = makeStyles(theme => ({
-    title: {
-        fontWeight: '700',
-    },
     logoContainer: {
         background: 'transparent',
         paddingRight: theme.spacing(5),
@@ -31,9 +29,7 @@ const ProjectLogo = ({ style }) => {
             style={{ display: 'flex', flexDirection: 'row' }}
         >
             <Astronaut className={styles.logo} />
-            <Typography variant="h6" className={styles.title}>
-                Cryptoneer
-            </Typography>
+            <Text size="extra-large">Cryptoneer</Text>
         </div>
     );
 };

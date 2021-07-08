@@ -17,9 +17,11 @@ const CryptocurrencyButtonList = ({
             flexDirection: 'row',
         },
     });
-    const styles = useStyles();
 
+    const styles = useStyles();
     const [currencies, setCurrencies] = useState([]);
+
+    // ******************* SET THE CATEGORIES FOR AN ARTICLE ******************
 
     const addCurrency = (updatedCurrencies, symbol) => {
         try {
@@ -35,7 +37,7 @@ const CryptocurrencyButtonList = ({
     useEffect(() => {
         let updatedCurrencies = [...currencies];
 
-        // set only accepts unique words
+        // GTK a Set only accepts unique words
 
         const words = [
             ...new Set(categories.split('|').map(word => word.toLowerCase())),

@@ -57,12 +57,8 @@ const Card = ({ news, allCoins }) => {
             // background: 'red',
             paddingBottom: 0,
         },
-        cardButtonsAppreciation: {
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingTop: theme.spacing(1),
-            paddingBottom: theme.spacing(2),
+        cardHeader: {
+            marginBottom: theme.spacing(1),
         },
         cardTitle: {
             fontWeight: '500',
@@ -78,6 +74,18 @@ const Card = ({ news, allCoins }) => {
             height: `${dateHeight}`,
             color: theme.palette.text.secondary,
         },
+        cardButtons: {
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'row',
+        },
+        cardButtonsAppreciation: {
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingTop: theme.spacing(1),
+            paddingBottom: theme.spacing(2),
+        },
         cardButtonsCurrencyList: {
             display: 'flex',
             paddingTop: theme.spacing(1),
@@ -85,14 +93,6 @@ const Card = ({ news, allCoins }) => {
             alignItems: 'center',
             justifyContent: 'flex-end',
             flex: 1,
-        },
-        cardHeader: {
-            marginBottom: theme.spacing(1),
-        },
-        cardButtons: {
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
         },
     }));
     const styles = useStyles();

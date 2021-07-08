@@ -7,7 +7,6 @@ const Article = () => {
     const news = useSelector(state => state.news.data);
 
     const article = news.find(article => article.id === id);
-    console.log(match);
     return (
         <div>
             {article.title}

@@ -24,12 +24,6 @@ const useStyles = makeStyles(theme => ({
 
 const ProjectLogo = ({ style }) => {
     const styles = useStyles();
-    const theme = useTheme();
-    console.log(
-        parseFloat(theme.typography.h6.fontSize.match(/\d*\.\d*/g)) *
-            theme.typography.h6.lineHeightStep
-    );
-    // console.log(parseFloat(theme.typography.h6.fontSize.match(/\d*\.\d*/g)[0]) * );
 
     return (
         <div

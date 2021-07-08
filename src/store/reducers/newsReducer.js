@@ -3,7 +3,7 @@ import TimeDiff from '../../library/timeDiff';
 import { ActionTypes } from '../actions/actionTypes';
 
 const initialState = {
-    loading: false,
+    loading: true,
     error: null,
     data: null,
 };

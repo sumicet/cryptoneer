@@ -139,9 +139,6 @@ const GlobalMetrics = () => {
 
     useEffect(() => {
         if (globalMetricsItemRef.current) {
-            console.log(
-                globalMetricsItemRef.current.getBoundingClientRect().height
-            );
             setGlobalMetricsHeight(
                 globalMetricsItemRef.current.getBoundingClientRect().height
             );
@@ -221,12 +218,6 @@ const GlobalMetrics = () => {
             // some elems have 80.5 and some 80 but they're all on the same line
             // so I'll just assume that if the difference is less than 5px they're on the same line
             if (Math.abs(firstLineTop - childTop + childTopMargin) > 6) {
-                console.log(
-                    child.getBoundingClientRect(),
-                    firstLineTop,
-                    childTop,
-                    childTopMargin
-                );
                 child.style.marginTop = `${globalMetricsItemVerticalMargin}px`;
             } else {
                 child.style.marginTop = '0px';

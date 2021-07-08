@@ -137,8 +137,6 @@ const GlobalMetricsItem = React.forwardRef((props, ref) => {
                         // size="small"
                         className={styles.globalMetricsItemButton}
                         classes={{
-                            // root: styles.globalMetricsItem,
-                            // paper: styles.globalMetricsItemContent,
                             label: styles.globalMetricsItemContent, //ok
                             text: styles.remoteSpaces,
                             root: `${styles.remoteSpaces} ${styles.globalMetricsItemButtonRoot}`,

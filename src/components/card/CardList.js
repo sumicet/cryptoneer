@@ -6,9 +6,11 @@ import {
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useActions } from '../../hooks/useActions';
 import Card from './Card';
 import { Link } from 'react-router-dom';
+import { useFetch } from '../../hooks/useFetch';
+import { useActions } from '../../hooks/useActions';
+import { useData } from '../../hooks/useData';
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -26,61 +28,18 @@ const useStyles = makeStyles(theme => ({
 
 const CardList = () => {
     const styles = useStyles();
-    const news = useSelector(state => state.news);
-    const coins = useSelector(state => state.coins);
 
-    // ******************* LOADING ******************
-    const [isLoading, setIsLoading] = useState(true);
-    useEffect(() => {
-        if (news.loading === true || coins.loading === true) {
-            setIsLoading(true);
-        } else {
-            if (news.loading === false && coins.loading === false) {
-                setIsLoading(false);
-            }
-        }
-    }, [news, coins]);
-
-    // ******************* FETCH DATA ******************
-
-    const [newsData, setNewsData] = useState(undefined);
-    const [coinsData, setCoinsData] = useState(undefined);
-    const { fetchNews, fetchAllCoins } = useActions();
-    useEffect(() => {
-        fetchNews();
-        fetchAllCoins();
-    }, [fetchNews, fetchAllCoins]);
-
-    useEffect(() => {
-        if (news.data && news.error === null) {
-            setNewsData(news.data);
-        } else {
-            if (news.error) {
-                console.error(news.error, '// List.js');
-            }
-        }
-    }, [news]);
-
-    // ******************* HANDLE ERRORS******************
-
-    useEffect(() => {
-        if (coins.data && coins.error === null) {
-            setCoinsData(coins.data);
-        } else {
-            if (coins.error) {
-                console.error(coins.error, '// List.js');
-            }
-        }
-    }, [coins]);
+    const news = useData(state => state.news);
+    const coins = useData(state => state.coins);
 
     return (
         <>
-            {isLoading && <CircularProgress />}
-            {!isLoading && (
+            {(news.loading || coins.loading) && <CircularProgress />}
+            {!news.loading && !coins.loading && (
                 <MuiList className={styles.list}>
-                    {newsData !== undefined &&
-                        coinsData !== undefined &&
-                        newsData.map(article => (
+                    {news.data !== undefined &&
+                        coins.data !== undefined &&
+                        news.data.map(article => (
                             <Link
                                 key={article.id}
                                 to={`/news/${article.id}`}
@@ -89,7 +48,7 @@ const CardList = () => {
                             >
                                 <Card
                                     news={article}
-                                    allCoins={coinsData}
+                                    allCoins={coins.data}
                                     key={article.id}
                                 />
                             </Link>

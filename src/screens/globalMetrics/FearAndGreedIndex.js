@@ -204,7 +204,6 @@ const FearAndGreedIndex = () => {
         for (let child of document.getElementsByClassName(
             'highcharts-credits'
         )) {
-            console.log(child);
             child.parentNode.removeChild(child);
         }
     }, []);

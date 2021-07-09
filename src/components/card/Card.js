@@ -120,7 +120,7 @@ const Card = ({ news, allCoins }) => {
     return (
         <ListItem disableGutters divider className={styles.cardContainer}>
             <CardContent className={styles.card}>
-                <Grid className="grid" container>
+                <Grid container>
                     <Grid
                         item
                         className={styles.cardHeader}

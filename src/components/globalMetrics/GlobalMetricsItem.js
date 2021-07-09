@@ -83,8 +83,11 @@ const GlobalMetricsItem = React.forwardRef((props, ref) => {
         window.open(url, '_blank');
     };
 
-    const Container = ({ children, className }) => (
-        <Link onClick={() => handleRedirect(redirectURL)} className={className}>
+    const Container = ({ children }) => (
+        <Link
+            onClick={() => handleRedirect(redirectURL)}
+            className={styles.link}
+        >
             {children}
             {redirectURL && <Launch className={styles.launchIcon} />}
         </Link>
@@ -112,7 +115,7 @@ const GlobalMetricsItem = React.forwardRef((props, ref) => {
                     {children}
                 </Typography>
                 {redirectURL ? (
-                    <Container className={styles.link}>
+                    <Container>
                         <Title />
                     </Container>
                 ) : (

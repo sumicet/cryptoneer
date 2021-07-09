@@ -41,9 +41,6 @@ const Card = ({ news, allCoins }) => {
             '&:hover': {
                 animation: `$colorTransition 250ms ${theme.transitions.easing.easeIn} forwards`,
             },
-            // '&:last-of-type': {
-            //     borderBottom: 'none',
-            // },
         },
         '@keyframes colorTransition': {
             '0%': {

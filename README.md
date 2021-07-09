@@ -10,6 +10,7 @@ Cryptocurrency news & statistics.
 - immer
 - Redux
 - [cryptocurrency-icons](https://github.com/spothq/cryptocurrency-icons)
+- local storage
 
 ### APIs
 - [cryptorank](https://cryptorank.io/api) for global metrics

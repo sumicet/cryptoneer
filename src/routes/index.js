@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center',
         padding: 0,
         background: 'linear-gradient(#212078, #1a144e 10%)',
+        paddingBottom: theme.spacing(8),
     },
     body: {
         display: 'flex',

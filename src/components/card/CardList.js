@@ -15,6 +15,11 @@ const useStyles = makeStyles(theme => ({
         background: '#1a144e',
         borderRadius: theme.shape.borderRadius,
         overflow: 'hidden',
+        '& a:last-of-type': {
+            '& li': {
+                borderBottom: 'none',
+            },
+        },
     },
 }));
 

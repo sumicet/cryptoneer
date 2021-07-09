@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
         paddingRight: theme.spacing(2),
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
+        alignItems: 'flex-start',
     },
     footerField: {
         paddingBottom: theme.spacing(8),

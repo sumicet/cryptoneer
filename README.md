@@ -5,6 +5,7 @@ Cryptocurrency news & statistics.
 ![Screenshot](https://i.imgur.com/dEi3yYK.png)
 
 ### Technologies used
+- React 17.0.2
 - Material UI
 - React Navigation
 - immer

@@ -19,6 +19,7 @@ import { useHistory } from 'react-router-dom';
 import { useData } from '../../hooks/useData';
 import Text from '../text/Text';
 import Error from '../error/Error';
+import { useRef } from 'react';
 
 const useStyles = makeStyles(theme => ({
     globalMetricsContainer: {
@@ -28,6 +29,7 @@ const useStyles = makeStyles(theme => ({
     },
     globalMetricsList: {
         display: 'flex',
+        flexWrap: 'wrap',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
@@ -49,6 +51,9 @@ const useStyles = makeStyles(theme => ({
     },
     globalMetricsCollapseButton: {
         alignSelf: 'flex-start',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     flex: {
         display: 'flex',
@@ -123,16 +128,6 @@ const GlobalMetrics = () => {
             }
         }
 
-        // show drop down button if the combined width of the elements is bigger than the container's width
-        if (
-            maxWidth * count >
-            nodeList.children[0].getBoundingClientRect().width
-        ) {
-            setShowDropdownButton(true);
-        } else {
-            setShowDropdownButton(false);
-        }
-
         for (let child of nodeList.children[0].children) {
             let childTop = child.getBoundingClientRect().top;
 
@@ -167,6 +162,15 @@ const GlobalMetrics = () => {
                 child.style.marginTop = '0px';
             }
         }
+
+        if (
+            maxWidth * count >
+            nodeList.children[0].getBoundingClientRect().width
+        ) {
+            setShowDropdownButton(true);
+        } else {
+            setShowDropdownButton(false);
+        }
     }, [globalMetricsItemVerticalMargin, nodeList]);
 
     const listRef = useCallback(node => {
@@ -176,7 +180,6 @@ const GlobalMetrics = () => {
     }, []);
 
     useEffect(() => {
-        console.log('help', nodeList);
         if (nodeList) {
             updateGlobalMetricsItemMargin();
         }
@@ -219,10 +222,7 @@ const GlobalMetrics = () => {
                             {/* <Bear fill={theme.palette.icon.bearish} /> */}
                         </div>
                         <div ref={listRef}>
-                            <Grid
-                                container
-                                className={styles.globalMetricsList}
-                            >
+                            <div container className={styles.globalMetricsList}>
                                 {/* news sentiment percentage + news sentiment */}
                                 <GlobalMetricsItem
                                     description="News (last 24h)"
@@ -296,7 +296,7 @@ const GlobalMetrics = () => {
                                         .toString()
                                         .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                 </GlobalMetricsItem>
-                            </Grid>
+                            </div>
                         </div>
 
                         {showDropdownButton && (

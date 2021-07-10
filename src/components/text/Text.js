@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
 
 /**
  *
+ * @param className
  * @param size 'extra-large' | 'large' | 'small'
  */
 const Text = props => {

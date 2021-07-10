@@ -5,8 +5,6 @@ import React from 'react';
 const useStyles = makeStyles(theme => ({
     globalMetricsItem: {
         padding: 0,
-        paddingLeft: theme.spacing(1),
-        paddingRight: theme.spacing(1),
     },
     globalMetricsItemContent: {
         display: 'flex',
@@ -129,7 +127,7 @@ const GlobalMetricsItem = React.forwardRef((props, ref) => {
 
     return (
         <div ref={ref} {...props} className={styles.globalMetricsItemWrapper}>
-            <Grid item className={styles.globalMetricsItem}>
+            <div className={styles.globalMetricsItem}>
                 {onItemClick ? (
                     <Button
                         onClick={onItemClick}
@@ -153,7 +151,7 @@ const GlobalMetricsItem = React.forwardRef((props, ref) => {
                         <Wrapper />
                     </div>
                 )}
-            </Grid>
+            </div>
         </div>
     );
 });

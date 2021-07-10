@@ -35,23 +35,37 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Button = ({ onClick, children, size, text, disableMargins }) => {
+/**
+ *
+ * @param children
+ * @param size
+ * @param text
+ * @param TextProps
+ * @param disableMargins
+ * @param props other props passed down to MuiButton
+ */
+const Button = props => {
+    const { children, size, text, disableMargins, TextProps, className } =
+        props;
     const styles = useStyles();
     return (
         <>
             <MuiButton
+                {...props}
                 className={`${styles.button} ${
-                    !disableMargins && styles.buttonMargin
-                }`}
+                    !disableMargins ? styles.buttonMargin : ''
+                } ${className ? className : ''}`}
                 size={size ? size : 'small'}
-                onClick={onClick}
             >
                 {children}
                 {text && (
                     <Text
+                        {...TextProps}
                         size="small"
                         component="span"
-                        className={styles.buttonText}
+                        className={`${styles.buttonText} ${
+                            TextProps ? TextProps.className : ''
+                        }`}
                     >
                         {text}
                     </Text>

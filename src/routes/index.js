@@ -1,12 +1,12 @@
 import { Container, makeStyles } from '@material-ui/core';
-import Nav from '../components/nav/Nav';
+import Nav from '../components/nav/header/Nav';
 import { Route, Switch } from 'react-router-dom';
 import Article from '../screens/news/Article';
 import News from '../components/screens/News';
 import FearAndGreedIndex from '../screens/globalMetrics/FearAndGreedIndex';
 import { useActions } from '../hooks/useActions';
 import { useFetch } from '../hooks/useFetch';
-import Footer from '../components/nav/Footer';
+import Footer from '../components/nav/footer/Footer';
 
 const useStyles = makeStyles(theme => ({
     bodyContainer: {

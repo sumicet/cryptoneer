@@ -1,7 +1,7 @@
 import { AppBar, Grid, makeStyles, Toolbar } from '@material-ui/core';
-import Text from '../text/Text';
-import ProjectLogo from './ProjectLogo';
-import TextLink from './TextLink';
+import Text from '../../text/Text';
+import ProjectLogo from '../ProjectLogo';
+import TextLink from '../TextLink';
 
 const useStyles = makeStyles(theme => ({
     footerWrapper: {

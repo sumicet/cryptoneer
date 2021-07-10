@@ -7,8 +7,8 @@ import {
 } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 import { useState } from 'react';
-import Button from '../buttons/Button';
-import ProjectLogo from './ProjectLogo';
+import Button from '../../buttons/Button';
+import ProjectLogo from '../ProjectLogo';
 import NavItemList from './NavItemList';
 
 const useStyles = makeStyles(theme => ({

@@ -1,10 +1,10 @@
 import { Typography, makeStyles, useMediaQuery } from '@material-ui/core';
 import { Clear } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
-import Button from '../buttons/Button';
+import Button from '../../buttons/Button';
 import SearchBar from './SearchBar';
-import ProjectLogo from './ProjectLogo';
-import Text from '../text/Text';
+import ProjectLogo from '../ProjectLogo';
+import Text from '../../text/Text';
 
 const useStyles = makeStyles(theme => ({
     navItemContainer: {

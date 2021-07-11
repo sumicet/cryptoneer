@@ -6,10 +6,10 @@ Cryptocurrency news & statistics.
 
 ### Technologies used
 - React 17.0.2
-- Material UI
-- React Navigation
-- immer
-- Redux
+- [Material UI v5](https://next.material-ui.com/)
+- [React Router](https://reactrouter.com/web/guides/quick-start)
+- [immer](https://github.com/immerjs/immer)
+- [Redux](https://redux.js.org/)
 - [cryptocurrency-icons](https://github.com/spothq/cryptocurrency-icons)
 - local storage
 - [Chart.js](https://github.com/chartjs/Chart.js)

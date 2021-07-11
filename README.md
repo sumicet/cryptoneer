@@ -12,9 +12,9 @@ Cryptocurrency news & statistics.
 - Redux
 - [cryptocurrency-icons](https://github.com/spothq/cryptocurrency-icons)
 - local storage
+- [Chart.js](https://github.com/chartjs/Chart.js)
 
 ### APIs
 - [cryptorank](https://cryptorank.io/api) for global metrics
 - [cryptocompare](https://min-api.cryptocompare.com/) for news and data regarding coins
 - [Crypto Fear & Greed index](https://alternative.me/crypto/fear-and-greed-index/)
-- [Chart.js](https://github.com/chartjs/Chart.js)

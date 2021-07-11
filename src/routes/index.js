@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 0,
-        background: 'linear-gradient(#212078, #1a144e 10%)',
+        background: 'linear-gradient(#212078, #1a144e 400px)',
         paddingBottom: theme.spacing(8),
     },
     body: {

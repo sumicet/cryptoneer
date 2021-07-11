@@ -20,7 +20,7 @@ export const fetchFearAndGreedIndex = () => {
 
         try {
             const response = await fetch(
-                'https://api.alternative.me/fng/?limit=30'
+                'https://api.alternative.me/fng/?limit=500'
             );
 
             const json = await response.json();

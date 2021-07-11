@@ -129,6 +129,15 @@ const GlobalMetricsChart = ({ data }) => {
                             },
                         },
                         grace: '5%',
+                        // offset: true,
+                        max:
+                            data
+                                .map(d => d.value)
+                                .reduce((a, b) => Math.max(a, b)) + 2,
+                        min:
+                            data
+                                .map(d => d.value)
+                                .reduce((a, b) => Math.min(a, b)) - 2,
                     },
                     x: {
                         type: 'category',
@@ -182,6 +191,7 @@ const GlobalMetricsChart = ({ data }) => {
                         },
                     },
                 },
+
                 responsive: true,
                 maintainAspectRatio: true,
             },

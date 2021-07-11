@@ -35,9 +35,9 @@ const TextLink = props => {
         >
             <Text
                 {...props.TextProps}
-                size="medium"
+                size={props.TextProps.size ? props.TextProps.size : 'medium'}
                 className={
-                    props.TextProps.className
+                    props.TextProps && props.TextProps.className
                         ? props.TextProps.className + ' ' + styles.linkText
                         : styles.linkText
                 }

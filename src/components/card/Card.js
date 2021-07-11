@@ -39,8 +39,18 @@ const Card = ({ news, allCoins }) => {
         cardContainer: {
             // marginBottom: layout.cardMarginBottom,
             padding: 0,
+        },
+
+        card: {
+            '&:last-child': {
+                paddingBottom: 0,
+            },
+            flex: 1,
+            // background: 'red',
+            paddingBottom: 0,
+            backgroundColor: 'transparent',
             '&:hover': {
-                animation: `$colorTransition 250ms ${theme.transitions.easing.easeIn} forwards`,
+                animation: `$colorTransition 250ms ease-in forwards`,
             },
         },
         '@keyframes colorTransition': {
@@ -50,14 +60,6 @@ const Card = ({ news, allCoins }) => {
             '100%': {
                 background: theme.palette.background.cardHover,
             },
-        },
-        card: {
-            '&:last-child': {
-                paddingBottom: 0,
-            },
-            flex: 1,
-            // background: 'red',
-            paddingBottom: 0,
         },
         cardHeader: {
             marginBottom: theme.spacing(1),

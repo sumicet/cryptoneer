@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme => ({
         '&:hover': {
             backgroundColor: theme.palette.button.hover,
         },
+        textTransform: 'none',
     },
     buttonMargin: {
         marginRight: theme.spacing(1),
@@ -48,10 +49,13 @@ const Button = props => {
     const { children, size, text, disableMargins, TextProps, className } =
         props;
     const styles = useStyles();
+    const updatedProps = Object.keys(props)
+        .filter(key => key !== 'className')
+        .reduce((res, key) => ((res[key] = props[key]), res), {});
     return (
         <>
             <MuiButton
-                {...props}
+                {...updatedProps}
                 className={`${styles.button} ${
                     !disableMargins ? styles.buttonMargin : ''
                 } ${className ? className : ''}`}
@@ -61,11 +65,13 @@ const Button = props => {
                 {text && (
                     <Text
                         {...TextProps}
+                        className={`${styles.buttonText} ${
+                            TextProps && TextProps.className
+                                ? TextProps.className
+                                : ''
+                        }`}
                         size="small"
                         component="span"
-                        className={`${styles.buttonText} ${
-                            TextProps ? TextProps.className : ''
-                        }`}
                     >
                         {text}
                     </Text>

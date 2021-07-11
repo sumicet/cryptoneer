@@ -30,6 +30,8 @@ function App() {
                 accentLight: '#48d9e2',
                 accentPink: '#f26ccb',
                 accentLightPink: '#ed8acf',
+                bullish: 'lime',
+                bearish: 'red',
             },
             background: {
                 light: '#212078',
@@ -39,11 +41,12 @@ function App() {
                 // Top part of the picture - gradient
                 sectionLight: '#326cc5',
                 sectionDark: '#302f89',
-                cardHover: 'rgba(242, 108, 203, 0.1)',
+                selected: '#443eb8',
+                cardHover: 'rgba(57, 52, 154, 0.6)',
             },
             button: {
                 primary: 'rgba(255, 255, 255, 0.1)',
-                hover: '#39349a',
+                hover: '#443eb8',
                 ripple: 'rgba(255, 255, 255, 0.1)',
             },
             icon: {

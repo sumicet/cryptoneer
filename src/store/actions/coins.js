@@ -9,7 +9,6 @@ export const fetchAllCoins = () => {
         const oldData = JSON.parse(localStorage.getItem('coins'));
 
         if (oldData) {
-            console.log(oldData, 'why am i here');
             dispatch({
                 type: ActionTypes.FETCH_ALL_COINS_COMPLETE,
                 payload: oldData,

@@ -1,15 +1,15 @@
 import { Container, makeStyles } from '@material-ui/core';
 import Nav from '../components/nav/header/Nav';
 import { Route, Switch } from 'react-router-dom';
-import Article from '../screens/news/Article';
-import News from '../components/screens/News';
-import FearAndGreedIndex from '../screens/globalMetrics/FearAndGreedIndex';
+import Article from '../pages/news/Article';
+import News from '../pages/news/News';
+import FearAndGreedIndex from '../pages/globalMetrics/FearAndGreedIndex';
 import { useActions } from '../hooks/useActions';
 import { useFetch } from '../hooks/useFetch';
 import Footer from '../components/nav/footer/Footer';
 
 const useStyles = makeStyles(theme => ({
-    bodyContainer: {
+    bodyWrapper: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
@@ -29,6 +29,9 @@ const useStyles = makeStyles(theme => ({
             paddingLeft: theme.spacing(1),
             paddingRight: theme.spacing(1),
         },
+    },
+    pageWrapper: {
+        width: '100%',
     },
 }));
 
@@ -52,25 +55,27 @@ const Routes = () => {
     return (
         <>
             <Nav />
-            <div className={styles.bodyContainer}>
+            <div className={styles.bodyWrapper}>
                 <Container className={styles.body}>
-                    <Switch>
-                        <Route path="/" exact>
-                            <News />
-                        </Route>
-                        <Route path="/home">
-                            <News />
-                        </Route>
-                        <Route path="/news" exact>
-                            <News />
-                        </Route>
-                        <Route path="/news/:id" exact>
-                            <Article />
-                        </Route>
-                        <Route path="/global-metrics/fear-and-greed-index">
-                            <FearAndGreedIndex />
-                        </Route>
-                    </Switch>
+                    <div className={styles.pageWrapper}>
+                        <Switch>
+                            <Route path="/" exact>
+                                <News />
+                            </Route>
+                            <Route path="/home">
+                                <News />
+                            </Route>
+                            <Route path="/news" exact>
+                                <News />
+                            </Route>
+                            <Route path="/news/:id" exact>
+                                <Article />
+                            </Route>
+                            <Route path="/global-metrics/fear-and-greed-index">
+                                <FearAndGreedIndex />
+                            </Route>
+                        </Switch>
+                    </div>
                 </Container>
             </div>
             <Footer />

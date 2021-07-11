@@ -20,6 +20,7 @@ import { useData } from '../../hooks/useData';
 import Text from '../text/Text';
 import Error from '../error/Error';
 import { useRef } from 'react';
+import { getFearAndGreedIndexColor } from '../../library/getFearAndGreedIndexColor';
 
 const useStyles = makeStyles(theme => ({
     globalMetricsContainer: {
@@ -236,19 +237,9 @@ const GlobalMetrics = () => {
                                 {!fearAndGreedIndex.loading && (
                                     <GlobalMetricsItem
                                         description="Fear & Greed Index"
-                                        color={
-                                            fearAndGreedIndex.data[0].value_classification
-                                                .toString()
-                                                .toLowerCase()
-                                                .includes('fear')
-                                                ? theme.palette.icon.bearish
-                                                : fearAndGreedIndex.data[0].value_classification
-                                                      .toString()
-                                                      .toLowerCase()
-                                                      .includes('greed')
-                                                ? theme.palette.icon.bullish
-                                                : theme.palette.text.accentLight
-                                        }
+                                        color={getFearAndGreedIndexColor(
+                                            fearAndGreedIndex.data[0].value
+                                        )}
                                         redirectURL="https://alternative.me/crypto/fear-and-greed-index/"
                                         onItemClick={() => {
                                             history.push(

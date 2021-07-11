@@ -5,7 +5,7 @@ const useStyles = makeStyles(theme => ({
     searchBar: {
         display: 'flex',
         flexDirection: 'row',
-        background: theme.palette.divider,
+        background: theme.palette.background.cardHover,
         // background: 'transparent',
         // border: `0.5px solid ${theme.palette.text.secondary}`,
         '&:hover': {
@@ -21,10 +21,10 @@ const useStyles = makeStyles(theme => ({
     },
     '@keyframes colorTransition': {
         '0%': {
-            background: theme.palette.background.light,
+            background: theme.palette.background.cardHover,
         },
         '100%': {
-            background: theme.palette.button.hover,
+            background: theme.palette.background.selected,
         },
     },
     searchBarIcon: {

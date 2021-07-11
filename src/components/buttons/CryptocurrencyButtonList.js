@@ -150,6 +150,9 @@ const CryptocurrencyButtonList = ({
                             key={index}
                             onClick={handleCurrencyClick}
                             text={!resolutionIsXS && currency.symbol}
+                            style={{
+                                textTransform: 'uppercase',
+                            }}
                         >
                             <ButtonCurrencyLogo currency={currency} />
                         </Button>

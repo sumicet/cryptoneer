@@ -5,6 +5,7 @@ import React from 'react';
 const useStyles = makeStyles(theme => ({
     globalMetricsItem: {
         padding: 0,
+        cursor: 'default',
     },
     globalMetricsItemContent: {
         display: 'flex',
@@ -49,7 +50,6 @@ const useStyles = makeStyles(theme => ({
         fontWeight: 700,
         display: 'inline-block',
         whiteSpace: 'nowrap',
-        cursor: 'default',
     },
     globalMetricsTextData: {
         color: theme.palette.text.accentLight,

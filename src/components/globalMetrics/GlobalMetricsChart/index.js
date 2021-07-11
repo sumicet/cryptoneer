@@ -1,10 +1,11 @@
 import { CircularProgress, makeStyles, useTheme } from '@material-ui/core';
-import { useEffect, useRef, useState } from 'react';
-import './FearAndGreedIndex.css';
-import { useData } from '../../hooks/useData';
+import { useEffect } from 'react';
+import './index.css';
+import { useData } from '../../../hooks/useData';
 import Chart from 'chart.js/auto';
 import { createRef } from 'react';
-import Text from '../../components/text/Text';
+import Text from '../../text/Text';
+import { getFearAndGreedIndexColor } from '../../../library/getFearAndGreedIndexColor';
 
 const useStyles = makeStyles(theme => ({
     chartContainer: {
@@ -21,15 +22,7 @@ const useStyles = makeStyles(theme => ({
         position: 'relative',
         flex: 1,
         display: 'flex',
-        padding: theme.spacing(2),
-    },
-    chartWrapper: {
-        flex: 1,
-        display: 'flex',
-        maxWidth: '800px',
-        background: `linear-gradient(${theme.palette.background.cardLight}, ${theme.palette.background.cardDark})`,
-        borderRadius: theme.shape.borderRadius,
-        flexDirection: 'column',
+        // padding: theme.spacing(2),
     },
     chartTitle: {
         alignSelf: 'center',
@@ -38,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const FearAndGreedIndex = () => {
+const GlobalMetricsChart = ({ data }) => {
     const styles = useStyles();
     const theme = useTheme();
 
@@ -46,26 +39,20 @@ const FearAndGreedIndex = () => {
 
     const canvasRef = createRef(null);
 
-    const BarChart = ({ data, title, color }) => {
-        const getName = value => {
-            if (value >= 76) {
-                return 'Extreme Greed';
-            }
-            if (55 <= value && value <= 75) {
-                return 'Greed';
-            }
-            if (47 <= value && value <= 54) {
-                return 'Neutral';
-            }
-            if (26 <= value && value <= 46) {
-                return 'Fear';
-            }
-            return 'Extreme Fear';
-        };
+    const BarChart = ({ data, title }) => {
+        const getName = value =>
+            value < 26
+                ? 'Extreme Fear'
+                : value < 47
+                ? 'Fear'
+                : value < 55
+                ? 'Neutral'
+                : value < 76
+                ? 'Greed'
+                : 'Extreme Greed';
 
         const config = {
-            type: 'scatter',
-
+            type: 'line',
             scaleFontColor: 'white',
             data: {
                 labels: data.map(
@@ -82,18 +69,16 @@ const FearAndGreedIndex = () => {
                         label: title,
                         data: data.map(d => d.value),
                         borderColor: theme.palette.text.accentPink,
-                        tension: 0.1,
+                        lineTension: 0.1,
                         pointBackgroundColor: theme.palette.text.primary,
-                        pointHitRadius: 1,
+                        pointHitRadius: 0,
                         pointRadius: 0,
                         pointBorderWidth: 0,
+                        borderWidth: 2,
                     },
                 ],
             },
             options: {
-                // mouseLine: {
-                //     color: '#32d296',
-                // },
                 plugins: {
                     legend: {
                         display: false,
@@ -101,12 +86,12 @@ const FearAndGreedIndex = () => {
                     hover: {
                         mode: 'index',
                         intersect: false,
-                        axis: 'x',
+                        // axis: 'x',
                     },
                     tooltip: {
                         mode: 'index',
                         intersect: false,
-                        backgroundColor: theme.palette.background.dark,
+                        backgroundColor: theme.palette.background.cardLight,
                         titleFont: {
                             family: "Inter, -apple-system, BlinkMacSystemFont, 'segoe ui', Roboto, Helvetica, Arial, sans-serif",
                         },
@@ -117,9 +102,10 @@ const FearAndGreedIndex = () => {
                             title: function (item) {
                                 return `${item[0].label}: ${getName(
                                     parseInt(item[0].formattedValue)
-                                )}\nValue: ${
-                                    item[0].formattedValue
-                                } out of 100`;
+                                )}`;
+                            },
+                            afterTitle: function (item) {
+                                return `Value: ${item[0].formattedValue} out of 100`;
                             },
                             label: () => null,
                         },
@@ -134,6 +120,7 @@ const FearAndGreedIndex = () => {
                         },
                         ticks: {
                             display: false,
+                            stepSize: 20,
                         },
                         grid: {
                             drawBorder: false,
@@ -141,7 +128,7 @@ const FearAndGreedIndex = () => {
                                 return theme.palette.divider;
                             },
                         },
-                        // stacked: true,
+                        grace: '5%',
                     },
                     x: {
                         type: 'category',
@@ -154,6 +141,7 @@ const FearAndGreedIndex = () => {
                                 return 'transparent';
                             },
                         },
+                        // don't render all ticks, only a few equally distanced
                         afterBuildTicks: function (axis) {
                             // max possible ticks
                             console.log(axis);
@@ -180,7 +168,11 @@ const FearAndGreedIndex = () => {
                                     index === axis.ticks.length - 1
                                 ) {
                                     return t;
-                                } else if (index % density === 0) {
+                                } else if (
+                                    index % density === 0 &&
+                                    // don't display the tick twice for the last point
+                                    index + density < axis.ticks.length - 1
+                                ) {
                                     return t;
                                 }
                                 return '';
@@ -193,88 +185,64 @@ const FearAndGreedIndex = () => {
                 responsive: true,
                 maintainAspectRatio: true,
             },
-            // plugins: [
-            //     {
-            //         id: 'mouseLine',
-            //         afterEvent: function (chart, e) {
-            //             var chartArea = chart.chartArea;
-            //             // console.log(e.x);
-            //             if (
-            //                 e.x >= chartArea.left &&
-            //                 e.y >= chartArea.top &&
-            //                 e.x <= chartArea.right &&
-            //                 e.y <= chartArea.bottom &&
-            //                 chart.active.length
-            //             ) {
-            //                 chart.options.mouseLine.x =
-            //                     chart.active[0]._model.x;
-            //             } else {
-            //                 chart.options.mouseLine.x = NaN;
-            //             }
-            //         },
-            //         afterDatasetsDraw: function (chart, args, options) {
-            //             var ctx = chart.ctx;
-            //             var chartArea = chart.chartArea;
-            //             var x = chart.options.mouseLine.x;
-            //             console.log(chart.options);
+            plugins: [
+                {
+                    // color points according to y value
+                    // display vertical dotted line on hover
+                    afterDraw: chart => {
+                        if (chart.tooltip?._active?.length) {
+                            let x = chart.tooltip._active[0].element.x;
+                            let y = chart.tooltip._active[0].element.y;
 
-            //             if (!isNaN(x)) {
-            //                 ctx.save();
-            //                 ctx.strokeStyle = chart.options.mouseLine.color;
-            //                 ctx.lineWidth = 1;
-            //                 ctx.moveTo(
-            //                     chart.options.mouseLine.x,
-            //                     chartArea.bottom
-            //                 );
-            //                 ctx.lineTo(
-            //                     chart.options.mouseLine.x,
-            //                     chartArea.top
-            //                 );
-            //                 ctx.stroke();
-            //                 ctx.restore();
-            //             } else {
-            //                 console.log('we fucked');
-            //             }
-            //         },
-            //     },
-            // ],
+                            let yAxis = chart.scales.y;
+                            let ctx = chart.ctx;
+                            ctx.setLineDash([5, 5]);
+
+                            ctx.save();
+
+                            ctx.beginPath();
+                            ctx.moveTo(x, yAxis.top);
+                            ctx.lineTo(x, yAxis.bottom);
+                            ctx.lineWidth = 1;
+                            ctx.strokeStyle = theme.palette.text.primary;
+                            ctx.stroke();
+                            ctx.restore();
+
+                            ctx.beginPath();
+                            const value =
+                                chart.tooltip._active[0].element.parsed.y;
+                            ctx.fillStyle = getFearAndGreedIndexColor(value);
+                            ctx.arc(x, y, 5, 0, 2 * Math.PI, true);
+
+                            ctx.fill();
+
+                            ctx.beginPath();
+                            ctx.fillStyle = 'rgba(255,255,255, 0.2)';
+                            ctx.arc(x, y, 10, 0, 2 * Math.PI, true);
+                            ctx.fill();
+                        }
+                    },
+                },
+            ],
         };
 
         useEffect(() => {
             let chart = new Chart(canvasRef.current.getContext('2d'), config);
-        }, [color, data, title]);
-
-        // useEffect(() => {
-        //     $("#myChart").on("mousemove", function(evt) {
-
-        //     });
-        // }, [])
+        }, [canvasRef.current]);
 
         return <canvas ref={canvasRef} />;
     };
 
     return (
         <>
-            {fearAndGreedIndex.loading ? (
-                <CircularProgress />
-            ) : (
-                <div className={styles.chartContainer}>
-                    <div className={styles.chartWrapper}>
-                        <Text size="large" className={styles.chartTitle}>
-                            Fear and Greed Index
-                        </Text>
-                        <div className={styles.chart}>
-                            <BarChart
-                                title="Fear and Greed Index"
-                                data={fearAndGreedIndex.data.slice().reverse()}
-                                color="white"
-                            />
-                        </div>
-                    </div>
-                </div>
-            )}
+            {/* <Text size="large" className={styles.chartTitle}>
+                Fear and Greed Index (1 year chart)
+            </Text> */}
+            <div className={styles.chart}>
+                <BarChart data={data} color="white" />
+            </div>
         </>
     );
 };
 
-export default FearAndGreedIndex;
+export default GlobalMetricsChart;

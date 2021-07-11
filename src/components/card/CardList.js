@@ -11,10 +11,10 @@ import { useEffect } from 'react';
 
 const useStyles = makeStyles(theme => ({
     list: {
-        width: '100%',
+        // width: '100%',
         padding: 0,
-        background: '#1a144e',
-        borderRadius: theme.shape.borderRadius,
+        // background: theme.palette.background.dark,
+        // borderRadius: theme.shape.borderRadius,
         overflow: 'hidden',
         '& a:last-of-type': {
             '& li': {
@@ -29,13 +29,6 @@ const CardList = () => {
 
     const news = useData(state => state.news);
     const coins = useData(state => state.coins);
-
-    useEffect(() => {
-        console.log('news render');
-    }, [news]);
-    useEffect(() => {
-        console.log('coins render');
-    }, [coins]);
 
     return (
         <>

@@ -5,6 +5,7 @@ import { Whatshot, TrendingUp, TrendingDown, Launch } from '@material-ui/icons';
 import CryptocurrencyButtonList from '../buttons/CryptocurrencyButtonList';
 import Button from '../buttons/Button';
 import Text from '../text/Text';
+import TimeDiff from '../../library/timeDiff';
 
 /**
  * Card
@@ -15,7 +16,7 @@ import Text from '../text/Text';
 // TODO make sure you fetch all coins at the beginning and use redux to get them
 
 const Card = ({ news, allCoins }) => {
-    const { title, url, categories, date } = news;
+    const { title, url, categories, published_on } = news;
 
     const theme = useTheme();
 
@@ -117,6 +118,12 @@ const Card = ({ news, allCoins }) => {
         event.preventDefault();
     };
 
+    const calculateDate = date => {
+        const currentDate = new Date().getTime();
+
+        return TimeDiff(news.published_on * 1000, currentDate);
+    };
+
     return (
         <ListItem disableGutters divider className={styles.cardContainer}>
             <CardContent className={styles.card}>
@@ -131,7 +138,7 @@ const Card = ({ news, allCoins }) => {
                         xl={12}
                     >
                         <Text size="small" className={styles.cardDate}>
-                            {date}
+                            {calculateDate(published_on)}
                         </Text>
                         <Text size="medium">{title}</Text>
                     </Grid>

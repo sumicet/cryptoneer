@@ -1,16 +1,32 @@
 import { CircularProgress, makeStyles, useTheme } from '@material-ui/core';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import './FearAndGreedIndex.css';
 import { useData } from '../../hooks/useData';
 
-const useStyles = makeStyles({
-    popover: {
+import Chart from 'chart.js/auto';
+import { createRef } from 'react';
+
+const useStyles = makeStyles(theme => ({
+    chartContainer: {
         display: 'flex',
+        flex: 1,
         flexDirection: 'row',
+        marginTop: theme.spacing(8),
+        marginBottom: theme.spacing(8),
     },
-});
+    chart: {
+        overflow: 'auto',
+        position: 'relative',
+        flex: 1,
+        display: 'flex',
+        maxWidth: '800px',
+        background: `linear-gradient(${theme.palette.background.cardLight}, ${theme.palette.background.cardDark})`,
+        borderRadius: theme.shape.borderRadius,
+        padding: theme.spacing(2),
+    },
+}));
 
 const FearAndGreedIndex = () => {
     const styles = useStyles();
@@ -18,10 +34,10 @@ const FearAndGreedIndex = () => {
 
     const fearAndGreedIndex = useData(state => state.fearAndGreedIndex);
 
-    // ******************* CHART ******************
+    const canvasRef = createRef(null);
 
-    const getClassification = (value, date) => {
-        const getName = () => {
+    const BarChart = ({ data, title, color }) => {
+        const getName = value => {
             if (value >= 76) {
                 return 'Extreme Greed';
             }
@@ -37,148 +53,158 @@ const FearAndGreedIndex = () => {
             return 'Extreme Fear';
         };
 
-        return `Classification: <b>${getName()}</b><br />Value: <b>${value}</b><br />Date: <b>${date}</b>`;
-    };
+        useEffect(() => {
+            let ctx = canvasRef.current.getContext('2d');
+            let myChart = new Chart(canvasRef.current, {
+                type: 'scatter',
 
-    // GTK https://stackoverflow.com/questions/45612603/how-can-i-use-chart-tooltip-formatter-in-react-highcharts
-    function formatTooltip(tooltip, x = this.x, y = this.y) {
-        return getClassification(parseInt(y), x);
-    }
-
-    const [options, setOptions] = useState(null);
-
-    // TODO Continue from here
-
-    useEffect(() => {
-        if (!fearAndGreedIndex.loading) {
-            setOptions({
-                chart: {
-                    backgroundColor: 'transparent',
-                    type: 'line',
-                    styledMode: true,
-                    // styledMode: true,
+                scaleFontColor: 'white',
+                data: {
+                    labels: data.map(
+                        d =>
+                            new Date(d.timestamp * 1000).getDate() +
+                            ' ' +
+                            new Date(d.timestamp * 1000).toLocaleString(
+                                'default',
+                                { month: 'short' }
+                            )
+                    ),
+                    datasets: [
+                        {
+                            type: 'line',
+                            label: title,
+                            data: data.map(d => d.value),
+                            borderColor: theme.palette.text.accentPink,
+                            tension: 0.1,
+                            pointBackgroundColor: theme.palette.text.primary,
+                            pointHitRadius: 10,
+                            pointRadius: 3,
+                            pointBorderWidth: 0,
+                        },
+                    ],
                 },
-                title: {
-                    text: 'Fear & Greed Index Historical Data (Last 30 days)',
-                    style: {
-                        fontFamily: theme.typography.body1.fontFamily,
-                        fontWeight: 700,
-                        fontSize: theme.typography.body1.fontSize,
-                        lineHeight: theme.typography.body1.lineHeight,
-                        letterSpacing: theme.typography.body1.letterSpacing,
-                        color: theme.palette.text.primary,
-                    },
-                },
-
-                yAxis: {
-                    labels: {
-                        enabled: false,
-                    },
-                    title: {
-                        text: null,
-                    },
-                },
-                xAxis: {
-                    className: 'highcharts-color-0',
-                    lineColor: '#FF0000',
-                    lineWidth: 1,
-                    categories: fearAndGreedIndex.data
-                        .map(
-                            data =>
-                                new Date(
-                                    parseInt(data.timestamp) * 1000
-                                ).toLocaleString('default', {
-                                    month: 'long',
-                                }) +
-                                ' ' +
-                                new Date(parseInt(data.timestamp) * 1000)
-                                    .getDate()
-                                    .toString()
-                        )
-                        .reverse(),
-                    showLastLabel: true,
-                    showFirstLabel: true,
-                    labels: {
-                        formatter: function () {
-                            if (this.isFirst || this.isLast) return this.value;
-                            else return this.value;
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                        tooltip: {
+                            backgroundColor: theme.palette.background.dark,
+                            titleFont: {
+                                family: "Inter, -apple-system, BlinkMacSystemFont, 'segoe ui', Roboto, Helvetica, Arial, sans-serif",
+                            },
+                            titleColor: theme.palette.text.primary,
+                            titleSpacing: 6,
+                            titleMarginBottom: 0,
+                            callbacks: {
+                                title: function (item) {
+                                    return `${item[0].label}: ${getName(
+                                        parseInt(item[0].formattedValue)
+                                    )}\nValue: ${
+                                        item[0].formattedValue
+                                    } out of 100`;
+                                },
+                                label: () => null,
+                            },
                         },
                     },
-                },
-                series: [
-                    {
-                        data: fearAndGreedIndex.data
-                            .map(data => {
-                                return {
-                                    name: data.value_classification.toString(),
-                                    y: parseInt(data.value),
-                                };
-                            })
-                            .reverse(),
-                        showInLegend: false,
-                        zones: [
-                            {
-                                value: 25,
-                                color: 'red',
-                                fillColor: 'pink',
+                    scales: {
+                        y: {
+                            gridLines: {
+                                display: false,
+                                drawBorder: false, //hide the chart edge line
                             },
-                            {
-                                value: 46,
-                                color: 'orange',
+                            ticks: {
+                                display: false,
                             },
-                            {
-                                value: 54,
-                                color: 'grey',
+                            grid: {
+                                drawBorder: false,
+                                color: function (context) {
+                                    return theme.palette.divider;
+                                },
                             },
-                            {
-                                value: 75,
-                                color: 'lime',
+                            // stacked: true,
+                        },
+                        x: {
+                            type: 'category',
+                            ticks: {
+                                color: theme.palette.text.primary,
                             },
-                            {
-                                value: 100,
-                                color: 'green',
+                            grid: {
+                                drawBorder: false,
+                                color: function (context) {
+                                    return 'transparent';
+                                },
                             },
-                        ],
+                            afterBuildTicks: function (axis) {
+                                // max possible ticks
+                                console.log(axis);
+                                const totElements = 5;
+
+                                if (axis.ticks.length <= totElements) {
+                                    return axis.ticks;
+                                }
+
+                                // this number is used to display a tick every n ticks
+                                const density = Math.trunc(
+                                    axis.ticks.length / totElements
+                                );
+
+                                if (isNaN(density)) {
+                                    console.warn('Nan in ticks');
+                                    return axis.ticks;
+                                }
+
+                                axis.ticks = axis.ticks.filter((t, index) => {
+                                    // always show the first and the last tick
+                                    if (
+                                        index === 0 ||
+                                        index === axis.ticks.length - 1
+                                    ) {
+                                        return t;
+                                    } else if (index % density === 0) {
+                                        console.log(index);
+                                        return t;
+                                    }
+                                    return '';
+                                });
+
+                                return;
+                            },
+                        },
                     },
-                ],
-                tooltip: {
-                    formatter: formatTooltip,
-                    shared: true,
-                    backgroundColor: 'pink',
-                    borderWidth: 0,
-                    shadow: false,
-                    useHTML: true,
-                    style: {
-                        padding: 0,
-                        fontFamily: `${theme.typography.body2.fontFamily}`,
-                        fontWeight: `${theme.typography.body2.fontWeight}`,
-                        fontSize: `${theme.typography.body2.fontSize}rem`,
-                        lineHeight: `${theme.typography.body2.lineHeight}`,
-                        letterSpacing: `${theme.typography.body2.letterSpacing}rem`,
-                    },
+                    responsive: true,
+                    maintainAspectRatio: true,
                 },
             });
-        }
-    }, [fearAndGreedIndex.loading]);
+        }, [color, data, title]);
 
-    useEffect(() => {
-        for (let child of document.getElementsByClassName(
-            'highcharts-credits'
-        )) {
-            child.parentNode.removeChild(child);
-        }
-    }, []);
+        const updateChartSize = () => {
+            // canvasRef.current.style.width = '100% !important';
+            // canvasRef.current.style.height = '100% !important';
+        };
+
+        useEffect(() => {
+            window.addEventListener('resize', () => updateChartSize());
+            return () => {
+                window.removeEventListener('resize', () => updateChartSize());
+            };
+        }, []);
+
+        return <canvas ref={canvasRef} />;
+    };
 
     return (
         <>
             {fearAndGreedIndex.loading ? (
                 <CircularProgress />
             ) : (
-                <div className={styles.popover}>
-                    <div>
-                        <HighchartsReact
-                            highcharts={Highcharts}
-                            options={options}
+                <div className={styles.chartContainer}>
+                    <div className={styles.chart}>
+                        <BarChart
+                            title="Fear and Greed Index"
+                            data={fearAndGreedIndex.data.slice().reverse()}
+                            color="white"
                         />
                     </div>
                 </div>

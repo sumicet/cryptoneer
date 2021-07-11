@@ -26,7 +26,7 @@ function App() {
                 primary: '#ffffff',
                 secondary: 'rgba(255, 255, 255, 0.9)',
                 // "Enjoy music"
-                accentDark: '#4e62ee',
+                accentDark: '#917dff',
                 accentLight: '#48d9e2',
                 accentPink: '#f26ccb',
                 accentLightPink: '#ed8acf',

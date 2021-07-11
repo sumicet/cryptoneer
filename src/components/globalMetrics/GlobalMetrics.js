@@ -13,7 +13,7 @@ import { ReactComponent as Bear } from '../../svg/other/Bear.svg';
 import { ReactComponent as Bull } from '../../svg/other/Bull.svg';
 import GlobalMetricsItem from './GlobalMetricsItem';
 import Button from '../buttons/Button';
-import { ExpandMore } from '@material-ui/icons';
+import { ExpandMoreRounded, ExpandLessRounded } from '@material-ui/icons';
 import { createRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useData } from '../../hooks/useData';
@@ -315,7 +315,11 @@ const GlobalMetrics = () => {
                                     }
                                     disableMargins
                                 >
-                                    <ExpandMore style={iconStyle} />
+                                    {collapseGlobalMetrics ? (
+                                        <ExpandLessRounded style={iconStyle} />
+                                    ) : (
+                                        <ExpandMoreRounded style={iconStyle} />
+                                    )}
                                 </Button>
                             </div>
                         )}

@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     cardContainer: {
-        // marginBottom: layout.cardMarginBottom,
         padding: 0,
     },
 

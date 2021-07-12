@@ -1,6 +1,5 @@
 import { ListItem, CardContent, Typography, Grid } from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import layout from '../../../constants/layout';
+import { useTheme } from '@material-ui/core/styles';
 import { Whatshot, TrendingUp, TrendingDown, Launch } from '@material-ui/icons';
 import CryptoButtonList from '../../buttons/CryptoButtonList';
 import Button from '../../buttons/Button';

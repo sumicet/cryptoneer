@@ -10,7 +10,7 @@ const News = () => {
             <div className={styles.pageItem}>
                 <GlobalMetrics />
             </div>
-            <div className={`${styles.pageItem} ${styles.pageBody}`}>
+            <div className={`${styles.pageItem}`}>
                 <CardList />
             </div>
         </>

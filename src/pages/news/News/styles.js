@@ -5,12 +5,6 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
     },
-    pageBody: {
-        width: '100%',
-        background: theme.palette.background.dark,
-        borderRadius: theme.shape.borderRadius,
-        overflow: 'hidden',
-    },
 }));
 
 export { useStyles };

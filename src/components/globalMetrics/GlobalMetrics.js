@@ -21,6 +21,7 @@ import Text from '../text/Text';
 import Error from '../error/Error';
 import { useRef } from 'react';
 import { getFearAndGreedIndexColor } from '../../library/getFearAndGreedIndexColor';
+import { formatBigNumbers } from '../../library/formatBigNumbers';
 
 const useStyles = makeStyles(theme => ({
     globalMetricsContainer: {
@@ -62,7 +63,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const GlobalMetrics = () => {
+const GlobalMetrics = ({ collapse }) => {
     const history = useHistory();
     const [globalMetricsHeight, setGlobalMetricsHeight] = useState();
 
@@ -99,7 +100,9 @@ const GlobalMetrics = () => {
 
     //TODO refresh full screen, dropdown button appears
 
-    const [collapseGlobalMetrics, setCollapseGlobalMetrics] = useState(false);
+    const [collapseGlobalMetrics, setCollapseGlobalMetrics] = useState(
+        collapse ? true : false
+    );
     const [showDropdownButton, setShowDropdownButton] = useState(false);
 
     const [nodeList, setNodeList] = useState(null);
@@ -157,11 +160,11 @@ const GlobalMetrics = () => {
             // assign marginTop 0 to elems that fit on the first line and marginTop [number] to elems on the 2nd line
             // some elems have 80.5 and some 80 but they're all on the same line
             // so I'll just assume that if the difference is less than 5px they're on the same line
-            if (Math.abs(firstLineTop - childTop + childTopMargin) > 6) {
-                child.style.marginTop = `${globalMetricsItemVerticalMargin}px`;
-            } else {
-                child.style.marginTop = '0px';
-            }
+            // if (Math.abs(firstLineTop - childTop + childTopMargin) > 6) {
+            // child.style.marginTop = `${globalMetricsItemVerticalMargin}px`;
+            // } else {
+            //     child.style.marginTop = '0px';
+            // }
         }
 
         if (
@@ -197,6 +200,12 @@ const GlobalMetrics = () => {
         // eslint-disable-next-line
     }, [nodeList]);
 
+    useEffect(() => {
+        if (!globalMetrics.loading) {
+            console.log(globalMetrics.data);
+        }
+    }, [globalMetrics]);
+
     return (
         <div className={styles.globalMetricsContainer}>
             {globalMetrics.loading && <CircularProgress />}
@@ -212,16 +221,18 @@ const GlobalMetrics = () => {
                             wrapperInner: styles.globalMetricsWrapperInner,
                         }}
                     >
-                        <div
-                            className={styles.globalMetricsSentimentIcon}
-                            style={{ height: globalMetricsHeight }}
-                        >
-                            <Bull
-                                height={`${globalMetricsHeight}px`}
-                                fill={theme.palette.icon.bullish}
-                            />
-                            {/* <Bear fill={theme.palette.icon.bearish} /> */}
-                        </div>
+                        {!collapse && (
+                            <div
+                                className={styles.globalMetricsSentimentIcon}
+                                style={{ height: globalMetricsHeight }}
+                            >
+                                <Bull
+                                    height={`${globalMetricsHeight}px`}
+                                    fill={theme.palette.icon.bullish}
+                                />
+                                {/* <Bear fill={theme.palette.icon.bearish} /> */}
+                            </div>
+                        )}
                         <div ref={listRef}>
                             <div container className={styles.globalMetricsList}>
                                 {/* news sentiment percentage + news sentiment */}
@@ -257,40 +268,118 @@ const GlobalMetrics = () => {
                                 {/* <Divider orientation="vertical" flexItem /> */}
                                 <GlobalMetricsItem description="Dominance">
                                     {'BTC ' +
-                                        globalMetrics.data.btcDominance.toFixed(
+                                        globalMetrics.data.btc_dominance.toFixed(
                                             1
                                         )}
                                     % ETH{' '}
-                                    {globalMetrics.data.ethDominance.toFixed(1)}
+                                    {globalMetrics.data.eth_dominance.toFixed(
+                                        1
+                                    )}
                                     %
-                                </GlobalMetricsItem>
-                                {/* <Divider orientation="vertical" flexItem /> */}
-                                <GlobalMetricsItem description="Active Currencies">
-                                    {globalMetrics.data.activeCurrencies}
-                                </GlobalMetricsItem>
-                                {/* <Divider orientation="vertical" flexItem /> */}
-                                <GlobalMetricsItem description="Active Markets">
-                                    {globalMetrics.data.activeMarkets}
                                 </GlobalMetricsItem>
                                 {/* <Divider orientation="vertical" flexItem /> */}
                                 {/* add , every 3 digits from the end => nice looking number */}
                                 <GlobalMetricsItem description="24h Volume">
                                     $
-                                    {globalMetrics.data.values.USD.totalVolume24h
-                                        .toString()
-                                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                    {formatBigNumbers(
+                                        globalMetrics.data.quote.USD
+                                            .total_volume_24h
+                                    )}
                                 </GlobalMetricsItem>
-                                {/* <Divider orientation="vertical" flexItem /> */}
-                                <GlobalMetricsItem description="Market Cap">
+                                <GlobalMetricsItem description="Total Market Cap">
                                     $
-                                    {globalMetrics.data.values.USD.totalMarketCap
-                                        .toString()
-                                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                    {formatBigNumbers(
+                                        globalMetrics.data.quote.USD
+                                            .total_market_cap
+                                    )}
+                                </GlobalMetricsItem>
+                                <GlobalMetricsItem description="Altcoin Market Cap">
+                                    $
+                                    {formatBigNumbers(
+                                        globalMetrics.data.quote.USD
+                                            .altcoin_market_cap
+                                    )}
+                                </GlobalMetricsItem>
+                                <GlobalMetricsItem description="24h Altcoin Volume">
+                                    $
+                                    {formatBigNumbers(
+                                        globalMetrics.data.quote.USD
+                                            .altcoin_volume_24h
+                                    )}
+                                </GlobalMetricsItem>
+                                <GlobalMetricsItem description="Active Cryptos">
+                                    {globalMetrics.data.active_cryptocurrencies}
+                                </GlobalMetricsItem>
+                                <GlobalMetricsItem description="Active Exchanges">
+                                    {globalMetrics.data.active_exchanges}
+                                </GlobalMetricsItem>
+                                <GlobalMetricsItem description="Active Market Pairs">
+                                    {globalMetrics.data.active_market_pairs}
+                                </GlobalMetricsItem>
+                                <GlobalMetricsItem description="Total Cryptos">
+                                    {globalMetrics.data.total_cryptocurrencies}
+                                </GlobalMetricsItem>
+                                <GlobalMetricsItem description="Total Exchanges">
+                                    {globalMetrics.data.total_exchanges}
+                                </GlobalMetricsItem>
+                                <GlobalMetricsItem description="24h Defi Volume">
+                                    $
+                                    {formatBigNumbers(
+                                        globalMetrics.data.defi_volume_24h
+                                    )}
+                                </GlobalMetricsItem>
+                                <GlobalMetricsItem description="Defi Market Cap">
+                                    $
+                                    {formatBigNumbers(
+                                        globalMetrics.data.defi_market_cap
+                                    )}
+                                </GlobalMetricsItem>
+                                <GlobalMetricsItem description="24h Defi Change">
+                                    {parseInt(
+                                        globalMetrics.data
+                                            .defi_24h_percentage_change * 100
+                                    ) / 100}
+                                    %
+                                </GlobalMetricsItem>
+                                <GlobalMetricsItem description="24h Stable Coin Volume">
+                                    $
+                                    {formatBigNumbers(
+                                        globalMetrics.data.stablecoin_volume_24h
+                                    )}
+                                </GlobalMetricsItem>
+                                <GlobalMetricsItem description="Stable Coin Market Cap">
+                                    $
+                                    {formatBigNumbers(
+                                        globalMetrics.data.stablecoin_market_cap
+                                    )}
+                                </GlobalMetricsItem>
+                                <GlobalMetricsItem description="24h Stable Coin Change">
+                                    {parseInt(
+                                        globalMetrics.data
+                                            .stablecoin_24h_percentage_change *
+                                            100
+                                    ) / 100}
+                                    %
+                                </GlobalMetricsItem>
+                                <GlobalMetricsItem description="24h Derivatives Volume">
+                                    $
+                                    {formatBigNumbers(
+                                        globalMetrics.data
+                                            .derivatives_volume_24h
+                                    )}
+                                </GlobalMetricsItem>
+                                <GlobalMetricsItem description="24h Derivatives Change">
+                                    {parseInt(
+                                        globalMetrics.data
+                                            .derivatives_24h_percentage_change *
+                                            100
+                                    ) / 100}
+                                    %
                                 </GlobalMetricsItem>
                             </div>
                         </div>
 
-                        {showDropdownButton && (
+                        {!collapse && showDropdownButton && (
                             <div
                                 className={styles.globalMetricsCollapseButton}
                                 style={{

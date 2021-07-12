@@ -15,6 +15,8 @@ import Button from '../../components/buttons/Button';
 import TextLink from '../../components/nav/TextLink';
 import { Launch } from '@material-ui/icons';
 import { getFearAndGreedIndexColor } from '../../library/getFearAndGreedIndexColor';
+import { useLocation } from 'react-router-dom';
+import DropdownMenu from '../../components/globalMetrics/DropdownMenu';
 
 const useStyles = makeStyles(theme => ({
     pageItem: {
@@ -108,6 +110,7 @@ const buttonListFields = ['7D', '1M', '3M', '1Y', 'ALL'];
 const FearAndGreedIndex = () => {
     const styles = useStyles();
     const theme = useTheme();
+    const location = useLocation();
 
     const fearAndGreedIndex = useData(state => state.fearAndGreedIndex);
 
@@ -129,7 +132,7 @@ const FearAndGreedIndex = () => {
     return (
         <>
             <div className={styles.pageItem}>
-                <GlobalMetrics />
+                <GlobalMetrics collapse />
             </div>
             <div className={`${styles.pageItem} ${styles.pageBody}`}>
                 {fearAndGreedIndex.loading ? (
@@ -145,10 +148,11 @@ const FearAndGreedIndex = () => {
                             className={styles.fearAndGreedChart}
                         >
                             <div className={styles.charButtonsWrapper}>
+                                {/* <DropdownMenu options={buttonListFields} /> */}
                                 <ul className={styles.chartButtonList}>
                                     <ButtonGroup
                                         disableElevation
-                                        variant="contained"
+                                        variant="text"
                                         color="primary"
                                     >
                                         {buttonListFields.map(field => (
@@ -205,7 +209,7 @@ const FearAndGreedIndex = () => {
                                                 fontWeight: 700,
                                             }}
                                         >
-                                            Now:&nbsp;
+                                            Today:&nbsp;
                                         </Text>
                                         <Text
                                             size="small"
@@ -229,7 +233,7 @@ const FearAndGreedIndex = () => {
                                                 fontWeight: 700,
                                             }}
                                         >
-                                            ;&nbsp;Value:&nbsp;
+                                            &nbsp;&#8226;&nbsp;
                                         </Text>
                                         <Text
                                             size="small"

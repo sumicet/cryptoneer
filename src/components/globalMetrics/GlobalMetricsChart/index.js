@@ -245,9 +245,6 @@ const GlobalMetricsChart = ({ data }) => {
 
     return (
         <>
-            {/* <Text size="large" className={styles.chartTitle}>
-                Fear and Greed Index (1 year chart)
-            </Text> */}
             <div className={styles.chart}>
                 <BarChart data={data} color="white" />
             </div>

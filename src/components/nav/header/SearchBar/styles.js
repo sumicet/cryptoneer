@@ -4,7 +4,7 @@ const useStyles = makeStyles(theme => ({
     searchBar: {
         display: 'flex',
         flexDirection: 'row',
-        background: theme.palette.background.cardHover,
+        background: theme.palette.background.notSelected,
         '&:hover': {
             animation: `$colorTransition 250ms ${theme.transitions.easing.easeIn} forwards`,
         },
@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     },
     '@keyframes colorTransition': {
         '0%': {
-            background: theme.palette.background.cardHover,
+            background: theme.palette.background.notSelected,
         },
         '100%': {
             background: theme.palette.background.selected,

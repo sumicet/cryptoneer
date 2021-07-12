@@ -1,26 +1,14 @@
 import { useMediaQuery } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
 import Button from '../Button';
 import { useStyles } from './styles';
+import CurrencyLogo from '../CurrencyLogo';
 
 const CryptoButtonList = ({ children, currencies }) => {
-    const theme = useTheme();
     const styles = useStyles();
     const resolutionIsXS = useMediaQuery(theme => theme.breakpoints.only('xs'));
 
     const handleCurrencyClick = event => {
         event.preventDefault();
-    };
-
-    const ButtonCurrencyLogo = ({ currency }) => {
-        return (
-            <img
-                src={currency.path}
-                width={theme.sizing.icon}
-                height={theme.sizing.icon}
-                alt="Currency Icon"
-            />
-        );
     };
 
     return (
@@ -38,7 +26,7 @@ const CryptoButtonList = ({ children, currencies }) => {
                                     textTransform: 'uppercase',
                                 }}
                             >
-                                <ButtonCurrencyLogo currency={currency} />
+                                <CurrencyLogo path={currency.path} />
                             </Button>
                         </li>
                     ))}

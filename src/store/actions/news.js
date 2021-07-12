@@ -137,11 +137,35 @@ export const fetchNews = () => {
                     };
                 });
 
-                localStorage.setItem('news', JSON.stringify(filteredData));
+                // all currencies combined (needed for news filters)
+                const currencies = [];
+
+                filteredData
+                    .map(news => news.currencies)
+                    .filter(arr => arr.length > 0)
+                    .forEach(arr =>
+                        arr.forEach(
+                            currency =>
+                                currencies.findIndex(
+                                    c => c.symbol === currency.symbol
+                                ) < 0 && currencies.push(currency)
+                        )
+                    );
+
+                localStorage.setItem(
+                    'news',
+                    JSON.stringify({
+                        data: filteredData,
+                        currencies: currencies,
+                    })
+                );
 
                 dispatch({
                     type: ActionTypes.FETCH_NEWS_COMPLETE,
-                    payload: filteredData,
+                    payload: {
+                        data: filteredData,
+                        currencies: currencies,
+                    },
                 });
             } else {
                 dispatch({

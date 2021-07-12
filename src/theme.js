@@ -22,8 +22,9 @@ export const theme = createMuiTheme({
             // Top part of the picture - gradient
             sectionLight: '#326cc5',
             sectionDark: '#302f89',
-            selected: '#443eb8',
-            cardHover: 'rgba(57, 52, 154, 0.6)',
+            selected: '#524bdb',
+            // selected: '#443eb8',
+            notSelected: '#363194',
         },
         button: {
             primary: 'rgba(255, 255, 255, 0.1)',

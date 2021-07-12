@@ -15,10 +15,12 @@ const CardList = () => {
     return (
         <>
             {(news.loading || coins.loading) && <CircularProgress />}
-            {news.error && <Error />}
+            {news.error && <Error>{news.error}</Error>}
             {!news.error && !news.loading && !coins.loading && (
                 <div>
-                    <CardCurrenciesFilterButton />
+                    <div className={styles.cardListFilter}>
+                        <CardCurrenciesFilterButton />
+                    </div>
                     <MuiList className={styles.list}>
                         {news.data.map(article => (
                             <Link

@@ -13,6 +13,9 @@ const useStyles = makeStyles(theme => ({
             },
         },
     },
+    cardListFilter: {
+        paddingBottom: theme.spacing(2),
+    },
 }));
 
 export { useStyles };

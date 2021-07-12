@@ -1,12 +1,19 @@
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-    navItemContainer: {
+    navList: {
         display: 'flex',
         flex: 1,
         alignItems: 'center',
         [theme.breakpoints.only('xs')]: {
             flexDirection: 'column',
+        },
+    },
+    navItem: {
+        listStyleType: 'none',
+        [theme.breakpoints.only('xs')]: {
+            paddingRight: 0,
+            paddingBottom: theme.spacing(2),
         },
     },
     navDrawerHeader: {
@@ -16,7 +23,7 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         paddingBottom: theme.spacing(2),
     },
-    logo: {
+    navLogo: {
         flex: 1,
     },
     navSearchBar: {
@@ -48,12 +55,6 @@ const useStyles = makeStyles(theme => ({
         },
         '100%': {
             color: theme.palette.text.accentPink,
-        },
-    },
-    navItemList: {
-        [theme.breakpoints.only('xs')]: {
-            paddingRight: 0,
-            paddingBottom: theme.spacing(2),
         },
     },
 }));

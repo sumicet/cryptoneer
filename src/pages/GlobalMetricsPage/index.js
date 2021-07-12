@@ -13,8 +13,6 @@ import Button from '../../components/buttons/Button';
 import TextLink from '../../components/text/TextLink';
 import { Launch } from '@material-ui/icons';
 import { getFearAndGreedIndexColor } from '../../library/getFearAndGreedIndexColor';
-import { useLocation } from 'react-router-dom';
-import DropdownMenu from '../../components/globalMetrics/DropdownMenu';
 import { useStyles } from './styles';
 
 const buttonListFields = ['7D', '1M', '3M', '1Y', 'ALL'];
@@ -22,7 +20,6 @@ const buttonListFields = ['7D', '1M', '3M', '1Y', 'ALL'];
 const GlobalMetricsPage = () => {
     const styles = useStyles();
     const theme = useTheme();
-    const location = useLocation();
 
     const fearAndGreedIndex = useData(state => state.fearAndGreedIndex);
 
@@ -60,7 +57,6 @@ const GlobalMetricsPage = () => {
                             className={styles.fearAndGreedChart}
                         >
                             <div className={styles.charButtonsWrapper}>
-                                {/* <DropdownMenu options={buttonListFields} /> */}
                                 <ul className={styles.chartButtonList}>
                                     <ButtonGroup
                                         disableElevation

@@ -2,7 +2,7 @@ import { ReactComponent as Astronaut } from '../../../../svg/other/Astronaut.svg
 import Text from '../../../text/Text';
 import { useStyles } from './styles';
 
-const ProjectLogo = ({ style }) => {
+const Logo = ({ style }) => {
     const styles = useStyles();
 
     return (
@@ -16,4 +16,4 @@ const ProjectLogo = ({ style }) => {
     );
 };
 
-export default ProjectLogo;
+export default Logo;

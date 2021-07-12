@@ -1,6 +1,6 @@
 import { AppBar, Grid, Toolbar } from '@material-ui/core';
 import Text from '../../text/Text';
-import ProjectLogo from '../header/ProjectLogo';
+import Logo from '../header/Logo';
 import TextLink from '../../text/TextLink';
 import { useStyles } from './styles';
 
@@ -19,7 +19,7 @@ const Footer = () => {
         <AppBar position="static" className={styles.footerWrapper}>
             <Toolbar className={styles.footer}>
                 <div className={styles.footerField}>
-                    <ProjectLogo />
+                    <Logo />
                 </div>
                 <Grid container className={styles.footerListWrapper}>
                     {fieldTitles.map((title, index) => (

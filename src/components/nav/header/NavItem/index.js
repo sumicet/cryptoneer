@@ -3,20 +3,20 @@ import { Clear } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import Button from '../../../buttons/Button';
 import SearchBar from '../SearchBar';
-import ProjectLogo from '../ProjectLogo';
+import Logo from '../Logo';
 import Text from '../../../text/Text';
 import { useStyles } from './styles';
 
-const NavItemList = ({ toggleDrawer }) => {
+const NavList = ({ toggleDrawer }) => {
     const styles = useStyles();
     const resolutionIsXS = useMediaQuery(theme => theme.breakpoints.only('xs'));
 
     return (
-        <div className={styles.navItemContainer}>
+        <ul className={styles.navList}>
             {resolutionIsXS && (
                 <>
                     <div className={styles.navDrawerHeader}>
-                        <ProjectLogo style={styles.logo} />
+                        <Logo style={styles.navLogo} />
                         <Button onClick={toggleDrawer()}>
                             <Clear />
                         </Button>
@@ -26,23 +26,23 @@ const NavItemList = ({ toggleDrawer }) => {
                     </div>
                 </>
             )}
-            <div className={styles.navItemList + ' ' + styles.navLinkWrapper}>
+            <li className={styles.navItem + ' ' + styles.navLinkWrapper}>
                 <Link to="/home" className={styles.navLink}>
                     <Text size="large">Home</Text>
                 </Link>
-            </div>
-            <div className={styles.navItemList + ' ' + styles.navLinkWrapper}>
+            </li>
+            <li className={styles.navItem + ' ' + styles.navLinkWrapper}>
                 <Link to="/news" className={styles.navLink}>
                     <Text size="large">News</Text>
                 </Link>
-            </div>
+            </li>
             {!resolutionIsXS && (
                 <div className={styles.navSearchBar}>
                     <SearchBar />
                 </div>
             )}
-        </div>
+        </ul>
     );
 };
 
-export default NavItemList;
+export default NavList;

@@ -8,8 +8,8 @@ import {
 import { Menu } from '@material-ui/icons';
 import { useState } from 'react';
 import Button from '../../../buttons/Button';
-import ProjectLogo from '../ProjectLogo';
-import NavItemList from '../NavItemList';
+import Logo from '../Logo';
+import NavItem from '../NavItem';
 import { useStyles } from './styles';
 
 const Nav = () => {
@@ -42,12 +42,12 @@ const Nav = () => {
                     paper: styles.navDrawerPaper,
                 }}
             >
-                <NavItemList toggleDrawer={toggleDrawer} />
+                <NavItem toggleDrawer={toggleDrawer} />
             </SwipeableDrawer>
 
             <AppBar position="static" className={styles.nav}>
                 <Toolbar className={styles.navToolbar}>
-                    <ProjectLogo />
+                    <Logo />
                     {/* turn nav items into a mobile menu if the resolution is too small */}
                     {resolutionIsXS && (
                         <div className={styles.navDrawerToggleButton}>
@@ -56,9 +56,7 @@ const Nav = () => {
                             </Button>
                         </div>
                     )}
-                    {!resolutionIsXS && (
-                        <NavItemList toggleDrawer={toggleDrawer} />
-                    )}
+                    {!resolutionIsXS && <NavItem toggleDrawer={toggleDrawer} />}
                 </Toolbar>
             </AppBar>
         </>

@@ -42,13 +42,13 @@ const Routes = () => {
 
     const {
         fetchNews,
-        fetchAllCoins,
+        // fetchAllCoins,
         fetchGlobalMetrics,
         fetchFearAndGreedIndex,
     } = useActions();
 
     useFetch(fetchNews);
-    useFetch(fetchAllCoins);
+    // useFetch(fetchAllCoins);
     useFetch(fetchGlobalMetrics);
     useFetch(fetchFearAndGreedIndex);
 

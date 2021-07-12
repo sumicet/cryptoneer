@@ -16,7 +16,7 @@ import { useStyles } from './styles';
 // TODO make sure you fetch all coins at the beginning and use redux to get them
 
 const Card = ({ news, allCoins }) => {
-    const { title, url, categories, published_on } = news;
+    const { title, url, currencies, published_on } = news;
 
     const theme = useTheme();
 
@@ -119,11 +119,7 @@ const Card = ({ news, allCoins }) => {
                         <div
                             className={`${styles.cardButtons} ${styles.cardCryptoListButtons}`}
                         >
-                            <CryptoButtonList
-                                categories={categories}
-                                title={title}
-                                allCoins={allCoins}
-                            >
+                            <CryptoButtonList currencies={currencies}>
                                 <Button onClick={handleRedirect}>
                                     <Launch style={iconStyle} />
                                 </Button>

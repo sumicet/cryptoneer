@@ -34,10 +34,6 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    flex: {
-        display: 'flex',
-        flex: 1,
-    },
 }));
 
 export { useStyles };

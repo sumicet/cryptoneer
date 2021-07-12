@@ -5,8 +5,6 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'row',
         background: theme.palette.background.cardHover,
-        // background: 'transparent',
-        // border: `0.5px solid ${theme.palette.text.secondary}`,
         '&:hover': {
             animation: `$colorTransition 250ms ${theme.transitions.easing.easeIn} forwards`,
         },

@@ -49,11 +49,6 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center',
         paddingTop: theme.spacing(2),
     },
-    footerListTitle: {
-        display: 'flex',
-        justifyContent: 'center',
-        fontWeight: 700,
-    },
     footerListWrapper: {
         display: 'flex',
         flexDirection: 'row',

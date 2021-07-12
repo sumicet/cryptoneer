@@ -24,24 +24,26 @@ const CryptoButtonList = ({ children, currencies }) => {
     };
 
     return (
-        <div className={styles.cryptoButtonList}>
+        <ul className={styles.cryptoButtonList}>
             {currencies.length > 0 &&
                 currencies
                     .filter((currency, index) => index < 3)
                     .map((currency, index) => (
-                        <Button
-                            key={index}
-                            onClick={handleCurrencyClick}
-                            text={!resolutionIsXS && currency.symbol}
-                            style={{
-                                textTransform: 'uppercase',
-                            }}
-                        >
-                            <ButtonCurrencyLogo currency={currency} />
-                        </Button>
+                        <li>
+                            <Button
+                                key={index}
+                                onClick={handleCurrencyClick}
+                                text={!resolutionIsXS && currency.symbol}
+                                style={{
+                                    textTransform: 'uppercase',
+                                }}
+                            >
+                                <ButtonCurrencyLogo currency={currency} />
+                            </Button>
+                        </li>
                     ))}
             {children}
-        </div>
+        </ul>
     );
 };
 

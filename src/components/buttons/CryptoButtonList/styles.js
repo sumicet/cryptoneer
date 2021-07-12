@@ -4,6 +4,7 @@ const useStyles = makeStyles({
     cryptoButtonList: {
         display: 'flex',
         flexDirection: 'row',
+        listStyleType: 'none',
     },
 });
 

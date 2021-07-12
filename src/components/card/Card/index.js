@@ -87,34 +87,43 @@ const Card = ({ news, allCoins }) => {
                     </Grid>
 
                     <div className={styles.cardButtonsContainer}>
-                        <div
+                        <ul
                             className={`${styles.cardButtons} ${styles.cardAppreciationButtons}`}
                         >
-                            <Button text="1.2k" onClick={handleHotClick}>
-                                <Whatshot
-                                    style={{
-                                        ...iconStyle,
-                                        color: theme.palette.icon.hot,
-                                    }}
-                                />
-                            </Button>
-                            <Button text="3.5k" onClick={handleBullishClick}>
-                                <TrendingUp
-                                    style={{
-                                        ...iconStyle,
-                                        color: theme.palette.icon.bullish,
-                                    }}
-                                />
-                            </Button>
-                            <Button text="23" onClick={handleBearishClick}>
-                                <TrendingDown
-                                    style={{
-                                        ...iconStyle,
-                                        color: theme.palette.icon.bearish,
-                                    }}
-                                />
-                            </Button>
-                        </div>
+                            <li>
+                                <Button text="1.2k" onClick={handleHotClick}>
+                                    <Whatshot
+                                        style={{
+                                            ...iconStyle,
+                                            color: theme.palette.icon.hot,
+                                        }}
+                                    />
+                                </Button>
+                            </li>
+                            <li>
+                                <Button
+                                    text="3.5k"
+                                    onClick={handleBullishClick}
+                                >
+                                    <TrendingUp
+                                        style={{
+                                            ...iconStyle,
+                                            color: theme.palette.icon.bullish,
+                                        }}
+                                    />
+                                </Button>
+                            </li>
+                            <li>
+                                <Button text="23" onClick={handleBearishClick}>
+                                    <TrendingDown
+                                        style={{
+                                            ...iconStyle,
+                                            color: theme.palette.icon.bearish,
+                                        }}
+                                    />
+                                </Button>
+                            </li>
+                        </ul>
 
                         <div
                             className={`${styles.cardButtons} ${styles.cardCryptoListButtons}`}

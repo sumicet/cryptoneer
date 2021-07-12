@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'flex-start',
         overflow: 'hidden',
         flex: 1,
+        listStyleType: 'none',
     },
     globalMetricsSentimentIcon: {
         display: 'flex',

@@ -19,12 +19,6 @@ const NavList = ({ toggleDrawer }) => {
     }, [location]);
 
     const NavItem = ({ text, path }) => {
-        console.log(
-            location.pathname,
-            path,
-            location.pathname === path,
-            'here'
-        );
         return (
             <li className={styles.navItem + ' ' + styles.navLinkWrapper}>
                 <Link to={path} className={styles.navLink}>

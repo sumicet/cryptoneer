@@ -187,7 +187,7 @@ const GlobalMetrics = ({ collapse }) => {
                             </div>
                         )}
                         <div ref={listRef}>
-                            <div container className={styles.globalMetricsList}>
+                            <ul container className={styles.globalMetricsList}>
                                 {/* news sentiment percentage + news sentiment */}
                                 <GlobalMetricsItem
                                     description="News (last 24h)"
@@ -327,7 +327,7 @@ const GlobalMetrics = ({ collapse }) => {
                                     ) / 100}
                                     %
                                 </GlobalMetricsItem>
-                            </div>
+                            </ul>
                         </div>
 
                         {!collapse && showDropdownButton && (

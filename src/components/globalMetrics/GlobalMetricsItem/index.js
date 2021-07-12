@@ -58,7 +58,7 @@ const GlobalMetricsItem = React.forwardRef((props, ref) => {
     };
 
     return (
-        <div ref={ref} {...props} className={styles.globalMetricsItemWrapper}>
+        <li ref={ref} {...props} className={styles.globalMetricsItemWrapper}>
             <div className={styles.globalMetricsItem}>
                 {onItemClick ? (
                     <Button
@@ -84,7 +84,7 @@ const GlobalMetricsItem = React.forwardRef((props, ref) => {
                     </div>
                 )}
             </div>
-        </div>
+        </li>
     );
 });
 

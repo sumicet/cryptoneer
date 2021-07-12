@@ -50,6 +50,7 @@ const useStyles = makeStyles(theme => ({
     },
     cardAppreciationButtons: {
         flexDirection: 'row',
+        listStyleType: 'none',
     },
     cardCryptoListButtons: {
         justifyContent: 'flex-end',

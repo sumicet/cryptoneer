@@ -2,7 +2,7 @@ import { useTheme } from '@material-ui/core';
 import { useEffect } from 'react';
 import Chart from 'chart.js/auto';
 import { createRef } from 'react';
-import { getFearAndGreedIndexColor } from '../../../library/getFearAndGreedIndexColor';
+import { getFearAndGreedIndexColor } from '../../../library';
 import { useStyles } from './styles';
 
 const GlobalMetricsChart = ({ data, stepSize }) => {

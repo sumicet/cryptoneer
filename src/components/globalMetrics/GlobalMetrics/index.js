@@ -11,8 +11,8 @@ import { createRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useData } from '../../../hooks/useData';
 import Error from '../../Error';
-import { getFearAndGreedIndexColor } from '../../../library/getFearAndGreedIndexColor';
-import { formatBigNumbers } from '../../../library/formatBigNumbers';
+import { getFearAndGreedIndexColor } from '../../../library';
+import { formatBigNumbers } from '../../../library';
 import { useStyles } from './styles';
 
 const GlobalMetrics = ({ collapse }) => {

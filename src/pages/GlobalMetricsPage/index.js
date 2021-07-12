@@ -12,7 +12,7 @@ import Text from '../../components/text/Text';
 import Button from '../../components/buttons/Button';
 import TextLink from '../../components/text/TextLink';
 import { Launch } from '@material-ui/icons';
-import { getFearAndGreedIndexColor } from '../../library/getFearAndGreedIndexColor';
+import { getFearAndGreedIndexColor } from '../../library';
 import { useStyles } from './styles';
 
 const buttonListFields = ['7D', '1M', '3M', '1Y', 'ALL'];

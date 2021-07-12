@@ -3,10 +3,10 @@ import Nav from '../components/nav/header/Nav';
 import { Route, Switch } from 'react-router-dom';
 import Article from '../pages/news/Article';
 import News from '../pages/news/News';
-import FearAndGreedIndex from '../pages/globalMetrics/FearAndGreedIndex';
 import { useActions } from '../hooks/useActions';
 import { useFetch } from '../hooks/useFetch';
-import Footer from '../components/nav/footer/Footer';
+import Footer from '../components/nav/Footer';
+import GlobalMetricsPage from '../pages/GlobalMetricsPage';
 
 const useStyles = makeStyles(theme => ({
     bodyWrapper: {
@@ -71,8 +71,8 @@ const Routes = () => {
                             <Route path="/news/:id" exact>
                                 <Article />
                             </Route>
-                            <Route path="/global-metrics/fear-and-greed-index">
-                                <FearAndGreedIndex />
+                            <Route path="/global-metrics" exact>
+                                <GlobalMetricsPage />
                             </Route>
                         </Switch>
                     </div>

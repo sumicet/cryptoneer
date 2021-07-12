@@ -1,45 +1,17 @@
-import { CircularProgress, makeStyles, useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core';
 import { useEffect } from 'react';
-import './index.css';
-import { useData } from '../../../hooks/useData';
 import Chart from 'chart.js/auto';
 import { createRef } from 'react';
-import Text from '../../text/Text';
 import { getFearAndGreedIndexColor } from '../../../library/getFearAndGreedIndexColor';
+import { useStyles } from './styles';
 
-const useStyles = makeStyles(theme => ({
-    chartContainer: {
-        display: 'flex',
-        flex: 1,
-        flexDirection: 'row',
-        marginTop: theme.spacing(8),
-        marginBottom: theme.spacing(8),
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    chart: {
-        overflow: 'auto',
-        position: 'relative',
-        flex: 1,
-        display: 'flex',
-        // padding: theme.spacing(2),
-    },
-    chartTitle: {
-        alignSelf: 'center',
-        color: theme.palette.text.primary,
-        paddingTop: theme.spacing(2),
-    },
-}));
-
-const GlobalMetricsChart = ({ data }) => {
+const GlobalMetricsChart = ({ data, stepSize }) => {
     const styles = useStyles();
     const theme = useTheme();
 
-    const fearAndGreedIndex = useData(state => state.fearAndGreedIndex);
-
     const canvasRef = createRef(null);
 
-    const BarChart = ({ data, title }) => {
+    const LineChart = ({ data, title }) => {
         const getName = value =>
             value < 26
                 ? 'Extreme Fear'
@@ -120,7 +92,7 @@ const GlobalMetricsChart = ({ data }) => {
                         },
                         ticks: {
                             display: false,
-                            stepSize: 20,
+                            stepSize: stepSize,
                         },
                         grid: {
                             drawBorder: false,
@@ -246,7 +218,7 @@ const GlobalMetricsChart = ({ data }) => {
     return (
         <>
             <div className={styles.chart}>
-                <BarChart data={data} color="white" />
+                <LineChart data={data} color="white" />
             </div>
         </>
     );

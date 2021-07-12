@@ -1,4 +1,4 @@
-import { InputBase, makeStyles, Paper, useTheme } from '@material-ui/core';
+import { InputBase, Paper, useTheme } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import { useStyles } from './styles';
 

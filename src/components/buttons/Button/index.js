@@ -1,4 +1,4 @@
-import { Button as MuiButton, Typography } from '@material-ui/core';
+import { Button as MuiButton } from '@material-ui/core';
 import { useStyles } from './styles';
 import Text from '../../text/Text';
 

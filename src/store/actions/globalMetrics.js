@@ -1,5 +1,3 @@
-// https://pro-api.coinmarketcap.com/v1/global-metrics/quotes/latest?CMC_PRO_API_KEY=7b93d4f3-4a0d-45f5-8896-6295cb438d7a
-
 import { ActionTypes } from './actionTypes';
 
 export const fetchGlobalMetrics = () => {

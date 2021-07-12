@@ -1,9 +1,4 @@
-import {
-    Typography,
-    makeStyles,
-    useMediaQuery,
-    useTheme,
-} from '@material-ui/core';
+import { useMediaQuery, useTheme } from '@material-ui/core';
 import { Clear } from '@material-ui/icons';
 import { Link, useLocation } from 'react-router-dom';
 import Button from '../../../buttons/Button';

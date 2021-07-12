@@ -1,4 +1,3 @@
-import { makeStyles } from '@material-ui/core';
 import Text from '../text/Text';
 import { CancelRounded } from '@material-ui/icons';
 import { useStyles } from './styles';

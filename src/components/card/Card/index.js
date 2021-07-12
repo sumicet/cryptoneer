@@ -1,4 +1,4 @@
-import { ListItem, CardContent, Typography, Grid } from '@material-ui/core';
+import { ListItem, CardContent, Grid } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import { Whatshot, TrendingUp, TrendingDown, Launch } from '@material-ui/icons';
 import CryptoButtonList from '../../buttons/CryptoButtonList';

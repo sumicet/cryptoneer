@@ -1,5 +1,4 @@
 import produce from 'immer';
-import TimeDiff from '../../library/timeDiff';
 import { ActionTypes } from '../actions/actionTypes';
 
 const initialState = {

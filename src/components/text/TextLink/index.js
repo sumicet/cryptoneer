@@ -1,4 +1,4 @@
-import { Link as MuiLink, makeStyles } from '@material-ui/core';
+import { Link as MuiLink } from '@material-ui/core';
 import Text from '../Text';
 import { useStyles } from './styles';
 

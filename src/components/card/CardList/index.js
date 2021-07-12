@@ -1,8 +1,4 @@
-import {
-    List as MuiList,
-    CircularProgress,
-    makeStyles,
-} from '@material-ui/core';
+import { List as MuiList, CircularProgress } from '@material-ui/core';
 import Card from '../Card';
 import { Link } from 'react-router-dom';
 import { useData } from '../../../hooks/useData';

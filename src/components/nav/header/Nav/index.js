@@ -1,7 +1,6 @@
 import {
     AppBar,
     Toolbar,
-    makeStyles,
     useMediaQuery,
     SwipeableDrawer,
 } from '@material-ui/core';

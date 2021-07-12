@@ -1,4 +1,4 @@
-import { makeStyles, Typography, Grid, Link, Button } from '@material-ui/core';
+import { Typography, Link, Button } from '@material-ui/core';
 import { Launch } from '@material-ui/icons';
 import React from 'react';
 import { useStyles } from './styles';

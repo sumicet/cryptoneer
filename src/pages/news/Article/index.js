@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { useData } from '../../../hooks/useData';
-import { useStyles } from './styles';
+// import { useStyles } from './styles';
 
 const Article = () => {
     const match = useRouteMatch();

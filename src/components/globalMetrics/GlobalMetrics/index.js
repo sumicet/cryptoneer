@@ -1,13 +1,8 @@
-import {
-    CircularProgress,
-    makeStyles,
-    useTheme,
-    Collapse,
-} from '@material-ui/core';
+import { CircularProgress, useTheme, Collapse } from '@material-ui/core';
 import { useCallback } from 'react';
 import { useEffect, useState } from 'react';
 // eslint-disable-next-line
-import { ReactComponent as Bear } from '../../../svg/other/Bear.svg';
+// import { ReactComponent as Bear } from '../../../svg/other/Bear.svg';
 import { ReactComponent as Bull } from '../../../svg/other/Bull.svg';
 import GlobalMetricsItem from '../GlobalMetricsItem';
 import Button from '../../buttons/Button';

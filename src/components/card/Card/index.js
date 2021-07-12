@@ -86,8 +86,10 @@ const Card = ({ news, allCoins }) => {
                         <Text size="medium">{title}</Text>
                     </Grid>
 
-                    <div className={styles.cardButtons}>
-                        <div className={styles.cardButtonsAppreciation}>
+                    <div className={styles.cardButtonsContainer}>
+                        <div
+                            className={`${styles.cardButtons} ${styles.cardAppreciationButtons}`}
+                        >
                             <Button text="1.2k" onClick={handleHotClick}>
                                 <Whatshot
                                     style={{
@@ -114,7 +116,9 @@ const Card = ({ news, allCoins }) => {
                             </Button>
                         </div>
 
-                        <div className={styles.cardButtonsCurrencyList}>
+                        <div
+                            className={`${styles.cardButtons} ${styles.cardCryptoListButtons}`}
+                        >
                             <CryptoButtonList
                                 categories={categories}
                                 title={title}

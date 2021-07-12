@@ -20,11 +20,11 @@ const useStyles = makeStyles(theme => ({
         flex: 1,
         justifyContent: 'flex-end',
     },
-    drawer: {
+    navDrawer: {
         flex: 1,
         background: 'transparent',
     },
-    drawerPaper: {
+    navDrawerPaper: {
         background: theme.palette.background.dark,
         padding: theme.spacing(2),
     },

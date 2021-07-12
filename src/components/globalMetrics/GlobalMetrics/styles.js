@@ -20,18 +20,18 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         alignSelf: 'flex-start',
     },
-    globalMetrics: {
+    globalMetricsCollapse: {
         overflow: 'hidden',
-    },
-    globalMetricsWrapperInner: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
     },
     globalMetricsCollapseButton: {
         alignSelf: 'flex-start',
         display: 'flex',
         justifyContent: 'center',
+        alignItems: 'center',
+    },
+    globalMetricsCollapseWrapperInner: {
+        display: 'flex',
+        flexDirection: 'row',
         alignItems: 'center',
     },
 }));

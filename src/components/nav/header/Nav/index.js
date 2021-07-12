@@ -37,9 +37,9 @@ const Nav = () => {
                 open={isDrawerOpen}
                 onClose={toggleDrawer()}
                 onOpen={toggleDrawer()}
-                className={styles.drawer}
+                className={styles.navDrawer}
                 classes={{
-                    paper: styles.drawerPaper,
+                    paper: styles.navDrawerPaper,
                 }}
             >
                 <NavItemList toggleDrawer={toggleDrawer} />

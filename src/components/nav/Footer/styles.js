@@ -26,6 +26,13 @@ const useStyles = makeStyles(theme => ({
             paddingBottom: 0,
         },
     },
+    footerListWrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        width: '100%',
+        flex: 1,
+    },
     footerList: {
         display: 'flex',
         flexDirection: 'column',
@@ -44,17 +51,10 @@ const useStyles = makeStyles(theme => ({
     footerTextLink: {
         color: theme.palette.text.secondary,
     },
-    footerListItem: {
+    footerItem: {
         display: 'flex',
         justifyContent: 'center',
         paddingTop: theme.spacing(2),
-    },
-    footerListWrapper: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        width: '100%',
-        flex: 1,
     },
 }));
 

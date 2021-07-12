@@ -4,7 +4,6 @@ const useStyles = makeStyles(theme => ({
     cardContainer: {
         padding: 0,
     },
-
     card: {
         '&:last-child': {
             paddingBottom: 0,
@@ -38,23 +37,21 @@ const useStyles = makeStyles(theme => ({
         placeItems: 'center',
         float: 'left',
     },
-    cardButtons: {
+    cardButtonsContainer: {
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
     },
-    cardButtonsAppreciation: {
+    cardButtons: {
         display: 'flex',
-        flexDirection: 'row',
         alignItems: 'center',
         paddingTop: theme.spacing(1),
         paddingBottom: theme.spacing(2),
     },
-    cardButtonsCurrencyList: {
-        display: 'flex',
-        paddingTop: theme.spacing(1),
-        paddingBottom: theme.spacing(2),
-        alignItems: 'center',
+    cardAppreciationButtons: {
+        flexDirection: 'row',
+    },
+    cardCryptoListButtons: {
         justifyContent: 'flex-end',
         flex: 1,
     },

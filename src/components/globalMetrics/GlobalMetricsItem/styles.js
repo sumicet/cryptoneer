@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
+    globalMetricsItemWrapper: {}, // needed for ref
     globalMetricsItem: {
         padding: 0,
         cursor: 'default',
@@ -49,19 +50,18 @@ const useStyles = makeStyles(theme => ({
     globalMetricsTextData: {
         color: theme.palette.text.accentLight,
     },
-    launchIcon: {
+    globalMetricsLaunchIcon: {
         width: theme.typography.body2.fontSize,
         height: theme.typography.body2.fontSize,
         color: theme.palette.text.primary,
         marginLeft: theme.spacing(0.5),
     },
-    link: {
+    globalMetricsLink: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         color: `${theme.palette.text.primary} !important`,
     },
-    globalMetricsItemWrapper: {},
     remoteSpaces: {
         padding: 0,
         margin: 0,

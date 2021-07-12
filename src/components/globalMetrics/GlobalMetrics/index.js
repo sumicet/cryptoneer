@@ -171,11 +171,12 @@ const GlobalMetrics = ({ collapse }) => {
                 !globalMetrics.loading &&
                 globalMetrics.data && (
                     <Collapse
-                        className={styles.globalMetrics}
+                        className={styles.globalMetricsCollapse}
                         collapsedHeight={globalMetricsHeight}
                         in={collapseGlobalMetrics}
                         classes={{
-                            wrapperInner: styles.globalMetricsWrapperInner,
+                            wrapperInner:
+                                styles.globalMetricsCollapseWrapperInner,
                         }}
                     >
                         {!collapse && (

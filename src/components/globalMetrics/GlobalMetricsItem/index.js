@@ -14,10 +14,12 @@ const GlobalMetricsItem = React.forwardRef((props, ref) => {
     const Container = ({ children }) => (
         <Link
             onClick={() => handleRedirect(redirectURL)}
-            className={styles.link}
+            className={styles.globalMetricsLink}
         >
             {children}
-            {redirectURL && <Launch className={styles.launchIcon} />}
+            {redirectURL && (
+                <Launch className={styles.globalMetricsLaunchIcon} />
+            )}
         </Link>
     );
 

@@ -40,7 +40,7 @@ const Footer = () => {
                                     {title}
                                 </Text>
                                 {fields[index].map(field => (
-                                    <div className={styles.footerListItem}>
+                                    <div className={styles.footerItem}>
                                         <TextLink
                                             to={`/news`}
                                             TextProps={{

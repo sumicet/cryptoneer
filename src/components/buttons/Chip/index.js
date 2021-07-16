@@ -1,10 +1,14 @@
 import * as React from 'react';
 import { Chip as MuiChip, useTheme } from '@material-ui/core';
 import Text from '../../text/Text';
-import { CancelRounded } from '@material-ui/icons';
-import CurrencyLogo from '../../buttons/CurrencyLogo';
 import { useStyles } from './styles';
 
+/**
+ *
+ * @param text
+ * @param avatar
+ * @param props Mui Chip props
+ */
 const Chip = props => {
     const styles = useStyles();
     const theme = useTheme();

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import useAutocomplete from '@material-ui/lab/useAutocomplete';
-import { styled, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 import Error from '../../Error';
 import { Chip as MuiChip, CircularProgress } from '@material-ui/core';
 import { useData } from '../../../hooks/useData';
@@ -8,7 +8,6 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useStyles } from './styles';
-import Text from '../../text/Text';
 import { CancelRounded, Check } from '@material-ui/icons';
 import CurrencyLogo from '../../buttons/CurrencyLogo';
 import { useMediaQuery } from '@material-ui/core';

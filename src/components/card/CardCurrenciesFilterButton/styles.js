@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
     inputWrapper: {
         width: 200,
+        minWidth: 200,
         height: theme.spacing(4),
         display: 'flex',
         flexWrap: 'wrap',
@@ -97,11 +98,11 @@ const useStyles = makeStyles(theme => ({
         "& li[aria-selected='true']": {
             '& div': {
                 background: theme.palette.background.selected,
-                color: theme.palette.text.accentLight,
+                // color: theme.palette.text.accentLight,
                 fontWeight: 700,
             },
             '& svg': {
-                color: theme.palette.text.accentLight,
+                color: theme.palette.text.primary,
             },
         },
 

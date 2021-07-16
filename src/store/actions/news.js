@@ -181,3 +181,11 @@ export const fetchNews = () => {
         }
     };
 };
+
+export const filterNews = currencies => {
+    return async dispatch =>
+        dispatch({
+            type: ActionTypes.FILTER_NEWS,
+            payload: currencies,
+        });
+};

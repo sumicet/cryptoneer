@@ -5,12 +5,29 @@ import { useData } from '../../../hooks/useData';
 import Error from '../../Error';
 import { useStyles } from './styles';
 import CardCurrenciesFilterButton from '../CardCurrenciesFilterButton';
+import { useActions } from '../../../hooks/useActions';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const CardList = () => {
     const styles = useStyles();
 
     const news = useData(state => state.news);
     const coins = useData(state => state.coins);
+
+    const { filterNews } = useActions();
+
+    const filtered = useSelector(state => state.news.filtered);
+    const [filteredData, setFilteredData] = useState([]);
+
+    useEffect(() => {
+        setFilteredData(filtered);
+    }, [filtered]);
+
+    const handleSelectedCurrencies = selected => {
+        filterNews(selected);
+    };
 
     return (
         <>
@@ -19,10 +36,12 @@ const CardList = () => {
             {!news.error && !news.loading && !coins.loading && (
                 <div>
                     <div className={styles.cardListFilter}>
-                        <CardCurrenciesFilterButton />
+                        <CardCurrenciesFilterButton
+                            onSelectedCurrencies={handleSelectedCurrencies}
+                        />
                     </div>
                     <MuiList className={styles.list}>
-                        {news.data.map(article => (
+                        {filteredData.map(article => (
                             <Link
                                 key={article.id}
                                 to={`/news/${article.id}`}

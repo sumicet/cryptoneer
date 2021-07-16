@@ -14,14 +14,15 @@ import { useStyles } from './styles';
 import Text from '../../text/Text';
 import { Close } from '@material-ui/icons';
 import CurrencyLogo from '../../buttons/CurrencyLogo';
+import { useMediaQuery } from '@material-ui/core';
 
-const CardCurrenciesFilterButton = () => {
+const CardCurrenciesFilterButton = ({ onSelectedCurrencies }) => {
     const styles = useStyles();
     const theme = useTheme();
 
     const news = useData(state => state.news);
 
-    const [currencies, setCurrencies] = useState(null);
+    const [currencies, setCurrencies] = useState([]);
     const curr = useSelector(state => state.news.currencies);
 
     useEffect(() => {
@@ -39,15 +40,90 @@ const CardCurrenciesFilterButton = () => {
         focused,
         setAnchorEl,
     } = useAutocomplete({
-        id: 'customized-hook-demo',
         defaultValue: [],
         multiple: true,
-        options: curr,
+        options: currencies,
         getOptionLabel: option => option.symbol,
         onChange: (e, selected) => {
-            console.log(selected);
+            onSelectedCurrencies(selected);
         },
     });
+
+    const resolutionIsXS = useMediaQuery(theme => theme.breakpoints.only('xs'));
+
+    const Tags = () => {
+        return (
+            <>
+                {value.map((option, index) => {
+                    // I want to see 2 chips max (plus the count chip)
+                    // on xs i just wanna see how many filters I applied
+                    if (!resolutionIsXS && index <= 1) {
+                        return (
+                            <Text size="small">
+                                <Chip
+                                    {...getTagProps({ index })}
+                                    className={`${styles.styledTag} ${styles.chip}`}
+                                    label={
+                                        <div
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                flexDirection: 'row',
+                                            }}
+                                        >
+                                            {option.symbol.toUpperCase()}
+                                        </div>
+                                    }
+                                    deleteIcon={
+                                        <Close
+                                            style={{
+                                                width: theme.sizing.icon,
+                                                height: theme.sizing.icon,
+                                            }}
+                                        />
+                                    }
+                                    avatar={
+                                        <div
+                                            style={{
+                                                paddingLeft: theme.spacing(1),
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                display: 'flex',
+                                                marginRight: 0,
+                                                marginLeft: 0,
+                                            }}
+                                        >
+                                            <CurrencyLogo path={option.path} />
+                                        </div>
+                                    }
+                                />
+                            </Text>
+                        );
+                    } else {
+                        return null;
+                    }
+                })}
+                {(resolutionIsXS || (!resolutionIsXS && value.length > 2)) && (
+                    <Chip
+                        label={
+                            (resolutionIsXS ? value.length : value.length - 2) +
+                            (!resolutionIsXS
+                                ? ' more'
+                                : value.length === 1
+                                ? ' filter'
+                                : ' filters')
+                        }
+                        style={{
+                            marginLeft: theme.spacing(1),
+                            background: theme.palette.background.selected,
+                            display: 'grid',
+                            placeItems: 'center',
+                        }}
+                    />
+                )}
+            </>
+        );
+    };
 
     return (
         <div>
@@ -77,52 +153,17 @@ const CardCurrenciesFilterButton = () => {
                             />
                         </div>
 
-                        {value.map((option, index) => {
-                            return (
-                                <Text size="small">
-                                    <Chip
-                                        {...getTagProps({ index })}
-                                        className={`${styles.styledTag} ${styles.chip}`}
-                                        label={
-                                            <div
-                                                style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    flexDirection: 'row',
-                                                }}
-                                            >
-                                                {option.symbol.toUpperCase()}
-                                            </div>
-                                        }
-                                        deleteIcon={
-                                            <Close
-                                                style={{
-                                                    width: theme.sizing.icon,
-                                                    height: theme.sizing.icon,
-                                                }}
-                                            />
-                                        }
-                                        avatar={
-                                            <div
-                                                style={{
-                                                    paddingLeft:
-                                                        theme.spacing(1),
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    display: 'flex',
-                                                    marginRight: 0,
-                                                    marginLeft: 0,
-                                                }}
-                                            >
-                                                <CurrencyLogo
-                                                    path={option.path}
-                                                />
-                                            </div>
-                                        }
-                                    />
-                                </Text>
-                            );
-                        })}
+                        <div
+                            style={{
+                                flexWrap: 'wrap',
+                                flexDirection: 'row',
+                                display: 'flex',
+                                overflow: 'hidden',
+                                height: theme.spacing(4),
+                            }}
+                        >
+                            <Tags />
+                        </div>
                     </div>
                     {groupedOptions.length > 0 ? (
                         <div className={styles.listbox} {...getListboxProps()}>

@@ -2,7 +2,7 @@
 
 Cryptocurrency news & statistics.
 
-![Home](https://i.imgur.com/dEi3yYK.png)
+![Home](https://i.imgur.com/fgFwQBl.png)
 ![Global metrics](https://i.imgur.com/DuB8J9D.png)
 
 ### Technologies used

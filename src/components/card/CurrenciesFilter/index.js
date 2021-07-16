@@ -1,8 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import useAutocomplete from '@material-ui/lab/useAutocomplete';
-import CheckIcon from '@material-ui/icons/Check';
-import CloseIcon from '@material-ui/icons/Close';
 import { styled, useTheme } from '@material-ui/core/styles';
 import Error from '../../Error';
 import { Chip, CircularProgress } from '@material-ui/core';
@@ -12,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useStyles } from './styles';
 import Text from '../../text/Text';
-import { Close } from '@material-ui/icons';
+import { CancelRounded, Check } from '@material-ui/icons';
 import CurrencyLogo from '../../buttons/CurrencyLogo';
 import { useMediaQuery } from '@material-ui/core';
 
@@ -60,39 +58,50 @@ const CurrenciesFilter = ({ onSelectedCurrencies }) => {
                     if (!resolutionIsXS && index <= 1) {
                         return (
                             <li>
-                                <Text size="small">
-                                    <Chip
-                                        {...getTagProps({ index })}
-                                        className={`${styles.currenciesFilterChip} ${styles.currenciesFilterListChip}`}
-                                        label={
-                                            <div className={styles.rowCenter}>
-                                                {option.symbol.toUpperCase()}
-                                            </div>
-                                        }
-                                        deleteIcon={
-                                            <Close
-                                                className={
-                                                    styles.currenciesFilterIcon
-                                                }
-                                            />
-                                        }
-                                        avatar={
-                                            <div
-                                                style={{
-                                                    marginRight: 0,
-                                                    marginLeft: 0,
-                                                    paddingLeft:
-                                                        theme.spacing(1),
-                                                }}
+                                <Chip
+                                    {...getTagProps({ index })}
+                                    className={`${styles.currenciesFilterChip} ${styles.currenciesFilterListChip}`}
+                                    label={
+                                        <div
+                                            className={styles.rowCenter}
+                                            style={{
+                                                height: '100%',
+                                            }}
+                                        >
+                                            <Text
+                                                size="small"
                                                 className={styles.center}
                                             >
-                                                <CurrencyLogo
-                                                    path={option.path}
-                                                />
-                                            </div>
-                                        }
-                                    />
-                                </Text>
+                                                {option.symbol.toUpperCase()}
+                                            </Text>
+                                        </div>
+                                    }
+                                    deleteIcon={
+                                        <CancelRounded
+                                            className={
+                                                styles.currenciesFilterIcon
+                                            }
+                                            style={{
+                                                marginRight: theme.spacing(1),
+                                            }}
+                                        />
+                                    }
+                                    // onDelete={null}
+                                    avatar={
+                                        <div
+                                            style={{
+                                                marginRight: 0,
+                                                // marginLeft: 0,
+                                                marginLeft: theme.spacing(1),
+                                                width: theme.sizing.icon,
+                                                height: theme.sizing.icon,
+                                            }}
+                                            className={styles.center}
+                                        >
+                                            <CurrencyLogo path={option.path} />
+                                        </div>
+                                    }
+                                />
                             </li>
                         );
                     } else {
@@ -162,7 +171,7 @@ const CurrenciesFilter = ({ onSelectedCurrencies }) => {
                                                         styles.currenciesFilterIconWrapper
                                                     }
                                                 >
-                                                    <CheckIcon
+                                                    <Check
                                                         className={
                                                             styles.currenciesFilterIcon
                                                         }

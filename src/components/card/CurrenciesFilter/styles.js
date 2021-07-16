@@ -66,8 +66,8 @@ const useStyles = makeStyles(theme => ({
     },
     currenciesFilterListChip: {
         marginLeft: theme.spacing(1),
-        paddingRight: theme.spacing(1),
-        paddingLeft: 0,
+        paddingLeft: theme.spacing(0.5),
+        paddingRight: theme.spacing(0.5),
         '& svg': {
             margin: 0,
         },
@@ -136,6 +136,10 @@ const useStyles = makeStyles(theme => ({
     currenciesFilterIcon: {
         width: theme.sizing.icon,
         height: theme.sizing.icon,
+        '& path': {
+            width: theme.sizing.icon,
+            height: theme.sizing.icon,
+        },
     },
     currenciesFilterCount: {
         marginLeft: theme.spacing(1),

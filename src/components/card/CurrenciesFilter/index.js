@@ -1,9 +1,8 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import useAutocomplete from '@material-ui/lab/useAutocomplete';
 import { styled, useTheme } from '@material-ui/core/styles';
 import Error from '../../Error';
-import { Chip, CircularProgress } from '@material-ui/core';
+import { Chip as MuiChip, CircularProgress } from '@material-ui/core';
 import { useData } from '../../../hooks/useData';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -13,6 +12,7 @@ import Text from '../../text/Text';
 import { CancelRounded, Check } from '@material-ui/icons';
 import CurrencyLogo from '../../buttons/CurrencyLogo';
 import { useMediaQuery } from '@material-ui/core';
+import Chip from '../../buttons/Chip';
 
 const CurrenciesFilter = ({ onSelectedCurrencies }) => {
     const styles = useStyles();
@@ -60,22 +60,7 @@ const CurrenciesFilter = ({ onSelectedCurrencies }) => {
                             <li>
                                 <Chip
                                     {...getTagProps({ index })}
-                                    className={`${styles.currenciesFilterChip} ${styles.currenciesFilterListChip}`}
-                                    label={
-                                        <div
-                                            className={styles.rowCenter}
-                                            style={{
-                                                height: '100%',
-                                            }}
-                                        >
-                                            <Text
-                                                size="small"
-                                                className={styles.center}
-                                            >
-                                                {option.symbol.toUpperCase()}
-                                            </Text>
-                                        </div>
-                                    }
+                                    text={option.symbol.toUpperCase()}
                                     deleteIcon={
                                         <CancelRounded
                                             className={
@@ -86,21 +71,7 @@ const CurrenciesFilter = ({ onSelectedCurrencies }) => {
                                             }}
                                         />
                                     }
-                                    // onDelete={null}
-                                    avatar={
-                                        <div
-                                            style={{
-                                                marginRight: 0,
-                                                // marginLeft: 0,
-                                                marginLeft: theme.spacing(1),
-                                                width: theme.sizing.icon,
-                                                height: theme.sizing.icon,
-                                            }}
-                                            className={styles.center}
-                                        >
-                                            <CurrencyLogo path={option.path} />
-                                        </div>
-                                    }
+                                    avatar={<CurrencyLogo path={option.path} />}
                                 />
                             </li>
                         );
@@ -111,7 +82,7 @@ const CurrenciesFilter = ({ onSelectedCurrencies }) => {
                 <li>
                     {(resolutionIsXS ||
                         (!resolutionIsXS && value.length > 2)) && (
-                        <Chip
+                        <MuiChip
                             label={
                                 (resolutionIsXS
                                     ? value.length
@@ -161,7 +132,7 @@ const CurrenciesFilter = ({ onSelectedCurrencies }) => {
                         <div className={styles.listbox} {...getListboxProps()}>
                             {groupedOptions.map((option, index) => (
                                 <li {...getOptionProps({ option, index })}>
-                                    <Chip
+                                    <MuiChip
                                         className={`${styles.currenciesFilterChip} ${styles.currenciesFilterDropdownChip} ${styles.center}`}
                                         label={
                                             <div className={styles.rowCenter}>

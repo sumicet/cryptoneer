@@ -64,14 +64,6 @@ const useStyles = makeStyles(theme => ({
             color: theme.palette.text.secondary,
         },
     },
-    currenciesFilterListChip: {
-        marginLeft: theme.spacing(1),
-        paddingLeft: theme.spacing(0.5),
-        paddingRight: theme.spacing(0.5),
-        '& svg': {
-            margin: 0,
-        },
-    },
     currenciesFilterDropdownChip: {
         width: '100%',
         paddingLeft: theme.spacing(1),

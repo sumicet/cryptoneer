@@ -59,6 +59,7 @@ const Chip = props => {
                     {props.avatar}
                 </div>
             }
+            clickable
         />
     );
 };

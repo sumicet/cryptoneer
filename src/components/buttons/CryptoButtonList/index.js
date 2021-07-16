@@ -10,6 +10,7 @@ const CryptoButtonList = ({ children, currencies }) => {
 
     const handleCurrencyClick = event => {
         event.preventDefault();
+        alert('click');
     };
 
     return (

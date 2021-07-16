@@ -13,6 +13,10 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
 
+        // fix color changing to gray after clicking on button
+        '& .MuiChip-clickable:hover, .MuiChip-clickable:focus': {
+            background: 'none',
+        },
         // chip text container
         '& span': {
             overflow: 'hidden',

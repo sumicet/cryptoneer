@@ -6,6 +6,7 @@ import Button from '../../buttons/Button';
 import Text from '../../text/Text';
 import TimeDiff from '../../../library/timeDiff';
 import { useStyles } from './styles';
+import Chip from '../../buttons/Chip';
 
 /**
  * Card
@@ -91,37 +92,51 @@ const Card = ({ news, allCoins }) => {
                             className={`${styles.cardButtons} ${styles.cardAppreciationButtons}`}
                         >
                             <li>
-                                <Button text="1.2k" onClick={handleHotClick}>
-                                    <Whatshot
-                                        style={{
-                                            ...iconStyle,
-                                            color: theme.palette.icon.hot,
-                                        }}
-                                    />
-                                </Button>
+                                <Chip
+                                    text="1.2k"
+                                    onClick={handleHotClick}
+                                    avatar={
+                                        <Whatshot
+                                            style={{
+                                                ...iconStyle,
+                                                color: theme.palette.icon.hot,
+                                            }}
+                                        />
+                                    }
+                                    background="transparent"
+                                />
                             </li>
                             <li>
-                                <Button
-                                    text="3.5k"
+                                <Chip
+                                    text="1k"
                                     onClick={handleBullishClick}
-                                >
-                                    <TrendingUp
-                                        style={{
-                                            ...iconStyle,
-                                            color: theme.palette.icon.bullish,
-                                        }}
-                                    />
-                                </Button>
+                                    avatar={
+                                        <TrendingUp
+                                            style={{
+                                                ...iconStyle,
+                                                color: theme.palette.icon
+                                                    .bullish,
+                                            }}
+                                        />
+                                    }
+                                    background="transparent"
+                                />
                             </li>
                             <li>
-                                <Button text="23" onClick={handleBearishClick}>
-                                    <TrendingDown
-                                        style={{
-                                            ...iconStyle,
-                                            color: theme.palette.icon.bearish,
-                                        }}
-                                    />
-                                </Button>
+                                <Chip
+                                    text="15"
+                                    onClick={handleBearishClick}
+                                    avatar={
+                                        <TrendingDown
+                                            style={{
+                                                ...iconStyle,
+                                                color: theme.palette.icon
+                                                    .bearish,
+                                            }}
+                                        />
+                                    }
+                                    background="transparent"
+                                />
                             </li>
                         </ul>
 

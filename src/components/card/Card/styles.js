@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
             background: 'transparent',
         },
         '100%': {
-            background: theme.palette.background.notSelected,
+            background: theme.palette.background.cardHover,
         },
     },
     cardHeader: {

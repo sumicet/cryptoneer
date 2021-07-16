@@ -2,6 +2,7 @@ import { useMediaQuery } from '@material-ui/core';
 import Button from '../Button';
 import { useStyles } from './styles';
 import CurrencyLogo from '../CurrencyLogo';
+import Chip from '../Chip';
 
 const CryptoButtonList = ({ children, currencies }) => {
     const styles = useStyles();
@@ -18,16 +19,18 @@ const CryptoButtonList = ({ children, currencies }) => {
                     .filter((currency, index) => index < 3)
                     .map((currency, index) => (
                         <li>
-                            <Button
-                                key={index}
-                                onClick={handleCurrencyClick}
-                                text={!resolutionIsXS && currency.symbol}
-                                style={{
-                                    textTransform: 'uppercase',
-                                }}
-                            >
+                            {resolutionIsXS ? (
                                 <CurrencyLogo path={currency.path} />
-                            </Button>
+                            ) : (
+                                <Chip
+                                    text={currency.symbol.toUpperCase()}
+                                    avatar={
+                                        <CurrencyLogo path={currency.path} />
+                                    }
+                                    onClick={handleCurrencyClick}
+                                    background="transparent"
+                                />
+                            )}
                         </li>
                     ))}
             {children}

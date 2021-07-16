@@ -12,11 +12,6 @@ const useStyles = makeStyles(theme => ({
     currenciesFilterChip: {
         display: 'flex',
         alignItems: 'center',
-        background: theme.palette.background.notSelected,
-
-        '&:hover': {
-            backgroundColor: theme.palette.button.hover,
-        },
 
         // chip text container
         '& span': {

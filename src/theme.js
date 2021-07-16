@@ -25,6 +25,7 @@ export const theme = createMuiTheme({
             selected: '#524bdb',
             // selected: '#443eb8',
             notSelected: '#363194',
+            cardHover: 'rgba(54, 49, 148, 0.3)',
         },
         button: {
             primary: 'rgba(255, 255, 255, 0.1)',

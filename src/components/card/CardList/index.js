@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useData } from '../../../hooks/useData';
 import Error from '../../Error';
 import { useStyles } from './styles';
-import CardCurrenciesFilterButton from '../CardCurrenciesFilterButton';
+import CurrenciesFilter from '../CurrenciesFilter';
 import { useActions } from '../../../hooks/useActions';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -36,7 +36,7 @@ const CardList = () => {
             {!news.error && !news.loading && !coins.loading && (
                 <div>
                     <div className={styles.cardListFilter}>
-                        <CardCurrenciesFilterButton
+                        <CurrenciesFilter
                             onSelectedCurrencies={handleSelectedCurrencies}
                         />
                     </div>

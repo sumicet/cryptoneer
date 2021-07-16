@@ -16,7 +16,7 @@ import { Close } from '@material-ui/icons';
 import CurrencyLogo from '../../buttons/CurrencyLogo';
 import { useMediaQuery } from '@material-ui/core';
 
-const CardCurrenciesFilterButton = ({ onSelectedCurrencies }) => {
+const CurrenciesFilter = ({ onSelectedCurrencies }) => {
     const styles = useStyles();
     const theme = useTheme();
 
@@ -51,7 +51,7 @@ const CardCurrenciesFilterButton = ({ onSelectedCurrencies }) => {
 
     const resolutionIsXS = useMediaQuery(theme => theme.breakpoints.only('xs'));
 
-    const Tags = () => {
+    const ChipList = () => {
         return (
             <>
                 {value.map((option, index) => {
@@ -162,7 +162,7 @@ const CardCurrenciesFilterButton = ({ onSelectedCurrencies }) => {
                                 height: theme.spacing(4),
                             }}
                         >
-                            <Tags />
+                            <ChipList />
                         </div>
                     </div>
                     {groupedOptions.length > 0 ? (
@@ -214,4 +214,4 @@ const CardCurrenciesFilterButton = ({ onSelectedCurrencies }) => {
     );
 };
 
-export default CardCurrenciesFilterButton;
+export default CurrenciesFilter;

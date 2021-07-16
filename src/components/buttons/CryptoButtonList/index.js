@@ -21,7 +21,9 @@ const CryptoButtonList = ({ children, currencies }) => {
                     .map((currency, index) => (
                         <li>
                             {resolutionIsXS ? (
-                                <CurrencyLogo path={currency.path} />
+                                <div onClick={handleCurrencyClick}>
+                                    <CurrencyLogo path={currency.path} />
+                                </div>
                             ) : (
                                 <Chip
                                     text={currency.symbol.toUpperCase()}

@@ -1,7 +1,11 @@
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-    inputWrapper: {
+    currenciesFilterWrapper: {
+        flexDirection: 'row',
+        display: 'flex',
+    },
+    currenciesFilterInputWrapper: {
         width: 200,
         minWidth: 200,
         height: theme.spacing(4),
@@ -12,37 +16,32 @@ const useStyles = makeStyles(theme => ({
         '&:hover': {
             background: theme.palette.background.selected,
         },
-        '& .focused': {
-            background: 'green',
-        },
-        // input container
-        '& input': {
-            background: 'transparent',
-            width: 0,
-            minWidth: 30,
-            flex: 1,
-            border: 0,
-            margin: 0,
-            outline: 0,
+    },
+    currenciesFilterInput: {
+        background: 'transparent',
+        width: 0,
+        minWidth: 30,
+        flex: 1,
+        border: 0,
+        margin: 0,
+        outline: 0,
+        color: theme.palette.text.primary,
+        paddingLeft: theme.spacing(2),
+        paddingRight: theme.spacing(2),
+        '&::placeholder': {
+            color: theme.palette.text.hint,
         },
     },
-    chip: {
-        marginLeft: theme.spacing(1),
-        paddingRight: theme.spacing(1),
-        paddingLeft: 0,
-        '& svg': {
-            margin: 0,
-        },
-    },
-    dropdownChip: {
-        width: '100%',
+    currenciesFilterChipList: {
+        flexWrap: 'wrap',
+        flexDirection: 'row',
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingLeft: theme.spacing(1),
-        cursor: 'pointer',
+        overflow: 'hidden',
+        height: theme.spacing(4),
+        listStyleType: 'none',
     },
-    styledTag: {
+
+    currenciesFilterChip: {
         display: 'flex',
         alignItems: 'center',
         background: theme.palette.background.notSelected,
@@ -59,13 +58,26 @@ const useStyles = makeStyles(theme => ({
             paddingLeft: theme.spacing(1),
             paddingRight: theme.spacing(1),
         },
+
         '& svg': {
             cursor: 'pointer',
-            height: theme.typography.fontSize,
-            width: theme.typography.fontSize,
             color: theme.palette.text.secondary,
         },
     },
+    currenciesFilterListChip: {
+        marginLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
+        paddingLeft: 0,
+        '& svg': {
+            margin: 0,
+        },
+    },
+    currenciesFilterDropdownChip: {
+        width: '100%',
+        paddingLeft: theme.spacing(1),
+        cursor: 'pointer',
+    },
+
     listbox: {
         width: 200,
         padding: theme.spacing(2),
@@ -115,13 +127,29 @@ const useStyles = makeStyles(theme => ({
             },
         },
     },
-    input: {
-        color: theme.palette.text.primary,
-        paddingLeft: theme.spacing(2),
-        paddingRight: theme.spacing(2),
-        '&::placeholder': {
-            color: theme.palette.text.hint,
-        },
+    currenciesFilterIconWrapper: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        display: 'flex',
+    },
+    currenciesFilterIcon: {
+        width: theme.sizing.icon,
+        height: theme.sizing.icon,
+    },
+    currenciesFilterCount: {
+        marginLeft: theme.spacing(1),
+        background: theme.palette.background.selected,
+    },
+    center: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        display: 'flex',
+    },
+    rowCenter: {
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'row',
     },
 }));
 

@@ -59,143 +59,113 @@ const CurrenciesFilter = ({ onSelectedCurrencies }) => {
                     // on xs i just wanna see how many filters I applied
                     if (!resolutionIsXS && index <= 1) {
                         return (
-                            <Text size="small">
-                                <Chip
-                                    {...getTagProps({ index })}
-                                    className={`${styles.styledTag} ${styles.chip}`}
-                                    label={
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                flexDirection: 'row',
-                                            }}
-                                        >
-                                            {option.symbol.toUpperCase()}
-                                        </div>
-                                    }
-                                    deleteIcon={
-                                        <Close
-                                            style={{
-                                                width: theme.sizing.icon,
-                                                height: theme.sizing.icon,
-                                            }}
-                                        />
-                                    }
-                                    avatar={
-                                        <div
-                                            style={{
-                                                paddingLeft: theme.spacing(1),
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                display: 'flex',
-                                                marginRight: 0,
-                                                marginLeft: 0,
-                                            }}
-                                        >
-                                            <CurrencyLogo path={option.path} />
-                                        </div>
-                                    }
-                                />
-                            </Text>
+                            <li>
+                                <Text size="small">
+                                    <Chip
+                                        {...getTagProps({ index })}
+                                        className={`${styles.currenciesFilterChip} ${styles.currenciesFilterListChip}`}
+                                        label={
+                                            <div className={styles.rowCenter}>
+                                                {option.symbol.toUpperCase()}
+                                            </div>
+                                        }
+                                        deleteIcon={
+                                            <Close
+                                                className={
+                                                    styles.currenciesFilterIcon
+                                                }
+                                            />
+                                        }
+                                        avatar={
+                                            <div
+                                                style={{
+                                                    marginRight: 0,
+                                                    marginLeft: 0,
+                                                    paddingLeft:
+                                                        theme.spacing(1),
+                                                }}
+                                                className={styles.center}
+                                            >
+                                                <CurrencyLogo
+                                                    path={option.path}
+                                                />
+                                            </div>
+                                        }
+                                    />
+                                </Text>
+                            </li>
                         );
                     } else {
                         return null;
                     }
                 })}
-                {(resolutionIsXS || (!resolutionIsXS && value.length > 2)) && (
-                    <Chip
-                        label={
-                            (resolutionIsXS ? value.length : value.length - 2) +
-                            (!resolutionIsXS
-                                ? ' more'
-                                : value.length === 1
-                                ? ' filter'
-                                : ' filters')
-                        }
-                        style={{
-                            marginLeft: theme.spacing(1),
-                            background: theme.palette.background.selected,
-                            display: 'grid',
-                            placeItems: 'center',
-                        }}
-                    />
-                )}
+                <li>
+                    {(resolutionIsXS ||
+                        (!resolutionIsXS && value.length > 2)) && (
+                        <Chip
+                            label={
+                                (resolutionIsXS
+                                    ? value.length
+                                    : value.length - 2) +
+                                (!resolutionIsXS
+                                    ? ' more'
+                                    : value.length === 1
+                                    ? ' filter'
+                                    : ' filters')
+                            }
+                            className={`${styles.currenciesFilterCount} ${styles.center}`}
+                        />
+                    )}
+                </li>
             </>
         );
     };
 
     return (
-        <div>
+        <>
             {news.error ? (
                 <Error />
             ) : news.loading ? (
                 <CircularProgress />
             ) : (
-                <div>
+                <>
                     <div
                         {...getRootProps()}
-                        style={{
-                            flexDirection: 'row',
-                            display: 'flex',
-                        }}
+                        className={styles.currenciesFilterWrapper}
                     >
                         <div
                             ref={setAnchorEl}
-                            className={`${focused ? 'focused' : ''} ${
-                                styles.inputWrapper
-                            }`}
+                            className={styles.currenciesFilterInputWrapper}
                         >
                             <input
                                 placeholder="Search..."
                                 {...getInputProps()}
-                                className={styles.input}
+                                className={styles.currenciesFilterInput}
                             />
                         </div>
 
-                        <div
-                            style={{
-                                flexWrap: 'wrap',
-                                flexDirection: 'row',
-                                display: 'flex',
-                                overflow: 'hidden',
-                                height: theme.spacing(4),
-                            }}
-                        >
+                        <ul className={styles.currenciesFilterChipList}>
                             <ChipList />
-                        </div>
+                        </ul>
                     </div>
                     {groupedOptions.length > 0 ? (
                         <div className={styles.listbox} {...getListboxProps()}>
                             {groupedOptions.map((option, index) => (
                                 <li {...getOptionProps({ option, index })}>
                                     <Chip
-                                        className={`${styles.styledTag} ${styles.dropdownChip}`}
+                                        className={`${styles.currenciesFilterChip} ${styles.currenciesFilterDropdownChip} ${styles.center}`}
                                         label={
-                                            <div
-                                                style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    flexDirection: 'row',
-                                                }}
-                                            >
+                                            <div className={styles.rowCenter}>
                                                 {option.symbol.toUpperCase()}
                                                 <div
-                                                    style={{
-                                                        flex: 1,
-                                                        justifyContent:
-                                                            'flex-end',
-                                                        alignItems: 'flex-end',
-                                                        display: 'flex',
-                                                    }}
+                                                    className={
+                                                        styles.currenciesFilterIconWrapper
+                                                    }
                                                 >
                                                     <CheckIcon
-                                                        style={{
-                                                            width: theme.sizing
-                                                                .icon,
-                                                            height: theme.sizing
-                                                                .icon,
-                                                        }}
+                                                        className={
+                                                            styles.currenciesFilterIcon
+                                                        }
                                                     />
                                                 </div>
                                             </div>
@@ -208,9 +178,9 @@ const CurrenciesFilter = ({ onSelectedCurrencies }) => {
                             ))}
                         </div>
                     ) : null}
-                </div>
+                </>
             )}
-        </div>
+        </>
     );
 };
 
